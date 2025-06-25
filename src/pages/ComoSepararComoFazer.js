@@ -1,3 +1,5 @@
+// src/pages/ComoSepararComoFazer.js
+
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,10 +19,8 @@ function ComoSepararComoFazer() {
                             <FontAwesomeIcon icon={faTrash} />
                             Como fazer a separação?
                         </h2>
-                        <p>
-                            <p className="texto-destaque">
-                                É muito fácil!
-                            </p>
+                        <p className="texto-destaque">
+                            É muito fácil!
                         </p>
                         <p>
                             Separe os resíduos recicláveis, considerando o que for de papel, plástico, vidro e metal.
@@ -32,10 +32,9 @@ function ComoSepararComoFazer() {
                             materiais, que são encaminhados para a Unidade de Valorização de Recicláveis do município.
                         </p>
                         <iframe
-                            width="560"
-                            height="315"
-                            src="https://www.youtube.com/embed/n9DEAh9c6vI" // Link corrigido para exemplo funcional
-                            title="Vídeo do YouTube: Guia prático sobre como separar o lixo em casa"
+                            className="youtube-video"
+                            src="https://www.youtube.com/embed/cfYXew_H0LU" /* ESTE É O LINK CORRETO */
+                            title="YouTube video player"
                             frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowFullScreen

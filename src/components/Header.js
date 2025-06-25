@@ -1,33 +1,53 @@
 // src/components/Header.js
 
-import React, { useState } from 'react'; // 1. Importe o useState
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+// 1. Importe o useNavigate para navegação e o Link para o link especial
+import { NavLink, useNavigate } from 'react-router-dom';
 import logoPrefeitura from '../assets/imagens/logo-prefeitura.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp, faHome, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function Header() {
-    // 2. Crie os estados para controlar o menu principal e o submenu
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
+    
+    // 2. Inicialize a função de navegação
+    const navigate = useNavigate();
 
-    // 3. Crie as funções para alterar os estados
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
-        // Fecha o submenu se o menu principal for fechado
         if (isMenuOpen) {
             setIsSubmenuOpen(false);
         }
     };
 
     const toggleSubmenu = (e) => {
-        e.preventDefault(); // Impede que o link "#" pule para o topo da página
+        e.preventDefault();
         setIsSubmenuOpen(!isSubmenuOpen);
     };
 
+    // 3. Crie a função para rolar até o cronograma
+    const handleCronogramaClick = (e) => {
+        e.preventDefault(); // Previne o comportamento padrão do link
+
+        // Fecha o menu mobile, se estiver aberto
+        if (isMenuOpen) {
+            setIsMenuOpen(false);
+        }
+
+        // Primeiro, navega para a página inicial
+        navigate('/');
+
+        // Depois, espera um instante para a página carregar e então rola a tela
+        setTimeout(() => {
+            const section = document.getElementById('cronograma');
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 100); // Um pequeno atraso garante que a seção exista antes de rolar
+    };
 
     return (
-        // Adiciona uma classe 'menu-active' ao header quando o menu está aberto para ajudar no estilo se necessário
         <header className={`main-header ${isMenuOpen ? 'menu-is-active' : ''}`}>
             <div className="container">
                 <div className="logo-area">
@@ -36,7 +56,6 @@ function Header() {
                     </NavLink>
                 </div>
 
-                {/* 4. Botão do menu agora tem um onClick e atributos de acessibilidade */}
                 <button 
                     className={`menu-toggle ${isMenuOpen ? 'is-active' : ''}`} 
                     onClick={toggleMenu} 
@@ -48,16 +67,13 @@ function Header() {
                     <FontAwesomeIcon icon={faTimes} className="icon-close" />
                 </button>
 
-                {/* 5. A navegação recebe a classe 'is-active' quando o menu está aberto */}
                 <nav className={`main-nav ${isMenuOpen ? 'is-active' : ''}`} id="main-nav">
                     <ul>
                         <li><NavLink to="/" aria-label="Página Inicial" end onClick={() => setIsMenuOpen(false)}><FontAwesomeIcon icon={faHome} /></NavLink></li>
                         
-                        {/* 6. Submenu agora também é controlado pelo estado */}
                         <li className={`has-submenu ${isSubmenuOpen ? 'submenu-is-active' : ''}`}>
                             <a href="#" onClick={toggleSubmenu}>
                                 Como separar
-                                {/* Troca a seta para cima/baixo */}
                                 <FontAwesomeIcon icon={isSubmenuOpen ? faChevronUp : faChevronDown} className="icon-arrow" />
                             </a>
                             <ul className={`submenu ${isSubmenuOpen ? 'submenu-active' : ''}`}>
@@ -67,7 +83,9 @@ function Header() {
                             </ul>
                         </li>
                         
-                        <li><NavLink to="/#cronograma" onClick={() => setIsMenuOpen(false)}>Cronograma</NavLink></li>
+                        {/* 4. O link do cronograma agora usa a nova função */}
+                        <li><a href="/#cronograma" onClick={handleCronogramaClick}>Cronograma</a></li>
+                        
                         <li><a href="docs/cartilha-deco.pdf" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Cartilha</a></li>
                         <li><NavLink to="/acamar" onClick={() => setIsMenuOpen(false)}>Quem somos</NavLink></li>
                         <li><NavLink to="/total-coletado" onClick={() => setIsMenuOpen(false)}>Total coletado</NavLink></li>

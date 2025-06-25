@@ -1,7 +1,10 @@
+// src/pages/ComoSepararPorqueSeparar.js
+
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSeedling } from '@fortawesome/free-solid-svg-icons';
+// Ícone 'faSeedling' trocado por 'faLeaf' para melhor alinhamento
+import { faLeaf } from '@fortawesome/free-solid-svg-icons';
 
 function ComoSepararPorqueSeparar() {
     return (
@@ -13,8 +16,8 @@ function ComoSepararPorqueSeparar() {
             <main>
                 <section id="porque-separar" className="info-section">
                     <div className="container">
-                        <h2>
-                            <FontAwesomeIcon icon={faSeedling} />
+                        <h2 className="titulo-multilinha">
+                            <FontAwesomeIcon icon={faLeaf} />
                             POR QUE SEPARAR OS RESÍDUOS RECICLÁVEIS DOS ORGÂNICOS E REJEITOS?
                         </h2>
                         <p>
@@ -29,10 +32,9 @@ function ComoSepararPorqueSeparar() {
                             naturais, como água e a energia.
                         </p>
                         <iframe
-                            width="560"
-                            height="315"
-                            src="https://www.youtube.com/embed/0_PEVu_2omA" // Link corrigido para exemplo funcional
-                            title="Vídeo do YouTube explicando a importância da coleta seletiva e da separação do lixo"
+                            className="youtube-video"
+                            src="https://www.youtube.com/embed/e2bnTHNV0Zw"
+                            title="YouTube video player"
                             frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowFullScreen
