@@ -1,56 +1,50 @@
 // src/App.js
+
 import React, { useState } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
-// Importa o CSS global uma única vez aqui
-import './assets/css/style.css';
-
-// Importa os componentes de layout do novo local
-import UtilityBar from './components/common/UtilityBar';
+// Importando componentes de layout
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-import StickyInstaButton from './components/common/StickyInstaButton'; // Componente do botão flutuante
+import StickyInstaButton from './components/common/StickyInstaButton';
+import UtilityBar from './components/common/UtilityBar';
 
-// Importa o gerenciador central de rotas
+// Importando o arquivo de rotas
 import AppRoutes from './routes/AppRoutes';
-// Importa o provedor de contexto de autenticação
-import { AuthProvider } from './contexts/AuthContext';
+
+// Importando os estilos globais
+import './style.css'; 
 
 function App() {
-  // O estado e as funções de acessibilidade agora vivem aqui, no componente principal
-  const [fontSize, setFontSize] = useState(1);
-  const handleIncreaseFontSize = () => setFontSize(prev => Math.min(prev + 0.1, 1.5));
-  const handleDecreaseFontSize = () => setFontSize(prev => Math.max(prev - 0.1, 0.8));
+  const [fontSize, setFontSize] = useState(16); // Tamanho base da fonte
 
+  const handleIncreaseFontSize = () => {
+    setFontSize(prevSize => Math.min(prevSize + 2, 24)); // Aumenta até 24px
+  };
+
+  const handleDecreaseFontSize = () => {
+    setFontSize(prevSize => Math.max(prevSize - 2, 12)); // Diminui até 12px
+  };
+
+  // Aplica o tamanho da fonte ao elemento HTML
+  document.documentElement.style.fontSize = `${fontSize}px`;
+  
   return (
-    // HelmetProvider é necessário para o gerenciamento de <head> nas páginas
     <HelmetProvider>
-      {/* AuthProvider envolve toda a aplicação para que qualquer componente saiba se o usuário está logado */}
-      <AuthProvider>
-        {/* Router é o que habilita a navegação entre páginas */}
-        <Router>
-          {/* A div principal aplica o estilo de tamanho de fonte para acessibilidade */}
-          <div className="App" style={{ fontSize: `${fontSize}em` }}>
-            <UtilityBar 
-              onIncreaseFontSize={handleIncreaseFontSize}
-              onDecreaseFontSize={handleDecreaseFontSize}
-            />
-            <Header />
-            
-            {/* O AppRoutes agora é responsável por decidir qual página renderizar */}
-            <AppRoutes />
-            
-            <Footer />
-            
-            {/* O botão flutuante fica fora do main para ter posicionamento fixo */}
-            <StickyInstaButton />
-          </div>
-        </Router>
-      </AuthProvider>
+      <div className="app-wrapper">
+        <UtilityBar 
+          onIncreaseFontSize={handleIncreaseFontSize} 
+          onDecreaseFontSize={handleDecreaseFontSize} 
+        />
+        <Header />
+        <main>
+          <AppRoutes /> {/* O Roteador vai renderizar as páginas AQUI DENTRO */}
+        </main>
+        <Footer />
+        <StickyInstaButton />
+      </div>
     </HelmetProvider>
   );
 }
 
 export default App;
-
