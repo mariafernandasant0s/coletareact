@@ -50,3 +50,123 @@ main {
 a.active {
   text-decoration: none;
 }
+/* Estilos para o GenericPage */
+.info-section {
+  padding: 40px 0;
+  background-color: #f8f9fa;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.info-section h2 {
+  color: #2c5aa0;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.info-section h3 {
+  color: #2c5aa0;
+  font-size: 1.8rem;
+  margin: 30px 0 20px 0;
+  font-weight: 600;
+}
+
+.info-section p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: justify;
+}
+
+.info-section ul {
+  margin: 20px 0;
+  padding-left: 30px;
+}
+
+.info-section li {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.info-section a {
+  color: #2c5aa0;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.info-section a:hover {
+  text-decoration: underline;
+}
+
+.info-section hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, #2c5aa0, #ffc107);
+  margin: 40px 0;
+}
+
+.info-section strong {
+  color: #2c5aa0;
+  font-weight: 700;
+}
+
+.info-section img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin: 20px 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.youtube-video {
+  width: 100%;
+  max-width: 800px;
+  height: 450px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin: 20px auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .youtube-video {
+    height: 250px;
+  }
+  
+  .info-section h2 {
+    font-size: 2rem;
+  }
+  
+  .info-section h3 {
+    font-size: 1.5rem;
+  }
+}
+
+.loading-container,
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  background-color: #f8f9fa;
+}
+
+.loading-container p,
+.error-container p {
+  font-size: 1.2rem;
+  color: #666;
+  text-align: center;
+}

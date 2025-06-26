@@ -53,5 +53,15 @@ function App() {
     </HelmetProvider>
   );
 }
+import { HelmetProvider } from 'react-helmet-async';
+// ... outras importações existentes
+
+function App() {
+  return (
+    <HelmetProvider>
+      {/* Todo o conteúdo existente do seu App */}
+    </HelmetProvider>
+  );
+}
 
 export default App;
