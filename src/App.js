@@ -8,7 +8,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import UtilityBar from './components/UtilityBar';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import BackToTopButton from './components/BackToTopButton'; // Importa o novo botão
+import BackToTopButton from './components/BackToTopButton';
 import Home from './pages/Home';
 import Acamar from './pages/Acamar';
 import Contato from './pages/Contato';
@@ -47,13 +47,34 @@ function App() {
         document.body.style.fontSize = `${fontSize}px`;
     }, [fontSize]);
 
+    // =======================================================
+    // NOVA LÓGICA PARA O MODO DE ALTO CONTRASTE
+    // =======================================================
+    const [isHighContrast, setHighContrast] = useState(false);
+
+    const toggleHighContrast = () => {
+        setHighContrast(prevState => !prevState);
+    };
+
+    // Efeito que adiciona ou remove a classe do body
+    useEffect(() => {
+        if (isHighContrast) {
+            document.body.classList.add('high-contrast');
+        } else {
+            document.body.classList.remove('high-contrast');
+        }
+    }, [isHighContrast]);
+
+
     return (
         <HelmetProvider>
             <HashRouter>
                 <div>
+                    {/* Passando a nova função para a UtilityBar */}
                     <UtilityBar
                         onIncreaseFontSize={increaseFontSize}
                         onDecreaseFontSize={decreaseFontSize}
+                        onToggleHighContrast={toggleHighContrast}
                     />
                     <Header />
                     <Routes>
@@ -78,7 +99,7 @@ function App() {
                         <span>Insta UVR</span>
                     </a>
                     
-                    <BackToTopButton /> {/* Adiciona o botão "Voltar ao Topo" aqui */}
+                    <BackToTopButton />
                     
                     <Footer />
                 </div>

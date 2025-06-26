@@ -1,6 +1,6 @@
 /* ===================================================
    ARQUIVO DE ESTILOS FINAL - PROJETO COLETA SELETIVA
-   Versão: 5.4 (Definitiva com Todas as Correções)
+   Versão Final com Todas as Funcionalidades
    =================================================== */
 
 /* === FONTE NUNITO SANS (DO GOOGLE FONTS) === */
@@ -118,6 +118,7 @@ strong, b {
 .accessibility-controls {
     display: flex;
     align-items: center;
+    gap: 5px;
 }
 
 .accessibility-controls button,
@@ -126,7 +127,7 @@ strong, b {
     border: 1px solid #ffffff;
     color: #ffffff;
     padding: 2px 8px;
-    margin-left: 8px;
+    margin-left: 5px;
     cursor: pointer;
     font-size: 0.9em;
     font-weight: 700;
@@ -487,14 +488,10 @@ main > section:last-of-type {
     justify-content: center;
 }
 
-/* ======================================= */
-/* CSS ALTERADO ESTÁ AQUI             */
-/* ======================================= */
 .info-section > .container > img {
     margin: 35px auto;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    /* ADICIONADO: Limita a largura da imagem para ser igual ao mapa e aos parágrafos */
     max-width: 740px;
     width: 100%; 
 }
@@ -503,10 +500,81 @@ main > section:last-of-type {
 .cronograma-container {
     position: relative;
     margin: 20px auto;
+    text-align: center; 
 }
 .zoom-hint {
     display: none;
 }
+
+/* --- Botão de Download para o Cronograma --- */
+.download-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 25px auto 0;
+    padding: 12px 25px;
+    background-color: #0056b3;
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 25px;
+    gap: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: 2px solid #0056b3;
+}
+
+.download-button:hover {
+    background-color: #003366;
+    border-color: #003366;
+    color: #ffffff;
+    text-decoration: none;
+    transform: scale(1.05);
+}
+
+.download-button svg {
+    font-size: 1.1em;
+}
+
+/* --- Estilos para o Filtro de Categoria (Desktop) --- */
+.filter-container-desktop {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin: 0 auto;
+    max-width: 740px;
+}
+
+.filter-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: 700;
+    font-family: inherit;
+    color: #003366;
+    background-color: #f0f0f0;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-button:hover {
+    background-color: #e0e0e0;
+    border-color: #ccc;
+}
+
+.filter-button.active {
+    background-color: #003366;
+    color: #ffffff;
+    border-color: #003366;
+    transform: scale(1.05);
+}
+
+/* Esconde o menu de celular no desktop por padrão */
+.filter-container-mobile {
+    display: none;
+}
+
 
 /* ===================================================
    4. RODAPÉ
@@ -650,6 +718,51 @@ footer {
 }
 
 /* ===================================================
+   NOVO: ESTILOS PARA MODO DE ALTO CONTRASTE
+   =================================================== */
+body.high-contrast {
+    background-color: #000000;
+    color: #ffffff;
+}
+body.high-contrast .info-section,
+body.high-contrast .main-header,
+body.high-contrast footer,
+body.high-contrast .footer-copyright {
+    background-color: #000000;
+    border-color: #ffffff;
+}
+body.high-contrast h1,
+body.high-contrast h2,
+body.high-contrast h3,
+body.high-contrast h4,
+body.high-contrast p,
+body.high-contrast span,
+body.high-contrast strong,
+body.high-contrast li {
+    color: #ffffff !important;
+}
+body.high-contrast a {
+    color: #FFFF00 !important; /* Amarelo para links, se destaca no preto */
+}
+body.high-contrast .info-section h2::after {
+     background-color: #FFFF00;
+}
+body.high-contrast .main-nav ul li a,
+body.high-contrast .main-nav ul li a:hover,
+body.high-contrast .main-nav ul li.active a,
+body.high-contrast .menu-toggle {
+    color: #FFFF00 !important;
+    border-color: #FFFF00;
+}
+
+body.high-contrast .logo-parceiro, 
+body.high-contrast .logo-principal-parceiro,
+body.high-contrast .footer-ods img {
+    filter: invert(1) grayscale(1) brightness(2);
+}
+
+
+/* ===================================================
    6. RESPONSIVIDADE (MEDIA QUERIES)
    =================================================== */
 
@@ -698,6 +811,10 @@ footer {
         max-height: 80vh;
         overflow-y: auto;
         padding: 15px 0;
+    }
+    
+    body.high-contrast .main-nav {
+        background-color: #000000;
     }
 
     .main-nav ul {
@@ -751,6 +868,10 @@ footer {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.3s ease-out;
+    }
+    
+    body.high-contrast .submenu {
+        background-color: #111;
     }
 
     .submenu.submenu-active {
@@ -847,5 +968,36 @@ footer {
     .zoom-hint svg {
         margin-right: 10px;
         font-size: 1.1em;
+    }
+
+    /* Esconde os botões de desktop */
+    .filter-container-desktop {
+        display: none;
+    }
+
+    /* Mostra o menu de seleção */
+    .filter-container-mobile {
+        display: block;
+        max-width: 740px;
+        margin: 0 auto;
+    }
+
+    .category-select {
+        width: 100%;
+        padding: 15px;
+        font-size: 1.1em;
+        font-weight: 700;
+        font-family: inherit;
+        color: #003366;
+        background-color: #f0f0f0;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23003366%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+        background-repeat: no-repeat;
+        background-position: right 15px top 50%;
+        background-size: .65em auto;
     }
 }

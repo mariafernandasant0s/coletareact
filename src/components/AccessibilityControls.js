@@ -2,20 +2,17 @@
 
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUniversalAccess } from '@fortawesome/free-solid-svg-icons';
+import { faCircleHalfStroke } from '@fortawesome/free-solid-svg-icons';
 
-function AccessibilityControls({ onIncreaseFontSize, onDecreaseFontSize }) {
+// Este componente agora recebe a função para alternar o alto contraste
+function AccessibilityControls({ onIncreaseFontSize, onDecreaseFontSize, onToggleHighContrast }) {
   return (
     <div className="accessibility-controls">
-      <button id="decrease-font" aria-label="Diminuir fonte" onClick={onDecreaseFontSize}>
-        A-
+      <button onClick={onDecreaseFontSize} aria-label="Diminuir tamanho da fonte" title="Diminuir Fonte">A-</button>
+      <button onClick={onIncreaseFontSize} aria-label="Aumentar tamanho da fonte" title="Aumentar Fonte">A+</button>
+      <button onClick={onToggleHighContrast} aria-label="Alternar alto contraste" title="Alternar Alto Contraste">
+        <FontAwesomeIcon icon={faCircleHalfStroke} />
       </button>
-      <button id="increase-font" aria-label="Aumentar fonte" onClick={onIncreaseFontSize}>
-        A+
-      </button>
-      <a href="#accessibility-info" aria-label="Acessibilidade">
-        <FontAwesomeIcon icon={faUniversalAccess} />
-      </a>
     </div>
   );
 }

@@ -5,7 +5,8 @@ import AccessibilityControls from './AccessibilityControls';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 
-function UtilityBar({ onIncreaseFontSize, onDecreaseFontSize }) {
+// Recebe a nova propriedade onToggleHighContrast
+function UtilityBar({ onIncreaseFontSize, onDecreaseFontSize, onToggleHighContrast }) {
   return (
     <div className="utility-bar">
       <div className="container">
@@ -19,9 +20,11 @@ function UtilityBar({ onIncreaseFontSize, onDecreaseFontSize }) {
             <FontAwesomeIcon icon={faInstagram} />
           </a>
         </div>
+        {/* Passa a propriedade para o componente filho */}
         <AccessibilityControls
           onIncreaseFontSize={onIncreaseFontSize}
           onDecreaseFontSize={onDecreaseFontSize}
+          onToggleHighContrast={onToggleHighContrast}
         />
       </div>
     </div>
