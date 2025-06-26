@@ -23,11 +23,17 @@ function AppRoutes() {
       <Route path="/contato" element={<GenericPage slug="contato" />} />
       
       {/* --- Rotas de Admin --- */}
+      
+      {/* ADICIONE ESTAS DUAS LINHAS: */}
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/admin" element={<LoginPage />} />
+
+      {/* Rota original que você já tinha */}
       <Route path="/admin/login" element={<LoginPage />} />
       <Route path="/admin/dashboard" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
       <Route path="/admin/paginas/edit/:id" element={<PrivateRoute><EditPage /></PrivateRoute>} />
 
-      {/* --- Rota de Erro 404 --- */}
+      {/* --- Rota de Erro 404 (sempre por último) --- */}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
