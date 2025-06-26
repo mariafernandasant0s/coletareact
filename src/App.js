@@ -1,11 +1,10 @@
 // src/App.js
-
 import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
 // Importa o CSS global uma única vez aqui
-import './assets/css/style.css'; 
+import './assets/css/style.css';
 
 // Importa os componentes de layout do novo local
 import UtilityBar from './components/common/UtilityBar';
@@ -17,7 +16,6 @@ import StickyInstaButton from './components/common/StickyInstaButton'; // Compon
 import AppRoutes from './routes/AppRoutes';
 // Importa o provedor de contexto de autenticação
 import { AuthProvider } from './contexts/AuthContext';
-
 
 function App() {
   // O estado e as funções de acessibilidade agora vivem aqui, no componente principal
@@ -41,8 +39,8 @@ function App() {
             <Header />
             
             {/* O AppRoutes agora é responsável por decidir qual página renderizar */}
-            <AppRoutes /> 
-
+            <AppRoutes />
+            
             <Footer />
             
             {/* O botão flutuante fica fora do main para ter posicionamento fixo */}
@@ -53,15 +51,6 @@ function App() {
     </HelmetProvider>
   );
 }
-import { HelmetProvider } from 'react-helmet-async';
-// ... outras importações existentes
-
-function App() {
-  return (
-    <HelmetProvider>
-      {/* Todo o conteúdo existente do seu App */}
-    </HelmetProvider>
-  );
-}
 
 export default App;
+
