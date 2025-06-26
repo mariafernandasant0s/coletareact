@@ -1,6 +1,6 @@
 // src/App.js
 
-import React, { useState, useEffect } from 'react'; // Importando os hooks necessários
+import React, { useState, useEffect } from 'react';
 import { Route, Routes, HashRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
@@ -8,6 +8,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import UtilityBar from './components/UtilityBar';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import BackToTopButton from './components/BackToTopButton'; // Importa o novo botão
 import Home from './pages/Home';
 import Acamar from './pages/Acamar';
 import Contato from './pages/Contato';
@@ -25,39 +26,31 @@ import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import './assets/css/style.css';
 import './index.css';
 
-// Configuração do CSS do Font Awesome (essencial para os ícones)
+// Configuração do CSS do Font Awesome
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 config.autoAddCss = false;
 
 function App() {
-    // ---- LÓGICA DE ACESSIBILIDADE ADICIONADA AQUI ----
-
-    // Cria um "estado" para guardar o tamanho da fonte, começando com 16px.
+    // Lógica para controle de tamanho da fonte (acessibilidade)
     const [fontSize, setFontSize] = useState(16);
 
-    // Função para aumentar o tamanho da fonte (com um limite de 22px)
     const increaseFontSize = () => {
-        setFontSize(currentSize => Math.min(currentSize + 1, 22));
+        setFontSize(currentSize => Math.min(currentSize + 2, 24));
     };
 
-    // Função para diminuir o tamanho da fonte (com um limite de 12px)
     const decreaseFontSize = () => {
-        setFontSize(currentSize => Math.max(currentSize - 1, 12));
+        setFontSize(currentSize => Math.max(currentSize - 2, 12));
     };
 
-    // Este 'efeito' aplica o tamanho da fonte ao corpo da página sempre que o estado 'fontSize' mudar.
     useEffect(() => {
         document.body.style.fontSize = `${fontSize}px`;
     }, [fontSize]);
-
-    // ---- FIM DA LÓGICA DE ACESSIBILIDADE ----
 
     return (
         <HelmetProvider>
             <HashRouter>
                 <div>
-                    {/* Passando as funções para a UtilityBar, que vai entregá-las aos botões */}
                     <UtilityBar
                         onIncreaseFontSize={increaseFontSize}
                         onDecreaseFontSize={decreaseFontSize}
@@ -74,7 +67,6 @@ function App() {
                         <Route path="*" element={<Error404 />} />
                     </Routes>
                     
-                    {/* Botão flutuante do Instagram */}
                     <a
                         href="https://www.instagram.com/uvr_assis/"
                         className="sticky-insta"
@@ -85,6 +77,8 @@ function App() {
                         <FontAwesomeIcon icon={faInstagram} />
                         <span>Insta UVR</span>
                     </a>
+                    
+                    <BackToTopButton /> {/* Adiciona o botão "Voltar ao Topo" aqui */}
                     
                     <Footer />
                 </div>
