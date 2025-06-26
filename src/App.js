@@ -1,111 +1,57 @@
 // src/App.js
 
-import React, { useState, useEffect } from 'react';
-import { Route, Routes, HashRouter } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
-// Componentes e Páginas
-import UtilityBar from './components/UtilityBar';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import BackToTopButton from './components/BackToTopButton';
-import Home from './pages/Home';
-import Acamar from './pages/Acamar';
-import Contato from './pages/Contato';
-import TotalColetado from './pages/TotalColetado';
-import ComoSepararComoFazer from './pages/ComoSepararComoFazer';
-import ComoSepararResiduos from './pages/ComoSepararResiduos';
-import ComoSepararPorqueSeparar from './pages/ComoSepararPorqueSeparar';
-import Error404 from './pages/Error404';
+// Importa o CSS global uma única vez aqui
+import './assets/css/style.css'; 
 
-// Ícone do Instagram para o botão flutuante
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram } from '@fortawesome/free-brands-svg-icons';
+// Importa os componentes de layout do novo local
+import UtilityBar from './components/common/UtilityBar';
+import Header from './components/common/Header';
+import Footer from './components/common/Footer';
+import StickyInstaButton from './components/common/StickyInstaButton'; // Componente do botão flutuante
 
-// Importações de Estilo
-import './assets/css/style.css';
-import './index.css';
+// Importa o gerenciador central de rotas
+import AppRoutes from './routes/AppRoutes';
+// Importa o provedor de contexto de autenticação
+import { AuthProvider } from './contexts/AuthContext';
 
-// Configuração do CSS do Font Awesome
-import { config } from '@fortawesome/fontawesome-svg-core';
-import '@fortawesome/fontawesome-svg-core/styles.css';
-config.autoAddCss = false;
 
 function App() {
-    // Lógica para controle de tamanho da fonte (acessibilidade)
-    const [fontSize, setFontSize] = useState(16);
+  // O estado e as funções de acessibilidade agora vivem aqui, no componente principal
+  const [fontSize, setFontSize] = useState(1);
+  const handleIncreaseFontSize = () => setFontSize(prev => Math.min(prev + 0.1, 1.5));
+  const handleDecreaseFontSize = () => setFontSize(prev => Math.max(prev - 0.1, 0.8));
 
-    const increaseFontSize = () => {
-        setFontSize(currentSize => Math.min(currentSize + 2, 24));
-    };
+  return (
+    // HelmetProvider é necessário para o gerenciamento de <head> nas páginas
+    <HelmetProvider>
+      {/* AuthProvider envolve toda a aplicação para que qualquer componente saiba se o usuário está logado */}
+      <AuthProvider>
+        {/* Router é o que habilita a navegação entre páginas */}
+        <Router>
+          {/* A div principal aplica o estilo de tamanho de fonte para acessibilidade */}
+          <div className="App" style={{ fontSize: `${fontSize}em` }}>
+            <UtilityBar 
+              onIncreaseFontSize={handleIncreaseFontSize}
+              onDecreaseFontSize={handleDecreaseFontSize}
+            />
+            <Header />
+            
+            {/* O AppRoutes agora é responsável por decidir qual página renderizar */}
+            <AppRoutes /> 
 
-    const decreaseFontSize = () => {
-        setFontSize(currentSize => Math.max(currentSize - 2, 12));
-    };
-
-    useEffect(() => {
-        document.body.style.fontSize = `${fontSize}px`;
-    }, [fontSize]);
-
-    // =======================================================
-    // NOVA LÓGICA PARA O MODO DE ALTO CONTRASTE
-    // =======================================================
-    const [isHighContrast, setHighContrast] = useState(false);
-
-    const toggleHighContrast = () => {
-        setHighContrast(prevState => !prevState);
-    };
-
-    // Efeito que adiciona ou remove a classe do body
-    useEffect(() => {
-        if (isHighContrast) {
-            document.body.classList.add('high-contrast');
-        } else {
-            document.body.classList.remove('high-contrast');
-        }
-    }, [isHighContrast]);
-
-
-    return (
-        <HelmetProvider>
-            <HashRouter>
-                <div>
-                    {/* Passando a nova função para a UtilityBar */}
-                    <UtilityBar
-                        onIncreaseFontSize={increaseFontSize}
-                        onDecreaseFontSize={decreaseFontSize}
-                        onToggleHighContrast={toggleHighContrast}
-                    />
-                    <Header />
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/acamar" element={<Acamar />} />
-                        <Route path="/contato" element={<Contato />} />
-                        <Route path="/total-coletado" element={<TotalColetado />} />
-                        <Route path="/como-separar/como-fazer" element={<ComoSepararComoFazer />} />
-                        <Route path="/como-separar/residuos" element={<ComoSepararResiduos />} />
-                        <Route path="/como-separar/porque-separar" element={<ComoSepararPorqueSeparar />} />
-                        <Route path="*" element={<Error404 />} />
-                    </Routes>
-                    
-                    <a
-                        href="https://www.instagram.com/uvr_assis/"
-                        className="sticky-insta"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Acesse nosso Instagram"
-                    >
-                        <FontAwesomeIcon icon={faInstagram} />
-                        <span>Insta UVR</span>
-                    </a>
-                    
-                    <BackToTopButton />
-                    
-                    <Footer />
-                </div>
-            </HashRouter>
-        </HelmetProvider>
-    );
+            <Footer />
+            
+            {/* O botão flutuante fica fora do main para ter posicionamento fixo */}
+            <StickyInstaButton />
+          </div>
+        </Router>
+      </AuthProvider>
+    </HelmetProvider>
+  );
 }
 
 export default App;

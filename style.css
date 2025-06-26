@@ -1,6 +1,6 @@
 /* ===================================================
    ARQUIVO DE ESTILOS FINAL - PROJETO COLETA SELETIVA
-   Versão: 4.1 (Alinhamento de Títulos em Mobile Corrigido)
+   Versão: 4.3 (Alinhamento de Títulos Mobile Corrigido)
    =================================================== */
 
 /* === FONTE NUNITO SANS (DO GOOGLE FONTS) === */
@@ -682,16 +682,16 @@ footer {
         padding-right: 20px;
     }
     
-    /* CORREÇÃO PARA TÍTULOS NO MOBILE */
+    /* CORREÇÃO DEFINITIVA PARA TÍTULOS NO MOBILE */
     .info-section h2 {
         font-size: 1.8em;
         flex-direction: column;
         gap: 10px;
+        align-items: center !important; /* Força o alinhamento central */
     }
 
     .info-section h2 svg {
-        margin-right: 0;
-        margin-bottom: 5px;
+        margin: 0 0 5px 0; /* Remove margem lateral e adiciona inferior */
     }
     
     .info-section p, .info-section ul li span, .objetivos-lista li span {
