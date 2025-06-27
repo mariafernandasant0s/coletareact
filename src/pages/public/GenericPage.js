@@ -6,7 +6,6 @@ import { apiPublic } from '../../config/api';
 function GenericPage({ slug }) {
   const [pageData, setPageData] = useState(null);
   const [loading, setLoading] = useState(true);
-  // ...outros states...
 
   useEffect(() => {
     const fetchPage = async () => {
@@ -16,6 +15,7 @@ function GenericPage({ slug }) {
         setPageData(data);
       } catch (error) {
         console.error(`Erro ao buscar a página ${slug}:`, error);
+        setPageData(null); // Define como nulo em caso de erro
       } finally {
         setLoading(false);
       }
@@ -23,12 +23,33 @@ function GenericPage({ slug }) {
     fetchPage();
   }, [slug]);
 
-  // O resto do seu JSX continua aqui, sem alterações...
-  if (loading) return <p>Carregando...</p>;
-  if (!pageData) return <p>Página não encontrada.</p>;
+  if (loading) {
+    return <div style={{ textAlign: 'center', padding: '40px' }}>Carregando...</div>;
+  }
+  
+  if (!pageData) {
+    return (
+      <section className="info-section" style={{ textAlign: 'center' }}>
+        <h2>Página não encontrada</h2>
+        <p>O conteúdo que você está procurando não pôde ser carregado.</p>
+      </section>
+    );
+  }
+
   return (
-    // Seu JSX para renderizar a página
-    // ...
+    <>
+      {/* ✅ O HELMET FOI MOVIDO PARA CÁ */}
+      <Helmet>
+        <title>{pageData.titulo} - Coleta Seletiva</title>
+      </Helmet>
+      <section className="info-section">
+        <div className="container">
+          <h2>{pageData.titulo}</h2> 
+          <div dangerouslySetInnerHTML={{ __html: pageData.conteudo }} />
+          {/* ... resto do seu JSX ... */}
+        </div>
+      </section>
+    </>
   );
 }
 export default GenericPage;
