@@ -17,7 +17,7 @@ function HomePage() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        // ✅ A CORREÇÃO ESTÁ AQUI: Usando o caminho correto com '/slug/'
+        // As URLs corrigidas com '/slug/'
         const [heroRes, cronogramaRes] = await Promise.all([
           api.get('/api/paginas/slug/home-hero'),
           api.get('/api/paginas/slug/home-cronograma'),
@@ -37,9 +37,13 @@ function HomePage() {
     return <main className="container" style={{padding: '40px 15px', textAlign: 'center'}}><p>Carregando...</p></main>;
   }
 
-  // Mostra a imagem somente se os dados e a URL da mídia existirem
   return (
     <>
+      {/* ✅ TESTE DE FOGO: SE ISTO APARECER, O DEPLOY FUNCIONOU */}
+      <h1 style={{ textAlign: 'center', backgroundColor: 'yellow', padding: '10px' }}>
+        TESTE DE DEPLOY
+      </h1>
+
       <Helmet>
         <title>Início - Coleta Seletiva de Assis Chateaubriand</title>
         <meta name="description" content="Página inicial com o cronograma da coleta e outras informações." />
@@ -53,31 +57,7 @@ function HomePage() {
 
       {cronogramaData && cronogramaData.midiaUrl && (
         <section id="cronograma" className="info-section">
-          <div className="container">
-            <h2>
-              <FontAwesomeIcon icon={faCalendarDays} />
-              {cronogramaData.titulo}
-            </h2>
-            <div className="cronograma-container" style={{textAlign: 'center'}}>
-              <p>{cronogramaData.conteudo}</p>
-              <div onClick={() => setOpen(true)} style={{cursor: 'pointer', maxWidth: '740px', margin: '20px auto'}}>
-                <img src={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} alt="Tabela com o cronograma semanal da coleta" />
-              </div>
-              <div className="zoom-hint">
-                <FontAwesomeIcon icon={faHandPointer} />
-                <span>Pince para ampliar</span>
-              </div>
-              <a href={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} download="Cronograma_Coleta_Assis_Chateaubriand.png" className="download-button ripple">
-                  <FontAwesomeIcon icon={faDownload} />
-                  <span>Baixar Cronograma</span>
-              </a>
-            </div>
-            <Lightbox
-                open={open}
-                close={() => setOpen(false)}
-                slides={[{ src: `${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`, alt: "Cronograma da Coleta Seletiva" }]}
-            />
-          </div>
+          {/* ... resto do seu código JSX ... */}
         </section>
       )}
     </>
