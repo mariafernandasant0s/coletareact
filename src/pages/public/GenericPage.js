@@ -4,10 +4,36 @@ import { Helmet } from 'react-helmet-async';
 import api from '../../config/api';
 
 function GenericPage({ slug }) {
-  // ... (código useEffect e states continuam os mesmos) ...
+  // ✅ CORREÇÃO: Adicionando os 'states' que estavam faltando
+  const [pageData, setPageData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  if (loading) { /* ... */ }
-  if (!pageData) { /* ... */ }
+  // ✅ CORREÇÃO: Adicionando o 'useEffect' para buscar os dados da API
+  useEffect(() => {
+    const fetchPage = async () => {
+      setLoading(true);
+      try {
+        const { data } = await api.get(`/api/paginas/${slug}`);
+        setPageData(data);
+      } catch (error) {
+        console.error(`Erro ao buscar a página ${slug}:`, error);
+        setPageData(null); // Define como nulo em caso de erro
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPage();
+  }, [slug]);
+
+
+  if (loading) {
+    return <div style={{ textAlign: 'center', padding: '40px' }}>Carregando...</div>;
+  }
+  
+  if (!pageData) {
+    return <div style={{ textAlign: 'center', padding: '40px' }}>Página não encontrada ou erro ao carregar.</div>;
+  }
 
   return (
     <>
