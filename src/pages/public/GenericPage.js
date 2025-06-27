@@ -4,20 +4,19 @@ import { Helmet } from 'react-helmet-async';
 import api from '../../config/api';
 
 function GenericPage({ slug }) {
-  // ✅ CORREÇÃO: Adicionando os 'states' que estavam faltando
   const [pageData, setPageData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // ✅ CORREÇÃO: Adicionando o 'useEffect' para buscar os dados da API
   useEffect(() => {
     const fetchPage = async () => {
       setLoading(true);
       try {
-        const { data } = await api.get(`/api/paginas/${slug}`);
+        // ✅ CORREÇÃO AQUI: Ajustando a URL da API para corresponder ao novo backend
+        const { data } = await api.get(`/api/paginas/slug/${slug}`);
         setPageData(data);
       } catch (error) {
         console.error(`Erro ao buscar a página ${slug}:`, error);
-        setPageData(null); // Define como nulo em caso de erro
+        setPageData(null);
       } finally {
         setLoading(false);
       }
@@ -26,14 +25,8 @@ function GenericPage({ slug }) {
     fetchPage();
   }, [slug]);
 
-
-  if (loading) {
-    return <div style={{ textAlign: 'center', padding: '40px' }}>Carregando...</div>;
-  }
-  
-  if (!pageData) {
-    return <div style={{ textAlign: 'center', padding: '40px' }}>Página não encontrada ou erro ao carregar.</div>;
-  }
+  if (loading) { /* ...código existente... */ }
+  if (!pageData) { /* ...código existente... */ }
 
   return (
     <>
@@ -42,7 +35,7 @@ function GenericPage({ slug }) {
       </Helmet>
       <section className="info-section">
         <div className="container">
-          <h2>{pageData.titulo}</h2> 
+          <h2>{pageData.titulo}</h2>
           <div dangerouslySetInnerHTML={{ __html: pageData.conteudo }} />
           {pageData.midiaUrl && (
             pageData.midiaUrl.includes('youtube.com') ? (
