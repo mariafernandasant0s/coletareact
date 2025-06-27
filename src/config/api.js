@@ -1,14 +1,13 @@
 // src/config/api.js
-
 import axios from 'axios';
 
-// Instância base sem interceptor para chamadas públicas
-const apiPublic = axios.create({
+// Instância para chamadas PÚBLICAS (nunca envia token)
+export const apiPublic = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
-// Instância separada que SEMPRE adiciona o token para chamadas privadas
-const apiPrivate = axios.create({
+// Instância para chamadas PRIVADAS (sempre envia token se existir)
+export const apiPrivate = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
@@ -20,7 +19,5 @@ apiPrivate.interceptors.request.use(config => {
   return config;
 });
 
-export { apiPublic, apiPrivate };
-
-// Mantém uma exportação padrão para compatibilidade, mas usaremos as específicas
-export default apiPrivate; 
+// A exportação padrão continua sendo a privada para não quebrar os arquivos de admin.
+export default apiPrivate;
