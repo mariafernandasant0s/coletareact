@@ -17,6 +17,7 @@ function HomePage() {
     const fetchData = async () => {
       setLoading(true);
       try {
+        // ✅ A CORREÇÃO ESTÁ AQUI: Usando o caminho correto com '/slug/'
         const [heroRes, cronogramaRes] = await Promise.all([
           api.get('/api/paginas/slug/home-hero'),
           api.get('/api/paginas/slug/home-cronograma'),
@@ -36,6 +37,7 @@ function HomePage() {
     return <main className="container" style={{padding: '40px 15px', textAlign: 'center'}}><p>Carregando...</p></main>;
   }
 
+  // Mostra a imagem somente se os dados e a URL da mídia existirem
   return (
     <>
       <Helmet>
@@ -43,14 +45,12 @@ function HomePage() {
         <meta name="description" content="Página inicial com o cronograma da coleta e outras informações." />
       </Helmet>
       
-      {/* ✅ CORREÇÃO: Só mostra a seção hero se os dados existirem E se houver uma midiaUrl */}
       {heroData && heroData.midiaUrl && (
         <section id="hero">
           <img src={`${process.env.REACT_APP_API_URL}${heroData.midiaUrl}`} alt={heroData.titulo} />
         </section>
       )}
 
-      {/* ✅ CORREÇÃO: Só mostra o cronograma se os dados existirem E se houver uma midiaUrl */}
       {cronogramaData && cronogramaData.midiaUrl && (
         <section id="cronograma" className="info-section">
           <div className="container">
@@ -79,16 +79,6 @@ function HomePage() {
             />
           </div>
         </section>
-      )}
-
-      {/* Se nenhum dos dados carregar, mostra uma mensagem */}
-      {!heroData && !cronogramaData && !loading && (
-          <section className="info-section">
-              <div className="container" style={{ textAlign: 'center' }}>
-                  <h2>Não foi possível carregar a página</h2>
-                  <p>Houve um problema de comunicação com o servidor. Por favor, tente recarregar a página.</p>
-              </div>
-          </section>
       )}
     </>
   );
