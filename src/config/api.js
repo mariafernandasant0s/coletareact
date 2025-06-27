@@ -1,23 +1,29 @@
-// src/config/api.js
+// src/api.js (ou onde você faz as chamadas API)
 import axios from 'axios';
 
-// Instância para chamadas PÚBLICAS (nunca envia token)
-export const apiPublic = axios.create({
+const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
-// Instância para chamadas PRIVADAS (sempre envia token se existir)
-export const apiPrivate = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
-});
-
-apiPrivate.interceptors.request.use(config => {
-  const token = localStorage.getItem('user_token');
+// Adiciona o token automaticamente nas requisições
+api.interceptors.request.use(config => {
+  const token = localStorage.getItem('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-// A exportação padrão continua sendo a privada para não quebrar os arquivos de admin.
-export default apiPrivate;
+// Tratamento de erros global
+api.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response?.status === 401) {
+      // Redireciona para login se não autorizado
+      window.location.href = '/admin/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
+export default api;
