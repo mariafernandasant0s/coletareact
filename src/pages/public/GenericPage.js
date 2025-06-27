@@ -1,28 +1,31 @@
 // src/pages/public/GenericPage.js
+
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import api from '../../config/api';
+
+// ✅ MUDANÇA IMPORTANTE: Importa a apiPublic, que não envia token.
+import { apiPublic } from '../../config/api';
 
 function GenericPage({ slug }) {
   const [pageData, setPageData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false); // ✅ Novo estado para controlar o erro
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchPage = async () => {
       setLoading(true);
-      setError(false); // Reseta o erro a cada nova busca
+      setError(false);
       try {
-        const { data } = await api.get(`/api/paginas/slug/${slug}`);
+        // ✅ USA A API PÚBLICA (apiPublic) para a chamada.
+        const { data } = await apiPublic.get(`/api/paginas/slug/${slug}`);
         if (data) {
           setPageData(data);
         } else {
-          // A API retornou sucesso, mas sem dados
           setError(true);
         }
       } catch (err) {
         console.error(`Erro ao buscar a página ${slug}:`, err);
-        setError(true); // Define que houve um erro na busca
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -31,12 +34,10 @@ function GenericPage({ slug }) {
     fetchPage();
   }, [slug]);
 
-  // ✅ Lógica de renderização mais segura
   if (loading) {
     return <div style={{ textAlign: 'center', padding: '40px' }}>Carregando...</div>;
   }
   
-  // Se deu erro ou se a página não foi encontrada, mostra uma mensagem segura
   if (error || !pageData) {
     return (
         <section className="info-section">
@@ -48,7 +49,6 @@ function GenericPage({ slug }) {
     );
   }
 
-  // Só renderiza o conteúdo principal se tudo estiver OK
   return (
     <>
       <Helmet>
