@@ -1,4 +1,4 @@
-// src/pages/admin/LoginPage.js
+// src/pages/admin/AdminLogin.js
 
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -70,6 +70,4 @@ function LoginPage() {
     </div>
   );
 }
-
-// A linha mais importante que provavelmente está faltando ou incorreta
-export default LoginPage;
+export default AdminLogin;
