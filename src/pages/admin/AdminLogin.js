@@ -1,15 +1,16 @@
 // src/pages/admin/AdminLogin.js
 
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react'; // Removido 'useContext'
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { AuthContext } from '../../contexts/AuthContext';
+// ✅ CORREÇÃO: Importa o hook 'useAuth' em vez do 'AuthContext'
+import { useAuth } from '../../contexts/AuthContext';
 import './Admin.css';
 
-// ✅ CORREÇÃO: A função foi renomeada de "LoginPage" para "AdminLogin"
 function AdminLogin() {
   const navigate = useNavigate();
-  const auth = useContext(AuthContext);
+  // ✅ CORREÇÃO: Usa o hook 'useAuth'
+  const auth = useAuth(); 
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,6 +32,7 @@ function AdminLogin() {
     }
   };
 
+  // O resto do componente continua igual...
   return (
     <div className="admin-page-background">
       <Helmet>
@@ -41,25 +43,11 @@ function AdminLogin() {
         <form onSubmit={handleLogin}>
           <div className="form-group">
             <label htmlFor="email">E-mail</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              autoComplete="email"
-            />
+            <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email"/>
           </div>
           <div className="form-group">
             <label htmlFor="password">Senha</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              autoComplete="current-password"
-            />
+            <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="current-password" />
           </div>
           {error && <p className="error-message">{error}</p>}
           <button type="submit" className="btn-login" disabled={loading}>
@@ -70,5 +58,4 @@ function AdminLogin() {
     </div>
   );
 }
-// ✅ CORREÇÃO: Agora a exportação funciona, pois "AdminLogin" é a função definida acima.
 export default AdminLogin;
