@@ -1,18 +1,12 @@
-// src/routes/AppRoutes.js
-
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 
-// Importando páginas públicas
 import HomePage from '../pages/public/Home';
 import GenericPage from '../pages/public/GenericPage';
 import NotFoundPage from '../pages/public/NotFoundPage';
 
-// Importando páginas de admin
-// ✅✅✅ ESTA É A CORREÇÃO PRINCIPAL ✅✅✅
-// Estamos importando o componente de login da forma correta.
-import LoginPage from '../pages/admin/LoginPage'; 
+import AdminLogin from '../pages/admin/AdminLogin';
 import AdminDashboard from '../pages/admin/AdminDashboard';
 import EditPage from '../pages/admin/EditPage';
 
@@ -29,29 +23,11 @@ function AppRoutes() {
       <Route path="/contato" element={<GenericPage slug="contato" />} />
       
       {/* --- Rotas de Admin --- */}
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/admin" element={<LoginPage />} />
       <Route path="/admin/login" element={<LoginPage />} />
-      
-      {/* --- Rotas Privadas de Admin --- */}
-      <Route 
-        path="/admin/dashboard" 
-        element={
-          <PrivateRoute>
-            <AdminDashboard />
-          </PrivateRoute>
-        } 
-      />
-      <Route 
-        path="/admin/paginas/edit/:id" 
-        element={
-          <PrivateRoute>
-            <EditPage />
-          </PrivateRoute>
-        } 
-      />
+      <Route path="/admin/dashboard" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
+      <Route path="/admin/paginas/edit/:id" element={<PrivateRoute><EditPage /></PrivateRoute>} />
 
-      {/* --- Rota de Erro 404 (sempre por último) --- */}
+      {/* --- Rota de Erro 404 --- */}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
