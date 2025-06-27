@@ -3,12 +3,13 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { AuthContext } from '../../contexts/AuthContext'; // Importe o contexto
+import { AuthContext } from '../../contexts/AuthContext';
 import './Admin.css';
 
-function LoginPage() {
+// ✅ CORREÇÃO APLICADA AQUI: A função agora se chama "AdminLogin"
+function AdminLogin() {
   const navigate = useNavigate();
-  const auth = useContext(AuthContext); // Use o contexto
+  const auth = useContext(AuthContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,9 +22,8 @@ function LoginPage() {
     setError('');
 
     try {
-      // Usa a função de login do contexto
       await auth.login(email, password);
-      navigate('/admin/dashboard'); // Redireciona em caso de sucesso
+      navigate('/admin/dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Erro ao tentar fazer login. Verifique suas credenciais.');
     } finally {
@@ -70,4 +70,6 @@ function LoginPage() {
     </div>
   );
 }
+
+// ✅ CORREÇÃO: Agora a exportação funciona, pois "AdminLogin" é a função definida acima.
 export default AdminLogin;
