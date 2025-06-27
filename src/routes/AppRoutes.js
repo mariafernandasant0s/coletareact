@@ -6,7 +6,7 @@ import HomePage from '../pages/public/Home';
 import GenericPage from '../pages/public/GenericPage';
 import NotFoundPage from '../pages/public/NotFoundPage';
 
-import AdminLogin from '../pages/admin/AdminLogin';
+import AdminLogin from '../pages/admin/AdminLogin'; // Import corrigido
 import AdminDashboard from '../pages/admin/AdminDashboard';
 import EditPage from '../pages/admin/EditPage';
 
@@ -23,9 +23,21 @@ function AppRoutes() {
       <Route path="/contato" element={<GenericPage slug="contato" />} />
       
       {/* --- Rotas de Admin --- */}
-      <Route path="/admin/login" element={<LoginPage />} />
-      <Route path="/admin/dashboard" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
-      <Route path="/admin/paginas/edit/:id" element={<PrivateRoute><EditPage /></PrivateRoute>} />
+      <Route 
+        path="/admin/login" 
+        element={<AdminLogin />} // Componente corrigido para AdminLogin
+        errorElement={<div style={{ padding: '2rem', textAlign: 'center' }}>Erro ao carregar o login</div>}
+      />
+      <Route path="/admin/dashboard" element={
+        <PrivateRoute>
+          <AdminDashboard />
+        </PrivateRoute>
+      } />
+      <Route path="/admin/paginas/edit/:id" element={
+        <PrivateRoute>
+          <EditPage />
+        </PrivateRoute>
+      } />
 
       {/* --- Rota de Erro 404 --- */}
       <Route path="*" element={<NotFoundPage />} />
