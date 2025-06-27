@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet-async';
 import { AuthContext } from '../../contexts/AuthContext';
 import './Admin.css';
 
-// ✅ CORREÇÃO DEFINITIVA: A função foi renomeada para "AdminLogin"
+// ✅ CORREÇÃO: A função foi renomeada de "LoginPage" para "AdminLogin"
 function AdminLogin() {
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
@@ -70,6 +70,5 @@ function AdminLogin() {
     </div>
   );
 }
-
-// ✅ CORREÇÃO DEFINITIVA: A exportação agora funciona porque "AdminLogin" é o nome da função.
+// ✅ CORREÇÃO: Agora a exportação funciona, pois "AdminLogin" é a função definida acima.
 export default AdminLogin;
