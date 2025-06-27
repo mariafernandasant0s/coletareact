@@ -13,8 +13,7 @@ import UtilityBar from './components/common/UtilityBar';
 import AppRoutes from './routes/AppRoutes';
 
 // Importando os estilos globais
-import './style.css'; 
-
+import './assets/css/style.css';
 function App() {
   const [fontSize, setFontSize] = useState(16); // Tamanho base da fonte
 
