@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 
-// CORREÇÃO DOS CAMINHOS DE IMPORTAÇÃO:
+// Importando componentes de layout
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import StickyInstaButton from './components/common/StickyInstaButton';
@@ -16,14 +16,14 @@ import AppRoutes from './routes/AppRoutes';
 import './style.css'; 
 
 function App() {
-  const [fontSize, setFontSize] = useState(16);
+  const [fontSize, setFontSize] = useState(16); // Tamanho base da fonte
 
   const handleIncreaseFontSize = () => {
-    setFontSize(prevSize => Math.min(prevSize + 2, 24));
+    setFontSize(prevSize => Math.min(prevSize + 2, 24)); // Aumenta até 24px
   };
 
   const handleDecreaseFontSize = () => {
-    setFontSize(prevSize => Math.max(prevSize - 2, 12));
+    setFontSize(prevSize => Math.max(prevSize - 2, 12)); // Diminui até 12px
   };
 
   // Aplica o tamanho da fonte ao elemento HTML
@@ -37,12 +37,9 @@ function App() {
           onDecreaseFontSize={handleDecreaseFontSize} 
         />
         <Header />
-        
-        {/* A tag <main> deve ficar AQUI, envolvendo as rotas */}
         <main>
-          <AppRoutes />
+          <AppRoutes /> {/* O Roteador vai renderizar as páginas AQUI DENTRO */}
         </main>
-        
         <Footer />
         <StickyInstaButton />
       </div>
