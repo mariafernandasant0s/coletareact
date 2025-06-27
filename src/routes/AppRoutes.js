@@ -1,13 +1,14 @@
 // src/routes/AppRoutes.js
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom'; // ✅ ADICIONADO: Navigate
+import { Routes, Route, Navigate } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 
 import HomePage from '../pages/public/Home';
 import GenericPage from '../pages/public/GenericPage';
 import NotFoundPage from '../pages/public/NotFoundPage';
 
-import AdminLogin from '../pages/admin/AdminLogin';
+// ✅ Garanta que a importação do componente CORRIGIDO está aqui
+import AdminLogin from '../pages/admin/AdminLogin'; 
 import AdminDashboard from '../pages/admin/AdminDashboard';
 import EditPage from '../pages/admin/EditPage';
 
@@ -24,14 +25,11 @@ function AppRoutes() {
       <Route path="/contato" element={<GenericPage slug="contato" />} />
       
       {/* --- Rotas de Admin --- */}
-      {/* ✅ ADICIONADO: Redirecionamentos para conveniência */}
       <Route path="/login" element={<Navigate to="/admin/login" replace />} />
       <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
 
-      {/* Rota de login principal (com o componente já corrigido) */}
       <Route path="/admin/login" element={<AdminLogin />} />
 
-      {/* Rotas protegidas */}
       <Route path="/admin/dashboard" element={
         <PrivateRoute>
           <AdminDashboard />
@@ -43,7 +41,7 @@ function AppRoutes() {
         </PrivateRoute>
       } />
 
-      {/* --- Rota de Erro 404 (com o componente já corrigido) --- */}
+      {/* --- Rota de Erro 404 --- */}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
