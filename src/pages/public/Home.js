@@ -1,8 +1,11 @@
-// src/pages/public/HomePage.js
+// src/pages/public/Home.js
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarDays, faHandPointer, faDownload } from '@fortawesome/free-solid-svg-icons';
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 import { apiPublic } from '../../config/api';
-// ... outros imports que você usa (FontAwesomeIcon, Lightbox, etc) ...
 
 function HomePage() {
   const [heroData, setHeroData] = useState(null);
@@ -41,23 +44,51 @@ function HomePage() {
       </main>
     );
   }
-
+  
   return (
     <>
-      {/* ✅ O HELMET FOI MOVIDO PARA CÁ */}
       <Helmet>
         <title>Início - Coleta Seletiva de Assis Chateaubriand</title>
         <meta name="description" content="Página inicial com o cronograma da coleta e outras informações." />
       </Helmet>
       
-      {/* O resto do seu JSX para a página inicial aqui... */}
       {heroData.midiaUrl && (
         <section id="hero">
           <img src={`${process.env.REACT_APP_API_URL}${heroData.midiaUrl}`} alt={heroData.titulo} />
         </section>
       )}
-      {/* etc... */}
+
+      {cronogramaData.midiaUrl && (
+        <section id="cronograma" className="info-section">
+          <div className="container">
+            <h2>
+              <FontAwesomeIcon icon={faCalendarDays} />
+              {cronogramaData.titulo}
+            </h2>
+            <div className="cronograma-container" style={{textAlign: 'center'}}>
+              <p>{cronogramaData.conteudo}</p>
+              <div onClick={() => setOpen(true)} style={{cursor: 'pointer', maxWidth: '740px', margin: '20px auto'}}>
+                <img src={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} alt="Tabela com o cronograma semanal da coleta" />
+              </div>
+              <div className="zoom-hint">
+                <FontAwesomeIcon icon={faHandPointer} />
+                <span>Pince para ampliar</span>
+              </div>
+              <a href={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} download="Cronograma_Coleta_Assis_Chateaubriand.png" className="download-button ripple">
+                  <FontAwesomeIcon icon={faDownload} />
+                  <span>Baixar Cronograma</span>
+              </a>
+            </div>
+            <Lightbox
+                open={open}
+                close={() => setOpen(false)}
+                slides={[{ src: `${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`, alt: "Cronograma da Coleta Seletiva" }]}
+            />
+          </div>
+        </section>
+      )}
     </>
   );
 }
+
 export default HomePage;
