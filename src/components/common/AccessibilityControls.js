@@ -1,10 +1,12 @@
-// src/components/AccessibilityControls.js
+// src/components/common/AccessibilityControls.js
 
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUniversalAccess } from '@fortawesome/free-solid-svg-icons';
+// ✅ Importa o ícone de contraste (meia-lua)
+import { faCircleHalfStroke } from '@fortawesome/free-solid-svg-icons';
 
-function AccessibilityControls({ onIncreaseFontSize, onDecreaseFontSize }) {
+// ✅ Recebe a função onToggleHighContrast
+function AccessibilityControls({ onIncreaseFontSize, onDecreaseFontSize, onToggleHighContrast }) {
   return (
     <div className="accessibility-controls">
       <button id="decrease-font" aria-label="Diminuir fonte" onClick={onDecreaseFontSize}>
@@ -13,9 +15,10 @@ function AccessibilityControls({ onIncreaseFontSize, onDecreaseFontSize }) {
       <button id="increase-font" aria-label="Aumentar fonte" onClick={onIncreaseFontSize}>
         A+
       </button>
-      <a href="#accessibility-info" aria-label="Acessibilidade">
-        <FontAwesomeIcon icon={faUniversalAccess} />
-      </a>
+      {/* ✅ Troca o link antigo por um botão que ativa a função */}
+      <button onClick={onToggleHighContrast} aria-label="Alternar alto contraste" title="Alto Contraste">
+        <FontAwesomeIcon icon={faCircleHalfStroke} />
+      </button>
     </div>
   );
 }
