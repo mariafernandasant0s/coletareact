@@ -4,7 +4,7 @@ import AccessibilityControls from './AccessibilityControls';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 
-function UtilityBar({ onToggleHighContrast }) {
+function UtilityBar({ onIncreaseFontSize, onDecreaseFontSize, onToggleHighContrast }) {
   return (
     <div className="utility-bar">
       <div className="container">
@@ -19,6 +19,8 @@ function UtilityBar({ onToggleHighContrast }) {
           </a>
         </div>
         <AccessibilityControls
+          onIncreaseFontSize={onIncreaseFontSize}
+          onDecreaseFontSize={onDecreaseFontSize}
           onToggleHighContrast={onToggleHighContrast}
         />
       </div>
