@@ -756,3 +756,65 @@ footer {
         font-size: 1.1em;
     }
 }
+/* ===================================================
+   7. MODO DE ALTO CONTRASTE
+   =================================================== */
+
+/* Fundo preto e texto branco para o corpo inteiro */
+body.high-contrast {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+/* Títulos, links e botões com cores de destaque */
+body.high-contrast h1,
+body.high-contrast h2,
+body.high-contrast h3,
+body.high-contrast h4,
+body.high-contrast p,
+body.high-contrast span,
+body.high-contrast strong {
+    color: #ffffff !important;
+}
+
+body.high-contrast a {
+    color: #ffff00 !important; /* Amarelo para links */
+}
+
+/* Ajustes em componentes específicos */
+body.high-contrast .main-header,
+body.high-contrast .utility-bar,
+body.high-contrast footer,
+body.high-contrast .info-section {
+    background-color: #000000 !important;
+    border-color: #ffffff !important;
+    box-shadow: none !important;
+}
+
+body.high-contrast .main-nav ul li a,
+body.high-contrast .main-nav ul li.menu-contato-destaque a {
+    color: #ffff00 !important;
+    background-color: transparent !important;
+    border-color: #ffff00 !important;
+}
+
+body.high-contrast .main-nav ul li a:hover,
+body.high-contrast .main-nav ul li.menu-contato-destaque a:hover {
+    color: #000000 !important;
+    background-color: #ffff00 !important;
+}
+
+body.high-contrast .accessibility-controls button {
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+body.high-contrast .sticky-insta {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+}
+
+/* Inverte as cores do logo para ele ficar visível */
+body.high-contrast .logo {
+    filter: invert(1) grayscale(1) contrast(100);
+}
