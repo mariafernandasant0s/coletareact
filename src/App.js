@@ -1,6 +1,6 @@
 // src/App.js
 
-import React, { useState, useEffect } from 'react'; // ✅ Adicionado useState e useEffect
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from './contexts/AuthContext';
@@ -9,25 +9,22 @@ import AppRoutes from './routes/AppRoutes';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import StickyInstaButton from './components/common/StickyInstaButton';
-import UtilityBar from './components/common/UtilityBar'; // ✅ Importando a UtilityBar
+import UtilityBar from './components/common/UtilityBar';
 
 import './assets/css/style.css'; 
 
 function App() {
-  // ✅ 1. Cria o estado para controlar o alto contraste
   const [isHighContrast, setHighContrast] = useState(false);
 
-  // ✅ 2. Cria a função que liga e desliga o modo
   const toggleHighContrast = () => {
     setHighContrast(prevState => !prevState);
   };
 
-  // ✅ 3. Efeito que aplica ou remove a classe CSS do corpo da página
   useEffect(() => {
+    // Limpa classes antigas e adiciona a nova se necessário
+    document.body.classList.remove('high-contrast');
     if (isHighContrast) {
       document.body.classList.add('high-contrast');
-    } else {
-      document.body.classList.remove('high-contrast');
     }
   }, [isHighContrast]);
 
@@ -35,8 +32,9 @@ function App() {
     <HelmetProvider>
       <Router>
         <AuthProvider>
-          {/* ✅ 4. Passa a função para a Barra de Utilidades */}
+          {/* A Barra de Utilidades com a nova função */}
           <UtilityBar onToggleHighContrast={toggleHighContrast} />
+          
           <Header />
           <main>
             <AppRoutes />
