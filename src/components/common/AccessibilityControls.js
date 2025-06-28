@@ -1,17 +1,16 @@
-// src/components/common/AccessibilityControls.js
+// src/components/AccessibilityControls.js
 
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUniversalAccess } from '@fortawesome/free-solid-svg-icons';
 
-function AccessibilityControls() {
-  // OS BOTÕES onCLick FORAM REMOVIDOS TEMPORARIAMENTE PARA NÃO QUEBRAR O SITE
+function AccessibilityControls({ onIncreaseFontSize, onDecreaseFontSize }) {
   return (
     <div className="accessibility-controls">
-      <button aria-label="Diminuir fonte">
+      <button id="decrease-font" aria-label="Diminuir fonte" onClick={onDecreaseFontSize}>
         A-
       </button>
-      <button aria-label="Aumentar fonte">
+      <button id="increase-font" aria-label="Aumentar fonte" onClick={onIncreaseFontSize}>
         A+
       </button>
       <a href="#accessibility-info" aria-label="Acessibilidade">
