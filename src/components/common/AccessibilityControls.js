@@ -2,19 +2,18 @@
 
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// Ícone original que você tinha
 import { faUniversalAccess } from '@fortawesome/free-solid-svg-icons';
 
-function AccessibilityControls({ onIncreaseFontSize, onDecreaseFontSize }) {
+function AccessibilityControls() {
+  // OS BOTÕES onCLick FORAM REMOVIDOS TEMPORARIAMENTE PARA NÃO QUEBRAR O SITE
   return (
     <div className="accessibility-controls">
-      <button id="decrease-font" aria-label="Diminuir fonte" onClick={onDecreaseFontSize}>
+      <button aria-label="Diminuir fonte">
         A-
       </button>
-      <button id="increase-font" aria-label="Aumentar fonte" onClick={onIncreaseFontSize}>
+      <button aria-label="Aumentar fonte">
         A+
       </button>
-      {/* O link original de acessibilidade */}
       <a href="#accessibility-info" aria-label="Acessibilidade">
         <FontAwesomeIcon icon={faUniversalAccess} />
       </a>
