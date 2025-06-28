@@ -1,47 +1,50 @@
 // src/App.js
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // ✅ Adicionado useState e useEffect
+import { BrowserRouter as Router } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { AuthProvider } from './contexts/AuthContext';
+import AppRoutes from './routes/AppRoutes';
 
-// Importando componentes de layout
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import StickyInstaButton from './components/common/StickyInstaButton';
-import UtilityBar from './components/common/UtilityBar';
+import UtilityBar from './components/common/UtilityBar'; // ✅ Importando a UtilityBar
 
-// Importando o arquivo de rotas
-import AppRoutes from './routes/AppRoutes';
+import './assets/css/style.css'; 
 
-// Importando os estilos globais
-import './assets/css/style.css';
 function App() {
-  const [fontSize, setFontSize] = useState(16); // Tamanho base da fonte
+  // ✅ 1. Cria o estado para controlar o alto contraste
+  const [isHighContrast, setHighContrast] = useState(false);
 
-  const handleIncreaseFontSize = () => {
-    setFontSize(prevSize => Math.min(prevSize + 2, 24)); // Aumenta até 24px
+  // ✅ 2. Cria a função que liga e desliga o modo
+  const toggleHighContrast = () => {
+    setHighContrast(prevState => !prevState);
   };
 
-  const handleDecreaseFontSize = () => {
-    setFontSize(prevSize => Math.max(prevSize - 2, 12)); // Diminui até 12px
-  };
+  // ✅ 3. Efeito que aplica ou remove a classe CSS do corpo da página
+  useEffect(() => {
+    if (isHighContrast) {
+      document.body.classList.add('high-contrast');
+    } else {
+      document.body.classList.remove('high-contrast');
+    }
+  }, [isHighContrast]);
 
-  // Aplica o tamanho da fonte ao elemento HTML
-  document.documentElement.style.fontSize = `${fontSize}px`;
-  
   return (
     <HelmetProvider>
-      <div className="app-wrapper">
-        <UtilityBar 
-          onIncreaseFontSize={handleIncreaseFontSize} 
-          onDecreaseFontSize={handleDecreaseFontSize} 
-        />
-        <Header />
-        <main>
-          <AppRoutes /> {/* O Roteador vai renderizar as páginas AQUI DENTRO */}
-        </main>
-        <Footer />
-        <StickyInstaButton />
-      </div>
+      <Router>
+        <AuthProvider>
+          {/* ✅ 4. Passa a função para a Barra de Utilidades */}
+          <UtilityBar onToggleHighContrast={toggleHighContrast} />
+          <Header />
+          <main>
+            <AppRoutes />
+          </main>
+          <Footer />
+          <StickyInstaButton />
+        </AuthProvider>
+      </Router>
     </HelmetProvider>
   );
 }
