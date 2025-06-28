@@ -14,7 +14,6 @@ import UtilityBar from './components/common/UtilityBar';
 import './assets/css/style.css'; 
 
 function App() {
-  // Nenhuma lógica de estado aqui. Apenas a estrutura.
   return (
     <HelmetProvider>
       <Router>
