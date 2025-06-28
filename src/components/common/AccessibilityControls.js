@@ -4,15 +4,13 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleHalfStroke } from '@fortawesome/free-solid-svg-icons';
 
-function AccessibilityControls({ onToggleHighContrast }) {
-  // Nota: As funções de aumentar/diminuir fonte foram removidas se não estiverem sendo usadas.
-  // Se você as tinha, pode adicioná-las de volta. Foquei no alto contraste.
+function AccessibilityControls({ onIncreaseFontSize, onDecreaseFontSize, onToggleHighContrast }) {
   return (
     <div className="accessibility-controls">
-      <button id="decrease-font" aria-label="Diminuir fonte">
+      <button onClick={onDecreaseFontSize} aria-label="Diminuir tamanho da fonte" title="Diminuir Fonte">
         A-
       </button>
-      <button id="increase-font" aria-label="Aumentar fonte">
+      <button onClick={onIncreaseFontSize} aria-label="Aumentar tamanho da fonte" title="Aumentar Fonte">
         A+
       </button>
       <button onClick={onToggleHighContrast} aria-label="Alternar alto contraste" title="Alto Contraste">
