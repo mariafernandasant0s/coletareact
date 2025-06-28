@@ -12,6 +12,7 @@ export const apiPrivate = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
+// O "segurança" que só trabalha para a instância privada
 apiPrivate.interceptors.request.use(config => {
   const token = localStorage.getItem('user_token');
   if (token) {
