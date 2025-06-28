@@ -2,20 +2,22 @@
 
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleHalfStroke } from '@fortawesome/free-solid-svg-icons';
+// Ícone original que você tinha
+import { faUniversalAccess } from '@fortawesome/free-solid-svg-icons';
 
-function AccessibilityControls({ onIncreaseFontSize, onDecreaseFontSize, onToggleHighContrast }) {
+function AccessibilityControls({ onIncreaseFontSize, onDecreaseFontSize }) {
   return (
     <div className="accessibility-controls">
-      <button onClick={onDecreaseFontSize} aria-label="Diminuir tamanho da fonte" title="Diminuir Fonte">
+      <button id="decrease-font" aria-label="Diminuir fonte" onClick={onDecreaseFontSize}>
         A-
       </button>
-      <button onClick={onIncreaseFontSize} aria-label="Aumentar tamanho da fonte" title="Aumentar Fonte">
+      <button id="increase-font" aria-label="Aumentar fonte" onClick={onIncreaseFontSize}>
         A+
       </button>
-      <button onClick={onToggleHighContrast} aria-label="Alternar alto contraste" title="Alto Contraste">
-        <FontAwesomeIcon icon={faCircleHalfStroke} />
-      </button>
+      {/* O link original de acessibilidade */}
+      <a href="#accessibility-info" aria-label="Acessibilidade">
+        <FontAwesomeIcon icon={faUniversalAccess} />
+      </a>
     </div>
   );
 }
