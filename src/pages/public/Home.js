@@ -1,4 +1,5 @@
-// src/pages/public/Home.js
+// src/pages/public/HomePage.js
+
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -66,8 +67,11 @@ function HomePage() {
               {cronogramaData.titulo}
             </h2>
             <div className="cronograma-container" style={{textAlign: 'center'}}>
-            <div dangerouslySetInnerHTML={{ __html: cronogramaData.conteudo }} />
-        <div onClick={() => setOpen(true)} style={{cursor: 'pointer', maxWidth: '740px', margin: '20px auto'}}>
+              
+              {/* Apenas a linha correta, sem duplicatas */}
+              <div dangerouslySetInnerHTML={{ __html: cronogramaData.conteudo }} />
+              
+              <div onClick={() => setOpen(true)} style={{cursor: 'pointer', maxWidth: '740px', margin: '20px auto'}}>
                 <img src={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} alt="Tabela com o cronograma semanal da coleta" />
               </div>
               <div className="zoom-hint">
