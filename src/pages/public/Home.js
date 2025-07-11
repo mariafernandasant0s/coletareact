@@ -66,6 +66,7 @@ function HomePage() {
               {cronogramaData.titulo}
             </h2>
             <div className="cronograma-container" style={{textAlign: 'center'}}>
+            <div dangerouslySetInnerHTML={{ __html: cronogramaData.conteudo }} />
               <p>{cronogramaData.conteudo}</p>
               <div onClick={() => setOpen(true)} style={{cursor: 'pointer', maxWidth: '740px', margin: '20px auto'}}>
                 <img src={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} alt="Tabela com o cronograma semanal da coleta" />
