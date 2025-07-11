@@ -4,8 +4,8 @@ import AccessibilityControls from './AccessibilityControls';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 
-// ✅ AGORA ELE RECEBE AS PROPRIEDADES onIncreaseFontSize e onDecreaseFontSize
-function UtilityBar({ onIncreaseFontSize, onDecreaseFontSize }) {
+function UtilityBar() {
+  // REMOVIDAS AS PROPRIEDADES QUE ESTAVAM QUEBRANDO O APP
   return (
     <div className="utility-bar">
       <div className="container">
@@ -19,11 +19,7 @@ function UtilityBar({ onIncreaseFontSize, onDecreaseFontSize }) {
             <FontAwesomeIcon icon={faInstagram} />
           </a>
         </div>
-        {/* ✅ E AS PASSA PARA O COMPONENTE FILHO */}
-        <AccessibilityControls
-          onIncreaseFontSize={onIncreaseFontSize}
-          onDecreaseFontSize={onDecreaseFontSize}
-        />
+        <AccessibilityControls />
       </div>
     </div>
   );
