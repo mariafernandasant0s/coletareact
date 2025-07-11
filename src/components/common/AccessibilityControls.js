@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUniversalAccess } from '@fortawesome/free-solid-svg-icons';
 
 function AccessibilityControls() {
-  // OS BOTÕES onCLick FORAM REMOVIDOS TEMPORARIAMENTE PARA NÃO QUEBRAR O SITE
   return (
     <div className="accessibility-controls">
       <button aria-label="Diminuir fonte">
