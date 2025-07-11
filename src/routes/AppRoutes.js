@@ -1,48 +1,35 @@
 // src/routes/AppRoutes.js
+
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import PrivateRoute from './PrivateRoute';
+import { Routes, Route } from 'react-router-dom';
 
-import HomePage from '../pages/public/Home';
-import GenericPage from '../pages/public/GenericPage';
-import NotFoundPage from '../pages/public/NotFoundPage';
-
-// ✅ Garanta que a importação do componente CORRIGIDO está aqui
-import AdminLogin from '../pages/admin/AdminLogin'; 
-import AdminDashboard from '../pages/admin/AdminDashboard';
-import EditPage from '../pages/admin/EditPage';
+// Componente de texto simples para usar como placeholder
+const PaginaSegura = ({ nome }) => (
+  <div style={{ padding: '40px', textAlign: 'center' }}>
+    <h2>Página "{nome}" carregada em Modo de Segurança.</h2>
+    <p>A estrutura do site está funcionando.</p>
+  </div>
+);
 
 function AppRoutes() {
   return (
     <Routes>
-      {/* --- Rotas Públicas --- */}
-      <Route path="/" element={<HomePage />} />
-      <Route path="/como-separar/como-fazer" element={<GenericPage slug="como-fazer-separacao" />} />
-      <Route path="/como-separar/residuos" element={<GenericPage slug="quais-residuos" />} />
-      <Route path="/como-separar/porque-separar" element={<GenericPage slug="porque-separar" />} />
-      <Route path="/quemsomos" element={<GenericPage slug="quem-somos" />} />
-      <Route path="/total-coletado" element={<GenericPage slug="total-coletado-grafico" />} />
-      <Route path="/contato" element={<GenericPage slug="contato" />} />
+      {/* Todas as rotas agora mostram um componente seguro */}
+      <Route path="/" element={<PaginaSegura nome="Início" />} />
+      <Route path="/como-separar/como-fazer" element={<PaginaSegura nome="Como Fazer" />} />
+      <Route path="/como-separar/residuos" element={<PaginaSegura nome="Resíduos" />} />
+      <Route path="/como-separar/porque-separar" element={<PaginaSegura nome="Porque Separar" />} />
+      <Route path="/quemsomos" element={<PaginaSegura nome="Quem Somos" />} />
+      <Route path="/total-coletado" element={<PaginaSegura nome="Total Coletado" />} />
+      <Route path="/contato" element={<PaginaSegura nome="Contato" />} />
       
-      {/* --- Rotas de Admin --- */}
-      <Route path="/login" element={<Navigate to="/admin/login" replace />} />
-      <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
+      {/* As rotas de admin também são seguras por enquanto */}
+      <Route path="/admin/login" element={<PaginaSegura nome="Admin Login" />} />
+      <Route path="/admin/dashboard" element={<PaginaSegura nome="Admin Dashboard" />} />
+      <Route path="/admin/paginas/edit/:id" element={<PaginaSegura nome="Editar Página" />} />
 
-      <Route path="/admin/login" element={<AdminLogin />} />
-
-      <Route path="/admin/dashboard" element={
-        <PrivateRoute>
-          <AdminDashboard />
-        </PrivateRoute>
-      } />
-      <Route path="/admin/paginas/edit/:id" element={
-        <PrivateRoute>
-          <EditPage />
-        </PrivateRoute>
-      } />
-
-      {/* --- Rota de Erro 404 --- */}
-      <Route path="*" element={<NotFoundPage />} />
+      {/* Rota de Erro 404 */}
+      <Route path="*" element={<PaginaSegura nome="Página Não Encontrada (404)" />} />
     </Routes>
   );
 }
