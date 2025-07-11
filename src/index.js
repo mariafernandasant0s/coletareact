@@ -5,7 +5,13 @@ import App from './App';
 import { AuthProvider } from './contexts/AuthContext';
 import reportWebVitals from './reportWebVitals';
 
-// Error Boundary component for catching rendering errors
+// ✅ Adiciona suporte aos ícones FontAwesome (evita erro em produção)
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+library.add(fas, fab);
+
+// ✅ Error Boundary para capturar falhas e não quebrar o site
 class ErrorBoundary extends React.Component {
   state = { hasError: false };
 
@@ -21,8 +27,8 @@ class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <div style={{ padding: '20px', textAlign: 'center' }}>
-          <h2>Something went wrong</h2>
-          <p>Please refresh the page or try again later</p>
+          <h2>Algo deu errado 😢</h2>
+          <p>Atualize a página ou tente novamente mais tarde.</p>
         </div>
       );
     }
@@ -30,15 +36,13 @@ class ErrorBoundary extends React.Component {
   }
 }
 
+// ✅ Criação da raiz do React 18
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
     <ErrorBoundary>
-      <BrowserRouter 
-        basename="/" 
-        future={{ v7_startTransition: true }} // Optional: for React Router future flags
-      >
+      <BrowserRouter basename="/" future={{ v7_startTransition: true }}>
         <AuthProvider>
           <App />
         </AuthProvider>
@@ -47,5 +51,5 @@ root.render(
   </React.StrictMode>
 );
 
-// Optional performance monitoring
-reportWebVitals(console.log); // You can replace with your analytics handler
+// ✅ Monitoramento de performance (opcional)
+reportWebVitals(console.log);
