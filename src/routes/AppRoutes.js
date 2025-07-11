@@ -1,8 +1,11 @@
+// src/routes/AppRoutes.js
+
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 
-import HomePage from '../pages/public/HomePage'; // ✅ NOTE A MUDANÇA NO NOME DO ARQUIVO AQUI
+// ✅ CORREÇÃO APLICADA AQUI: Apontando para o arquivo correto 'Home.js'
+import HomePage from '../pages/public/Home'; 
 import GenericPage from '../pages/public/GenericPage';
 import NotFoundPage from '../pages/public/NotFoundPage';
 
