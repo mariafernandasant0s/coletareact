@@ -1,34 +1,30 @@
 // src/App.js
 
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
-import { AuthProvider } from './contexts/AuthContext';
-import AppRoutes from './routes/AppRoutes';
 
-import Header from './components/common/Header';
-import Footer from './components/common/Footer';
-import StickyInstaButton from './components/common/StickyInstaButton';
-import UtilityBar from './components/common/UtilityBar';
-
-import './assets/css/style.css'; 
+// Nenhum outro import. Nenhuma outra dependência.
+// Apenas um componente que retorna uma div.
 
 function App() {
-  // AINDA SEM LÓGICA DE ESTADO. APENAS A ESTRUTURA.
   return (
-    <HelmetProvider>
-      <Router>
-        <AuthProvider>
-          <UtilityBar />
-          <Header />
-          <main>
-            <AppRoutes />
-          </main>
-          <Footer />
-          <StickyInstaButton />
-        </AuthProvider>
-      </Router>
-    </HelmetProvider>
+    <div style={{
+      height: '100vh',
+      width: '100vw',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#ff4757', // Vermelho para indicar emergência
+      color: 'white',
+      textAlign: 'center',
+      fontFamily: 'monospace',
+      fontSize: '24px'
+    }}>
+      <div>
+        <h1>TESTE FINAL DE ESTABILIDADE</h1>
+        <p>Se você está lendo isto, a base do projeto Vercel está funcionando.</p>
+        <p>O erro estava em um dos componentes que o App.js tentava carregar.</p>
+      </div>
+    </div>
   );
 }
 
