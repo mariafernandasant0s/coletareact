@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 function UtilityBar() {
-  // REMOVIDAS AS PROPRIEDADES QUE ESTAVAM QUEBRANDO O APP
   return (
     <div className="utility-bar">
       <div className="container">
