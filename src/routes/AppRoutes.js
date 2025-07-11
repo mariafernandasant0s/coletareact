@@ -1,5 +1,3 @@
-// src/routes/AppRoutes.js
-
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
@@ -47,36 +45,4 @@ function AppRoutes() {
   );
 }
 
-export default AppRoutes;```
-
----
-
-#### **Arquivo 3: `src/pages/public/HomePage.js` (A Página Inicial Segura)**
-
-Este é o arquivo que estava quebrando tudo. Vamos substituí-lo por uma versão que não faz chamadas à API, garantindo que o site não quebre.
-
-```javascript
-// src/pages/public/HomePage.js
-
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
-
-// Versão "Modo de Segurança" que não pode quebrar
-function HomePage() {
-  return (
-    <>
-      <Helmet>
-        <title>Início - Coleta Seletiva</title>
-      </Helmet>
-      <section className="info-section" style={{ textAlign: 'center' }}>
-        <div className="container">
-          <h2>Site Recuperado com Sucesso!</h2>
-          <p>A estrutura principal está funcionando.</p>
-          <p>Próximo passo: restaurar o conteúdo dinâmico desta página.</p>
-        </div>
-      </section>
-    </>
-  );
-}
-
-export default HomePage;
+export default AppRoutes;
