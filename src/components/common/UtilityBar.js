@@ -1,10 +1,10 @@
 // src/components/common/UtilityBar.js
 import React from 'react';
-// ✅ CORREÇÃO: Confirme que o AccessibilityControls está sendo importado do mesmo diretório
 import AccessibilityControls from './AccessibilityControls'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 
+// ✅ AGORA ELE RECEBE AS PROPRIEDADES onIncreaseFontSize e onDecreaseFontSize
 function UtilityBar({ onIncreaseFontSize, onDecreaseFontSize }) {
   return (
     <div className="utility-bar">
@@ -19,6 +19,7 @@ function UtilityBar({ onIncreaseFontSize, onDecreaseFontSize }) {
             <FontAwesomeIcon icon={faInstagram} />
           </a>
         </div>
+        {/* ✅ E AS PASSA PARA O COMPONENTE FILHO */}
         <AccessibilityControls
           onIncreaseFontSize={onIncreaseFontSize}
           onDecreaseFontSize={onDecreaseFontSize}
