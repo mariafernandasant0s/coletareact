@@ -11,7 +11,11 @@ function GenericPage({ slug }) {
       setLoading(true);
       try {
         const { data } = await apiPublic.get(`/api/paginas/slug/${slug}`);
-        setPageData(data);
+        if (data && data.titulo && data.conteudo) {
+          setPageData(data);
+        } else {
+          setPageData(null);
+        }
       } catch (error) {
         console.error(`Erro ao buscar a página ${slug}:`, error);
         setPageData(null);
@@ -25,7 +29,7 @@ function GenericPage({ slug }) {
   if (loading) {
     return <div style={{ textAlign: 'center', padding: '40px' }}>Carregando...</div>;
   }
-  
+
   if (!pageData) {
     return (
       <section className="info-section" style={{ textAlign: 'center' }}>
@@ -38,13 +42,17 @@ function GenericPage({ slug }) {
   return (
     <>
       <Helmet>
-        <title>{pageData.titulo} - Coleta Seletiva</title>
+        <title>{pageData?.titulo || 'Página'} - Coleta Seletiva</title>
       </Helmet>
       <section className="info-section">
         <div className="container">
-          <h2>{pageData.titulo}</h2> 
-          <div dangerouslySetInnerHTML={{ __html: pageData.conteudo }} />
-          {pageData.midiaUrl && (
+          <h2>{pageData?.titulo || 'Sem título'}</h2>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: pageData?.conteudo || '<p>Conteúdo não disponível.</p>',
+            }}
+          />
+          {pageData?.midiaUrl && (
             pageData.midiaUrl.includes('youtube.com') ? (
               <iframe
                 className="youtube-video"
@@ -54,7 +62,10 @@ function GenericPage({ slug }) {
                 allowFullScreen
               ></iframe>
             ) : (
-              <img src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} />
+              <img
+                src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`}
+                alt={pageData.titulo}
+              />
             )
           )}
         </div>
