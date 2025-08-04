@@ -1,10 +1,11 @@
-// src/components/common/UtilityBar.js
+[// src/components/common/UtilityBar.js
 import React from 'react';
 import AccessibilityControls from './AccessibilityControls'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 
-function UtilityBar({ onIncreaseFontSize, onDecreaseFontSize }) {
+function UtilityBar() {
+  // Nenhuma propriedade (props) aqui. Apenas renderiza os componentes.
   return (
     <div className="utility-bar">
       <div className="container">
@@ -18,10 +19,7 @@ function UtilityBar({ onIncreaseFontSize, onDecreaseFontSize }) {
             <FontAwesomeIcon icon={faInstagram} />
           </a>
         </div>
-        <AccessibilityControls
-          onIncreaseFontSize={onIncreaseFontSize}
-          onDecreaseFontSize={onDecreaseFontSize}
-        />
+        <AccessibilityControls />
       </div>
     </div>
   );
