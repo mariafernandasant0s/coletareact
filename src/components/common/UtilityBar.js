@@ -4,7 +4,7 @@ import AccessibilityControls from './AccessibilityControls';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 
-function UtilityBar() {
+function UtilityBar({ onIncreaseFontSize, onDecreaseFontSize }) {
   return (
     <div className="utility-bar">
       <div className="container">
@@ -18,7 +18,10 @@ function UtilityBar() {
             <FontAwesomeIcon icon={faInstagram} />
           </a>
         </div>
-        <AccessibilityControls />
+        <AccessibilityControls
+          onIncreaseFontSize={onIncreaseFontSize}
+          onDecreaseFontSize={onDecreaseFontSize}
+        />
       </div>
     </div>
   );
