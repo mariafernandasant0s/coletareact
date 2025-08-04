@@ -1,4 +1,4 @@
-// src/pages/public/HomePage.js
+// src/pages/public/Home.js
 
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -67,10 +67,7 @@ function HomePage() {
               {cronogramaData.titulo}
             </h2>
             <div className="cronograma-container" style={{textAlign: 'center'}}>
-              
-              {/* Apenas a linha correta, sem duplicatas */}
               <div dangerouslySetInnerHTML={{ __html: cronogramaData.conteudo }} />
-              
               <div onClick={() => setOpen(true)} style={{cursor: 'pointer', maxWidth: '740px', margin: '20px auto'}}>
                 <img src={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} alt="Tabela com o cronograma semanal da coleta" />
               </div>
