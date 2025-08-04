@@ -1,32 +1,45 @@
 // src/App.js
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import { AuthProvider } from './contexts/AuthContext';
+import AppRoutes from './routes/AppRoutes';
 
-// Nenhum outro import. Nenhuma outra dependência.
-// Apenas um componente que retorna uma div.
+import Header from './components/common/Header';
+import Footer from './components/common/Footer';
+import StickyInstaButton from './components/common/StickyInstaButton';
+import UtilityBar from './components/common/UtilityBar';
+
+import './assets/css/style.css'; 
 
 function App() {
+  const [fontSize, setFontSize] = useState(16);
+
+  const increaseFontSize = () => setFontSize(prevSize => Math.min(prevSize + 2, 24)); // Limite máximo de 24px
+  const decreaseFontSize = () => setFontSize(prevSize => Math.max(prevSize - 2, 12)); // Limite mínimo de 12px
+
+  useEffect(() => {
+    document.documentElement.style.fontSize = `${fontSize}px`;
+  }, [fontSize]);
+
   return (
-    <div style={{
-      boxSizing: 'border-box',
-      margin: 0,
-      padding: '100px',
-      width: '100vw',
-      height: '100vh',
-      backgroundColor: '#004466', // Um azul escuro e calmo
-      color: 'white',
-      fontFamily: 'sans-serif',
-      textAlign: 'center',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
-    }}>
-      <div>
-        <h1 style={{ fontSize: '60px' }}>BASE RECUPERADA</h1>
-        <p style={{ fontSize: '24px', color: '#99ddff' }}>Se você está vendo isto, o sistema de deploy está funcionando.</p>
-        <p style={{ marginTop: '30px' }}>O erro estava em um dos componentes que o App.js antigo importava.</p>
-      </div>
-    </div>
+    <HelmetProvider>
+      <Router>
+        <AuthProvider>
+          <UtilityBar 
+            onIncreaseFontSize={increaseFontSize}
+            onDecreaseFontSize={decreaseFontSize}
+          />
+          <Header />
+          <main>
+            <AppRoutes />
+          </main>
+          <Footer />
+          <StickyInstaButton />
+        </AuthProvider>
+      </Router>
+    </HelmetProvider>
   );
 }
 
