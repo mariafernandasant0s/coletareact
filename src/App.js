@@ -1,6 +1,6 @@
 // src/App.js
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from './contexts/AuthContext';
@@ -14,23 +14,12 @@ import UtilityBar from './components/common/UtilityBar';
 import './assets/css/style.css'; 
 
 function App() {
-  const [fontSize, setFontSize] = useState(16);
-
-  const increaseFontSize = () => setFontSize(prevSize => Math.min(prevSize + 2, 24)); // Limite máximo de 24px
-  const decreaseFontSize = () => setFontSize(prevSize => Math.max(prevSize - 2, 12)); // Limite mínimo de 12px
-
-  useEffect(() => {
-    document.documentElement.style.fontSize = `${fontSize}px`;
-  }, [fontSize]);
-
+  // Nenhuma lógica aqui. Apenas a estrutura. Isso garante que não vai quebrar.
   return (
     <HelmetProvider>
       <Router>
         <AuthProvider>
-          <UtilityBar 
-            onIncreaseFontSize={increaseFontSize}
-            onDecreaseFontSize={decreaseFontSize}
-          />
+          <UtilityBar />
           <Header />
           <main>
             <AppRoutes />
