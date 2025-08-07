@@ -9,6 +9,7 @@ import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import StickyInstaButton from './components/common/StickyInstaButton';
 import UtilityBar from './components/common/UtilityBar';
+import BackToTopButton from './components/BackToTopButton';
 
 import './assets/css/style.css'; 
 
