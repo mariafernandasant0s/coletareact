@@ -1,5 +1,5 @@
-[// src/components/common/UtilityBar.js
-import React from 'react';
+// src/components/common/UtilityBar.js
+//import {React} from 'react';
 import AccessibilityControls from './AccessibilityControls'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
