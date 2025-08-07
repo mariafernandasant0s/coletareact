@@ -1,9 +1,8 @@
 // src/App.js
 
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+// Não precisa mais de 'BrowserRouter as Router' nem 'AuthProvider' aqui
 import { HelmetProvider } from 'react-helmet-async';
-import { AuthProvider } from './contexts/AuthContext';
 import AppRoutes from './routes/AppRoutes';
 
 import Header from './components/common/Header';
@@ -14,20 +13,21 @@ import UtilityBar from './components/common/UtilityBar';
 import './assets/css/style.css'; 
 
 function App() {
-  // Nenhuma lógica aqui. Apenas a estrutura. Isso garante que não vai quebrar.
+  // Agora a estrutura está limpa e correta
   return (
     <HelmetProvider>
-      <Router>
-        <AuthProvider>
-          <UtilityBar />
-          <Header />
-          <main>
-            <AppRoutes />
-          </main>
-          <Footer />
-          <StickyInstaButton />
-        </AuthProvider>
-      </Router>
+      {/* <Router> foi removido */}
+      {/* <AuthProvider> foi removido */}
+      
+      <UtilityBar />
+      <Header />
+      <main>
+        {/* AppRoutes irá renderizar as rotas corretas, pois o contexto do roteador já existe */}
+        <AppRoutes />
+      </main>
+      <Footer />
+      <StickyInstaButton />
+
     </HelmetProvider>
   );
 }
