@@ -26,7 +26,7 @@ body {
     padding: 0;
     color: #333;
     line-height: 1.6;
-    background-color: #f8f9fa;
+    background-color: #FF0000;
     font-size: 16px; /* Tamanho base controlado pelo React para acessibilidade */
     font-family: 'Nunito Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -762,4 +762,5 @@ footer {
         font-size: 1.1em;
     }
 }
+
 
