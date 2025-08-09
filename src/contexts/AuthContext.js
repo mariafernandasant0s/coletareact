@@ -13,14 +13,15 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const loadUser = async () => {
       try {
-        const token = localStorage.getItem('user_token');
-        if (token) {
-          // Verifica se o token ainda é válido
-          const { data } = await api.get('/api/auth/me');
-          setUser(data);
+        const userInfo = JSON.parse(localStorage.getItem('userInfo')); // Usar 'userInfo' como definido no login
+        if (userInfo && userInfo.token) {
+          // Não há rota /api/auth/me no backend fornecido.
+          // A validação do token e o carregamento do usuário serão feitos
+          // com base nas informações do localStorage e na resposta do login.
+          setUser(userInfo);
         }
       } catch (error) {
-        console.error('Falha ao carregar usuário:', error);
+        console.error('Falha ao carregar usuário do localStorage:', error);
         logout();
       } finally {
         setLoading(false);
@@ -36,48 +37,47 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       const { data } = await api.post('/api/auth/login', { email, password });
       
-      if (!data.token) {
-        throw new Error('Token não recebido');
+      // O backend já retorna _id, nome, email, token e needsPasswordChange
+      const userInfo = {
+        _id: data._id,
+        nome: data.nome,
+        email: data.email,
+        token: data.token,
+        needsPasswordChange: data.needsPasswordChange // <-- Adicionado aqui
+      };
+
+      setUser(userInfo);
+      localStorage.setItem('userInfo', JSON.stringify(userInfo));
+      
+      // Redireciona com base na flag needsPasswordChange
+      if (data.needsPasswordChange) {
+        navigate('/admin/change-password');
+      } else {
+        navigate('/admin/dashboard');
       }
 
-      localStorage.setItem('user_token', data.token);
-      
-      // Armazena apenas informações não sensíveis
-      const userInfo = { 
-        nome: data.nome, 
-        email: data.email,
-        id: data.id,
-        role: data.role // Se usar controle de acesso
-      };
-      
-      setUser(userInfo);
-      localStorage.setItem('user_info', JSON.stringify(userInfo));
-      
       return { success: true, user: userInfo };
     } catch (error) {
       console.error('Erro no login:', error);
-      logout();
-      return { 
-        success: false, 
-        error: error.response?.data?.message || 'Falha no login' 
-      };
+      throw error; // Propaga o erro para o AdminLogin.js
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [navigate]);
 
   // Logout seguro
   const logout = useCallback(() => {
-    localStorage.removeItem('user_token');
-    localStorage.removeItem('user_info');
+    localStorage.removeItem('userInfo');
     setUser(null);
     navigate('/admin/login'); // Redireciona para login
   }, [navigate]);
 
-  // Verifica permissões (opcional)
+  // Verifica permissões (opcional, se você tiver roles)
   const hasPermission = useCallback((requiredRole) => {
     if (!user) return false;
-    return user.role === requiredRole; // Adapte para seu sistema de roles
+    // Adapte para seu sistema de roles, se houver
+    // Exemplo: return user.role === requiredRole;
+    return true; // Ou sua lógica de permissão
   }, [user]);
 
   const authValue = {
@@ -87,6 +87,7 @@ export const AuthProvider = ({ children }) => {
     logout,
     hasPermission,
     isAuthenticated: !!user,
+    setUser // Adicionado para permitir atualização do user após mudança de senha
   };
 
   return (
