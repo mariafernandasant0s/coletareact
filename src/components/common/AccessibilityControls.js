@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUniversalAccess } from '@fortawesome/free-solid-svg-icons';
+import { faAdjust } from '@fortawesome/free-solid-svg-icons'; // Apenas o ícone de contraste
 
-function AccessibilityControls() {
-  const [fontSize, setFontSize] = useState(100); // base = 100%
+// 1. Receber a nova função { toggleContrastMode } como propriedade
+function AccessibilityControls({ toggleContrastMode }) {
+  const [fontSize, setFontSize] = useState(100); 
 
   useEffect(() => {
     document.body.style.fontSize = `${fontSize}%`;
   }, [fontSize]);
 
   const increaseFont = () => {
-    if (fontSize < 200) {
+    if (fontSize < 150) {
       setFontSize(prev => prev + 10);
     }
   };
 
   const decreaseFont = () => {
-    if (fontSize > 50) {
+    if (fontSize > 70) {
       setFontSize(prev => prev - 10);
     }
   };
@@ -25,9 +26,13 @@ function AccessibilityControls() {
     <div className="accessibility-controls">
       <button onClick={decreaseFont} aria-label="Diminuir fonte">A-</button>
       <button onClick={increaseFont} aria-label="Aumentar fonte">A+</button>
-      <a href="#accessibility-info" aria-label="Acessibilidade">
-        <FontAwesomeIcon icon={faUniversalAccess} />
-      </a>
+      
+      {/* 2. O botão de contraste agora chama a função recebida */}
+      <button onClick={toggleContrastMode} aria-label="Ativar modo de alto contraste">
+        <FontAwesomeIcon icon={faAdjust} />
+      </button>
+
+      {/* O outro ícone foi removido, como pedido */}
     </div>
   );
 }
