@@ -1,11 +1,10 @@
-// src/components/common/Footer.js
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+// Adicionar o ícone de interrogação para o FAQ
+import { faHome, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'; 
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { Link } from 'react-router-dom'; // Usar Link para navegação interna
+import { Link } from 'react-router-dom';
 
-// ✅ CORREÇÃO AQUI: Todos os caminhos agora usam '../../'
 import logoItaipu from '../../assets/imagens/logo-itaipu.png';
 import logoInpar from '../../assets/imagens/logo-inpar.png';
 import logoColetaAmiga from '../../assets/imagens/logo-coleta-amiga.png';
@@ -54,6 +53,10 @@ function Footer() {
         </a>
         <Link to="/">
           <FontAwesomeIcon icon={faHome} /> Página Inicial
+        </Link>
+        {/* NOVO LINK ADICIONADO AQUI */}
+        <Link to="/faq">
+          <FontAwesomeIcon icon={faQuestionCircle} /> FAQ
         </Link>
       </div>
 
