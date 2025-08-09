@@ -178,7 +178,7 @@ body.contrast-mode img, body.contrast-mode iframe.youtube-video { filter: invert
 
 .titulo-com-icone {
   display: flex;
-  align-items: center;
+  align-items: flex-start; 
   justify-content: center;
   gap: 15px;
   margin-bottom: 40px;
@@ -188,6 +188,7 @@ body.contrast-mode img, body.contrast-mode iframe.youtube-video { filter: invert
 .titulo-com-icone svg {
   font-size: 1.8rem;
   color: #003366;
+   margin-top: 5px;
 }
 
 /* Estiliza o h2 dentro do nosso container */
@@ -209,3 +210,4 @@ body.contrast-mode img, body.contrast-mode iframe.youtube-video { filter: invert
   margin-top: 40px; /* Adiciona um espaço extra acima do título */
   margin-bottom: 20px;
 }
+
