@@ -1,11 +1,26 @@
-// src/components/common/UtilityBar.js
-//import {React} from 'react';
+import React, { useState, useEffect } from 'react'; // 1. Adicionar useState e useEffect
 import AccessibilityControls from './AccessibilityControls'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 function UtilityBar() {
-  // Nenhuma propriedade (props) aqui. Apenas renderiza os componentes.
+  // 2. ADICIONAR A LÓGICA DE CONTRASTE AQUI
+  const [isContrastMode, setIsContrastMode] = useState(false);
+
+  const toggleContrastMode = () => {
+    setIsContrastMode(prevMode => !prevMode);
+  };
+
+  useEffect(() => {
+    const bodyClass = 'contrast-mode';
+    if (isContrastMode) {
+      document.body.classList.add(bodyClass);
+    } else {
+      document.body.classList.remove(bodyClass);
+    }
+  }, [isContrastMode]);
+  // FIM DA LÓGICA DE CONTRASTE
+
   return (
     <div className="utility-bar">
       <div className="container">
@@ -19,7 +34,8 @@ function UtilityBar() {
             <FontAwesomeIcon icon={faInstagram} />
           </a>
         </div>
-        <AccessibilityControls />
+        {/* 3. Passar a função de contraste para o componente filho */}
+        <AccessibilityControls toggleContrastMode={toggleContrastMode} />
       </div>
     </div>
   );
