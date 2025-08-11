@@ -1,5 +1,3 @@
-// src/config/api.js
-
 import axios from 'axios';
 
 // Instância para chamadas PÚBLICAS (nunca envia token)
@@ -12,14 +10,19 @@ export const apiPrivate = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
-// O "segurança" que só trabalha para a instância privada
+// Interceptor para adicionar o token no header Authorization na instância privada
 apiPrivate.interceptors.request.use(config => {
-  const token = localStorage.getItem('user_token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  const userInfo = localStorage.getItem('userInfo');
+  if (userInfo) {
+    const token = JSON.parse(userInfo).token;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
   }
   return config;
+}, error => {
+  return Promise.reject(error);
 });
 
-// A exportação padrão continua sendo a privada para não quebrar os arquivos de admin.
+// Exporta a instância privada como padrão para não quebrar os arquivos admin
 export default apiPrivate;
