@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../../contexts/AuthContext';
 import './Admin.css';
+console.log('loginadmin.js renderizado');
 
 function AdminLogin() {
   const navigate = useNavigate();
@@ -94,3 +95,4 @@ function AdminLogin() {
 }
 
 export default AdminLogin;
+
