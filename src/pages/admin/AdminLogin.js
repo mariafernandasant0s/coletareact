@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from './contexts/AuthContext';
 import './Admin.css';
 
 function AdminLogin() {
@@ -13,7 +13,7 @@ function AdminLogin() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Log para saber que o componente carregou
+  // Log para garantir que o componente foi renderizado
   useEffect(() => {
     console.log('AdminLogin renderizado');
   }, []);
@@ -24,24 +24,22 @@ function AdminLogin() {
     setError('');
 
     try {
-      await auth.login(email, password);
+      const result = await auth.login(email, password);
       console.log('Login feito com sucesso');
 
-      // Verifica se token existe (depende de como auth.login salva)
-      const token = localStorage.getItem('token');
+      // Pega o token salvo no localStorage com a chave correta
+      const token = localStorage.getItem('user_token');
       console.log('Token salvo no localStorage:', token);
 
-      // Redireciona para página admin (ajuste o path conforme seu app)
-      navigate('/admin');
-
-    } catch (err) {
-      if (err.response?.status === 401) {
-        setError('❌ Email ou senha incorretos. Por favor, verifique e tente novamente.');
-      } else if (err.response?.status === 400) {
-        setError('❌ Por favor, preencha todos os campos corretamente.');
+      if (result.success) {
+        // Redireciona para o dashboard admin
+        navigate('/admin/dashboard');
       } else {
-        setError('❌ Erro inesperado ao tentar fazer login. Tente novamente mais tarde.');
+        setError(result.error || 'Erro inesperado no login');
       }
+    } catch (err) {
+      setError('Erro inesperado ao tentar fazer login.');
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -105,3 +103,4 @@ function AdminLogin() {
 }
 
 export default AdminLogin;
+
