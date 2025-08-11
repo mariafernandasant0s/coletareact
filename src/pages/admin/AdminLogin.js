@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../../contexts/AuthContext';
 import './Admin.css';
-console.log('loginadmin.js renderizado');
 
 function AdminLogin() {
   const navigate = useNavigate();
@@ -14,6 +13,11 @@ function AdminLogin() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Log para saber que o componente carregou
+  useEffect(() => {
+    console.log('AdminLogin renderizado');
+  }, []);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -21,9 +25,16 @@ function AdminLogin() {
 
     try {
       await auth.login(email, password);
-      // Navega no próprio AuthContext, então aqui só segue normal
+      console.log('Login feito com sucesso');
+
+      // Verifica se token existe (depende de como auth.login salva)
+      const token = localStorage.getItem('token');
+      console.log('Token salvo no localStorage:', token);
+
+      // Redireciona para página admin (ajuste o path conforme seu app)
+      navigate('/admin');
+
     } catch (err) {
-      // Se erro da API vier com mensagem, mostre ela; se não, mensagem genérica
       if (err.response?.status === 401) {
         setError('❌ Email ou senha incorretos. Por favor, verifique e tente novamente.');
       } else if (err.response?.status === 400) {
@@ -67,7 +78,6 @@ function AdminLogin() {
             />
           </div>
 
-          {/* Mensagem de erro vermelha explicativa */}
           {error && (
             <div
               style={{
@@ -95,4 +105,3 @@ function AdminLogin() {
 }
 
 export default AdminLogin;
-
