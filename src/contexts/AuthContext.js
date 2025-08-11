@@ -1,105 +1,105 @@
-import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
-import api from '../config/api';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { useAuth } from '../../contexts/AuthContext';
+import './Admin.css';
 
-const AuthContext = createContext(null);
-
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+function AdminLogin() {
   const navigate = useNavigate();
+  const auth = useAuth();
 
-  // Verifica e carrega o usuário ao iniciar
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  // Log para garantir que o componente foi renderizado
   useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const token = localStorage.getItem('user_token');
-        if (token) {
-          // Verifica se o token ainda é válido
-          const { data } = await api.get('/api/auth/me');
-          setUser(data);
-        }
-      } catch (error) {
-        console.error('Falha ao carregar usuário:', error);
-        logout();
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadUser();
+    console.log('AdminLogin renderizado');
   }, []);
 
-  // Login com tratamento de erros
-  const login = useCallback(async (email, password) => {
-    try {
-      setLoading(true);
-      const { data } = await api.post('/api/auth/login', { email, password });
-      
-      if (!data.token) {
-        throw new Error('Token não recebido');
-      }
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
 
-      localStorage.setItem('user_token', data.token);
-      
-      // Armazena apenas informações não sensíveis
-      const userInfo = { 
-        nome: data.nome, 
-        email: data.email,
-        id: data.id,
-        role: data.role // Se usar controle de acesso
-      };
-      
-      setUser(userInfo);
-      localStorage.setItem('user_info', JSON.stringify(userInfo));
-      
-      return { success: true, user: userInfo };
-    } catch (error) {
-      console.error('Erro no login:', error);
-      logout();
-      return { 
-        success: false, 
-        error: error.response?.data?.message || 'Falha no login' 
-      };
+    try {
+      const result = await auth.login(email, password);
+      console.log('Login feito com sucesso');
+
+      // Pega o token salvo no localStorage com a chave correta
+      const token = localStorage.getItem('user_token');
+      console.log('Token salvo no localStorage:', token);
+
+      if (result.success) {
+        // Redireciona para o dashboard admin
+        navigate('/admin/dashboard');
+      } else {
+        setError(result.error || 'Erro inesperado no login');
+      }
+    } catch (err) {
+      setError('Erro inesperado ao tentar fazer login.');
+      console.error(err);
     } finally {
       setLoading(false);
     }
-  }, []);
-
-  // Logout seguro
-  const logout = useCallback(() => {
-    localStorage.removeItem('user_token');
-    localStorage.removeItem('user_info');
-    setUser(null);
-    navigate('/admin/login'); // Redireciona para login
-  }, [navigate]);
-
-  // Verifica permissões (opcional)
-  const hasPermission = useCallback((requiredRole) => {
-    if (!user) return false;
-    return user.role === requiredRole; // Adapte para seu sistema de roles
-  }, [user]);
-
-  const authValue = {
-    user,
-    loading,
-    login,
-    logout,
-    hasPermission,
-    isAuthenticated: !!user,
   };
 
   return (
-    <AuthContext.Provider value={authValue}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
-};
+    <div className="admin-page-background">
+      <Helmet>
+        <title>Login - Painel Administrativo</title>
+      </Helmet>
+      <div className="login-container">
+        <h2>Acesso ao Painel</h2>
+        <form onSubmit={handleLogin}>
+          <div className="form-group">
+            <label htmlFor="email">E-mail</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoComplete="email"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Senha</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="current-password"
+            />
+          </div>
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth deve ser usado dentro de um AuthProvider');
-  }
-  return context;
-};
+          {error && (
+            <div
+              style={{
+                backgroundColor: '#ff4d4f',
+                color: 'white',
+                padding: '10px 15px',
+                borderRadius: 4,
+                marginBottom: 15,
+                fontWeight: 'bold',
+                boxShadow: '0 1px 4px rgba(0,0,0,0.2)',
+              }}
+              role="alert"
+            >
+              {error}
+            </div>
+          )}
+
+          <button type="submit" className="btn-login" disabled={loading}>
+            {loading ? 'Entrando...' : 'Entrar'}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default AdminLogin;
