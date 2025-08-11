@@ -1,19 +1,30 @@
-// src/pages/admin/AdminDashboard.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../config/api';
 import { Helmet } from 'react-helmet-async';
 import AdminLayout from '../../components/admin/AdminLayout';
+import { useAuth } from '../../contexts/AuthContext'; // importa o hook de autenticação
+import { useNavigate } from 'react-router-dom';
 import './Admin.css';
 
 function AdminDashboard() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
   const [paginas, setPaginas] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Protege a rota, redireciona para login se não estiver autenticado
+  useEffect(() => {
+    if (!user) {
+      navigate('/admin/login');
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     const fetchPaginas = async () => {
       try {
-        const { data } = await api.get('/api/paginas/admin'); // Usa a rota de admin para listar
+        const { data } = await api.get('/api/paginas/admin');
         setPaginas(data);
       } catch (error) {
         console.error("Erro ao buscar páginas:", error);
@@ -21,8 +32,11 @@ function AdminDashboard() {
         setLoading(false);
       }
     };
-    fetchPaginas();
-  }, []);
+
+    if (user) {
+      fetchPaginas();
+    }
+  }, [user]);
 
   return (
     <AdminLayout>
