@@ -31,7 +31,33 @@ const objectivesData = [
 const MaterialsList = () => (<div className="materials-list">{materialsData.map(m => (<div key={m.title} className="material-item"><div className="material-icon"><FontAwesomeIcon icon={m.icon} style={{ color: '#0056b3' }} /></div><div className="material-details"><h3>{m.title}</h3><p>{m.items}</p></div></div>))}</div>);
 const QuemSomosContent = () => (<div className="content-wrapper"><h4 className="subtitulo-centralizado">O que é o Programa Coleta Amiga?</h4><p>O Programa Coleta Amiga foi instituído através da Lei Municipal nº 3250 em 03 de maio de 2022. Seus principais objetivos são:</p><div className="objectives-list">{objectivesData.map((o, i) => (<div key={i} className="objective-item"><div className="objective-icon"><FontAwesomeIcon icon={o.icon} style={{ color: '#0056b3' }} /></div><p className="objective-text">{o.text}</p></div>))}</div><br/><h4 className="subtitulo-centralizado">O que é a ACAMAR?</h4><p>A ACAMAR é a Associação dos Catadores de Materiais Recicláveis de Assis Chateaubriand - PR, fundada em 10 de outubro de 2001. Ela é considerada uma Entidade de Utilidade Pública, conforme a Lei Municipal n° 3.217 de 23 de abril de 2020.</p><h4 className="subtitulo-centralizado">Qual o local de destino dos recicláveis?</h4><p>Todo material previamente separado pela população e recolhido com auxílio dos caminhões da Coleta Amiga é encaminhado para a Unidade de Valorização de Recicláveis (UVR).</p><img src={fotoAcamar} alt="Unidade de Valorização de Recicláveis da ACAMAR" style={{ margin: '35px auto 0 auto', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)' }} /><br/><h4 className="subtitulo-centralizado">Localização UVR</h4><div className="map-container"><iframe src="https://maps.google.com/maps?q=UVR%20Unidade%20de%20Valoriza%C3%A7%C3%A3o%20de%20Recicl%C3%A1veis%20de%20Assis%20Chateaubriand&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="450" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Localização da ACAMAR no Google Maps"></iframe></div></div>);
 const TotalColetadoContent = () => (<div className="content-wrapper" style={{ textAlign: 'center' }}><img src={graficoTotalColetado} alt="Gráfico do total de resíduos coletados" style={{ margin: '20px auto 0 auto', maxWidth: '100%' }} /></div>);
-const CronogramaContent = ({ pageData }) => (<div className="cronograma-container">{pageData && pageData.midiaUrl ? (<><img className="cronograma-image" src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} /><a href={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} className="download-button" download><FontAwesomeIcon icon={faDownload} /> Baixar Cronograma</a></>) : (<div style={{ textAlign: 'center', padding: '20px' }}><p>Imagem do cronograma não disponível.</p></div>)}</div>);
+const CronogramaContent = ({ pageData }) => (
+  <div className="cronograma-container">
+    {pageData && pageData.midiaUrl ? (
+      <>
+        <img className="cronograma-image" src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} />
+        {pageData.ultimaAtualizacao && (
+          <div className="cronograma-timestamp" style={{ 
+            textAlign: 'center', 
+            marginTop: '15px', 
+            fontSize: '14px', 
+            color: '#666',
+            fontStyle: 'italic'
+          }}>
+            Atualizado em {pageData.ultimaAtualizacao}
+          </div>
+        )}
+        <a href={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} className="download-button" download>
+          <FontAwesomeIcon icon={faDownload} /> Baixar Cronograma
+        </a>
+      </>
+    ) : (
+      <div style={{ textAlign: 'center', padding: '20px' }}>
+        <p>Imagem do cronograma não disponível.</p>
+      </div>
+    )}
+  </div>
+);
 const faqData = [{question: "O que acontece se eu misturar lixo orgânico com o reciclável?",answer: "Misturar lixo orgânico (restos de comida) com materiais recicláveis pode contaminar todo o lote, inviabilizando a reciclagem. O material contaminado acaba sendo destinado ao aterro sanitário, o que anula o esforço da separação. Por isso, é fundamental separar corretamente."},{question: "Preciso lavar as embalagens antes de descartar?",answer: "Sim, é importante passar uma água para remover os resíduos de alimentos das embalagens, como potes de iogurte, latas de molho e garrafas. Isso evita o mau cheiro, a proliferação de insetos e ajuda no processo de triagem na UVR."},{question: "O que não é reciclável?",answer: "Alguns itens comuns que não devem ser colocados no lixo reciclável são: papel higiênico, guardanapos sujos, fotografias, fitas adesivas, esponjas de aço, pilhas, baterias e lixo eletrónico (estes devem ter um descarte especial)."}];
 function FaqContent() {
     const [openIndex, setOpenIndex] = useState(null);
@@ -80,7 +106,15 @@ function GenericPage({ slug }) {
           {renderPageContent()}
           
           {slug !== 'cronograma' && slug !== 'quem-somos' && slug !== 'total-coletado-grafico' && slug !== 'faq' && pageData.midiaUrl && (pageData.midiaUrl.includes('youtube.com') || pageData.midiaUrl.includes('youtu.be')) && (
-            <iframe className="youtube-video" src={convertYouTubeUrl(pageData.midiaUrl)} title={pageData.titulo} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+            <div className="video-container">
+              <iframe
+                src={convertYouTubeUrl(pageData.midiaUrl)}
+                title={pageData.titulo}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
           )}
         </div>
       </section>
@@ -89,3 +123,4 @@ function GenericPage({ slug }) {
 }
 
 export default GenericPage;
+
