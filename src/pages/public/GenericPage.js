@@ -106,13 +106,14 @@ function GenericPage({ slug }) {
           {renderPageContent()}
           
           {slug !== 'cronograma' && slug !== 'quem-somos' && slug !== 'total-coletado-grafico' && slug !== 'faq' && pageData.midiaUrl && (pageData.midiaUrl.includes('youtube.com') || pageData.midiaUrl.includes('youtu.be')) && (
-            <div className="video-container">
+            <div className="video-container" style={{ margin: '0 auto', maxWidth: '800px' }}>
               <iframe
                 src={convertYouTubeUrl(pageData.midiaUrl)}
                 title={pageData.titulo}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
+                style={{ width: '100%', height: '450px' }}
               ></iframe>
             </div>
           )}
@@ -123,4 +124,5 @@ function GenericPage({ slug }) {
 }
 
 export default GenericPage;
+
 
