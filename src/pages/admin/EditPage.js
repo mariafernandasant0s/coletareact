@@ -18,6 +18,7 @@ function EditPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
+  // Carrega os dados da página
   useEffect(() => {
     const fetchPageData = async () => {
       try {
@@ -35,23 +36,28 @@ function EditPage() {
     fetchPageData();
   }, [id]);
 
+  // Upload de imagem para Multer
   const handleUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
+
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append('foto', file); // ⚠️ Deve bater com upload.single('foto') no back
 
     try {
-      const { data } = await api.post('/api/upload', formData, {
+      const { data } = await api.post('/api/auth/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      setMidiaUrl(data.image);
+      // Ajusta para preview
+      setMidiaUrl(`/uploads/${data.arquivo}`);
       alert('Imagem enviada! Clique em "Salvar Alterações" para confirmar.');
     } catch (error) {
+      console.error(error);
       alert('Erro ao enviar imagem.');
     }
   };
 
+  // Salvar alterações da página
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
@@ -60,6 +66,7 @@ function EditPage() {
       alert('Página atualizada com sucesso!');
       navigate('/admin/dashboard');
     } catch (error) {
+      console.error(error);
       alert('Erro ao salvar as alterações.');
       setSaving(false);
     }
@@ -75,6 +82,7 @@ function EditPage() {
       <div className="admin-content">
         <h1>Editando: "{titulo}"</h1>
         <form onSubmit={handleSubmit} className="edit-form">
+          
           <div className="form-group">
             <label htmlFor="titulo">Título da Seção</label>
             <input type="text" id="titulo" value={titulo} onChange={(e) => setTitulo(e.target.value)} />
@@ -87,13 +95,19 @@ function EditPage() {
 
           <div className="form-group">
             <label htmlFor="midia">Mídia (URL da Imagem/Vídeo)</label>
-            {/* ✅ CÓDIGO CORRETO AQUI */}
             {midiaUrl && (
               <div className="media-preview">
-                {midiaUrl.includes('youtube') ? <p>Vídeo: {midiaUrl}</p> : <img src={`${process.env.REACT_APP_API_URL}${midiaUrl}`} alt="Prévia da imagem atual" />}
+                {midiaUrl.includes('youtube') 
+                  ? <p>Vídeo: {midiaUrl}</p> 
+                  : <img src={`${process.env.REACT_APP_API_URL}${midiaUrl}`} alt="Prévia da imagem atual" />}
               </div>
             )}
-            <input type="text" value={midiaUrl} onChange={(e) => setMidiaUrl(e.target.value)} placeholder="Cole uma URL de vídeo ou envie uma imagem abaixo" />
+            <input 
+              type="text" 
+              value={midiaUrl} 
+              onChange={(e) => setMidiaUrl(e.target.value)} 
+              placeholder="Cole uma URL de vídeo ou envie uma imagem abaixo" 
+            />
             
             <label htmlFor="upload" style={{ marginTop: '15px', display: 'block' }}>Substituir por nova imagem:</label>
             <input type="file" id="upload" onChange={handleUpload} />
@@ -109,3 +123,4 @@ function EditPage() {
 }
 
 export default EditPage;
+
