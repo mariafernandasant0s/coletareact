@@ -1,5 +1,3 @@
-// src/pages/public/Home.js
-
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -71,10 +69,17 @@ function HomePage() {
               <div onClick={() => setOpen(true)} style={{cursor: 'pointer', maxWidth: '740px', margin: '20px auto'}}>
                 <img src={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} alt="Tabela com o cronograma semanal da coleta" />
               </div>
-              <div className="zoom-hint">
-                <FontAwesomeIcon icon={faHandPointer} />
-                <span>Pince para ampliar</span>
-              </div>
+              {cronogramaData.ultimaAtualizacao && (
+                <div className="cronograma-timestamp" style={{ 
+                  textAlign: 'center', 
+                  marginTop: '15px', 
+                  fontSize: '14px', 
+                  color: '#666',
+                  fontStyle: 'italic'
+                }}>
+                  Atualizado em {cronogramaData.ultimaAtualizacao}
+                </div>
+              )}
               <a href={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} download="Cronograma_Coleta_Assis_Chateaubriand.png" className="download-button ripple">
                   <FontAwesomeIcon icon={faDownload} />
                   <span>Baixar Cronograma</span>
@@ -93,3 +98,5 @@ function HomePage() {
 }
 
 export default HomePage;
+
+
