@@ -35,7 +35,7 @@ function AppRoutes() {
         <Route path="/como-separar/como-fazer" element={<GenericPage slug="como-fazer-separacao" />} />
         <Route path="/como-separar/residuos" element={<GenericPage slug="quais-residuos" />} />
         <Route path="/como-separar/porque-separar" element={<GenericPage slug="porque-separar" />} />
-        <Route path="/cronograma" element={<GenericPage slug="cronograma" />} />
+        {/* <Route path="/cronograma" element={<GenericPage slug="cronograma" />} /> */}
         <Route path="/quemsomos" element={<GenericPage slug="quem-somos" />} />
         <Route path="/total-coletado" element={<GenericPage slug="total-coletado-grafico" />} />
         <Route path="/contato" element={<GenericPage slug="contato" />} />
