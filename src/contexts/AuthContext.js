@@ -9,6 +9,14 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  // Logout
+  const logout = useCallback(() => {
+    localStorage.removeItem("user_token");
+    localStorage.removeItem("user_info");
+    setUser(null);
+    navigate("/admin/login");
+  }, [navigate]);
+
   // Adiciona automaticamente o token em todas as requisições
   useEffect(() => {
     api.interceptors.request.use((config) => {
@@ -45,19 +53,19 @@ export const AuthProvider = ({ children }) => {
 
     loadUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [logout]); // Adicionado logout como dependência
 
   // Login
   const login = useCallback(async (email, password) => {
     try {
       setLoading(true);
-      const { data } = await api.post('/api/auth/login', { email, password });
+      const { data } = await api.post("/api/auth/login", { email, password });
 
       if (!data.token) {
-        throw new Error('Token não recebido');
+        throw new Error("Token não recebido");
       }
 
-      localStorage.setItem('user_token', data.token);
+      localStorage.setItem("user_token", data.token);
 
       const userInfo = {
         nome: data.nome,
@@ -67,28 +75,20 @@ export const AuthProvider = ({ children }) => {
       };
 
       setUser(userInfo);
-      localStorage.setItem('user_info', JSON.stringify(userInfo));
+      localStorage.setItem("user_info", JSON.stringify(userInfo));
 
       return { success: true, user: userInfo };
     } catch (error) {
-      console.error('Erro no login:', error);
+      console.error("Erro no login:", error);
       logout();
       return {
         success: false,
-        error: error.response?.data?.message || error.message || 'Falha no login'
+        error: error.response?.data?.message || error.message || "Falha no login"
       };
     } finally {
       setLoading(false);
     }
   }, [logout]);
-
-  // Logout
-  const logout = useCallback(() => {
-    localStorage.removeItem('user_token');
-    localStorage.removeItem('user_info');
-    setUser(null);
-    navigate('/admin/login');
-  }, [navigate]);
 
   // Permissão
   const hasPermission = useCallback((requiredRole) => {
@@ -119,3 +119,4 @@ export const useAuth = () => {
   }
   return context;
 };
+
