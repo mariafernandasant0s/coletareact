@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { useAuth } from './contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import './Admin.css';
 
 function AdminLogin() {
@@ -103,4 +103,5 @@ function AdminLogin() {
 }
 
 export default AdminLogin;
+
 
