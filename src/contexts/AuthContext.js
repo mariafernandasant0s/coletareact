@@ -9,15 +9,31 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Verifica e carrega o usuário ao iniciar
+  // Adiciona automaticamente o token em todas as requisições
+  useEffect(() => {
+    api.interceptors.request.use((config) => {
+      const token = localStorage.getItem('user_token');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    });
+  }, []);
+
+  // Carrega usuário no início
   useEffect(() => {
     const loadUser = async () => {
       try {
+        const storedUser = localStorage.getItem('user_info');
+        if (storedUser) {
+          setUser(JSON.parse(storedUser)); // já mostra info local
+        }
+
         const token = localStorage.getItem('user_token');
         if (token) {
-          // Verifica se o token ainda é válido
           const { data } = await api.get('/api/auth/me');
           setUser(data);
+          localStorage.setItem('user_info', JSON.stringify(data));
         }
       } catch (error) {
         console.error('Falha ao carregar usuário:', error);
@@ -28,56 +44,56 @@ export const AuthProvider = ({ children }) => {
     };
 
     loadUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Login com tratamento de erros
+  // Login
   const login = useCallback(async (email, password) => {
     try {
       setLoading(true);
       const { data } = await api.post('/api/auth/login', { email, password });
-      
+
       if (!data.token) {
         throw new Error('Token não recebido');
       }
 
       localStorage.setItem('user_token', data.token);
-      
-      // Armazena apenas informações não sensíveis
-      const userInfo = { 
-        nome: data.nome, 
+
+      const userInfo = {
+        nome: data.nome,
         email: data.email,
         id: data.id,
-        role: data.role // Se usar controle de acesso
+        role: data.role
       };
-      
+
       setUser(userInfo);
       localStorage.setItem('user_info', JSON.stringify(userInfo));
-      
+
       return { success: true, user: userInfo };
     } catch (error) {
       console.error('Erro no login:', error);
       logout();
-      return { 
-        success: false, 
-        error: error.response?.data?.message || 'Falha no login' 
+      return {
+        success: false,
+        error: error.response?.data?.message || error.message || 'Falha no login'
       };
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [logout]);
 
-  // Logout seguro
+  // Logout
   const logout = useCallback(() => {
     localStorage.removeItem('user_token');
     localStorage.removeItem('user_info');
     setUser(null);
-    navigate('/admin/login'); // Redireciona para login
+    navigate('/admin/login');
   }, [navigate]);
 
-  // Verifica permissões (opcional)
+  // Permissão
   const hasPermission = useCallback((requiredRole) => {
     if (!user) return false;
-    return user.role === requiredRole; // Adapte para seu sistema de roles
+    return user.role === requiredRole;
   }, [user]);
 
   const authValue = {
@@ -91,7 +107,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={authValue}>
-      {!loading && children}
+      {loading ? <div>Carregando...</div> : children}
     </AuthContext.Provider>
   );
 };
