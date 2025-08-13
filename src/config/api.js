@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 // URL pública do backend para produção
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://coleta-back.onrender.com';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
-// Instância para chamadas PÚBLICAS (nunca envia token)
+// Instância para chamadas PÚBLICAS (nunca envia token )
 export const apiPublic = axios.create({
   baseURL: API_BASE_URL,
 });
@@ -32,5 +32,3 @@ apiPrivate.interceptors.request.use(
 
 // Exporta a instância privada como padrão para não quebrar os arquivos admin
 export default apiPrivate;
-
-
