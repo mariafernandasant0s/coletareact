@@ -1,23 +1,22 @@
-// src/components/Footer.js
-
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faQuestionCircle, faCode } from '@fortawesome/free-solid-svg-icons'; // Ícone faCode importado
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { Link } from 'react-router-dom';
 
-// Importando todas as imagens dos logos
-import logoItaipu from '../assets/imagens/logo-itaipu.png';
-import logoInpar from '../assets/imagens/logo-inpar.png';
-import logoColetaAmiga from '../assets/imagens/logo-coleta-amiga.png';
-import logoAcamar from '../assets/imagens/logo-acamar.png';
-import logoEducacaoAmbiental from '../assets/imagens/logo-educacao-ambiental.png';
-import logoSecretaria from '../assets/imagens/logo-secretaria.png';
-import logoPrefeituraRodape from '../assets/imagens/logo-prefeitura-rodape.png';
-import logoOds6 from '../assets/imagens/logo-ods6.png';
-import logoOds8 from '../assets/imagens/logo-ods8.png';
-import logoOds10 from '../assets/imagens/logo-ods10.png';
-import logoOds11 from '../assets/imagens/logo-ods11.png';
-import logoOds12 from '../assets/imagens/logo-ods12.png';
+import logoItaipu from '../../assets/imagens/logo-itaipu.png';
+import logoInpar from '../../assets/imagens/logo-inpar.png';
+import logoColetaAmiga from '../../assets/imagens/logo-coleta-amiga.png';
+import logoAcamar from '../../assets/imagens/logo-acamar.png';
+import logoEducacaoAmbiental from '../../assets/imagens/logo-educacao-ambiental.png';
+import logoSecretaria from '../../assets/imagens/logo-secretaria.png';
+import logoPrefeituraRodape from '../../assets/imagens/logo-prefeitura-rodape.png';
+import logoIfpr from '../../assets/imagens/assis-vertical.png';
+import logoOds6 from '../../assets/imagens/logo-ods6.png';
+import logoOds8 from '../../assets/imagens/logo-ods8.png';
+import logoOds10 from '../../assets/imagens/logo-ods10.png';
+import logoOds11 from '../../assets/imagens/logo-ods11.png';
+import logoOds12 from '../../assets/imagens/logo-ods12.png';
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -26,9 +25,7 @@ function Footer() {
     <footer>
       <div className="footer-line footer-logos">
         <div className="container">
-          {/* TÍTULO ADICIONADO AQUI */}
           <h4 className="footer-section-title">Nossos Parceiros</h4>
-          
           <img src={logoItaipu} alt="Logo Itaipu Binacional" className="logo-parceiro" />
           <img src={logoInpar} alt="Logo InPAR" className="logo-parceiro" />
           <img src={logoColetaAmiga} alt="Logo Programa Coleta Amiga" className="logo-principal-parceiro" />
@@ -36,14 +33,13 @@ function Footer() {
           <img src={logoEducacaoAmbiental} alt="Logo Educação Ambiental" className="logo-principal-parceiro" />
           <img src={logoSecretaria} alt="Logo Secretaria Municipal" className="logo-principal-parceiro" />
           <img src={logoPrefeituraRodape} alt="Logo Prefeitura" className="logo-principal-parceiro" />
+          <img src={logoIfpr} alt="Logo IFPR Campus Assis Chateaubriand" className="logo-parceiro" />
         </div>
       </div>
 
       <div className="footer-line footer-ods">
         <div className="container">
-          {/* TÍTULO ADICIONADO AQUI */}
-          <h4 className="footer-section-title"> Objetivos de Desenvolvimento Sustentável (ODS)</h4>
-
+          <h4 className="footer-section-title">Objetivos de Desenvolvimento Sustentável (ODS)</h4>
           <img src={logoOds6} alt="Logo ODS 6" />
           <img src={logoOds8} alt="Logo ODS 8" />
           <img src={logoOds10} alt="Logo ODS 10" />
@@ -56,9 +52,17 @@ function Footer() {
         <a href="https://www.instagram.com/uvr_assis/" target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon icon={faInstagram} /> Insta UVR
         </a>
-        <a href="/">
+        <Link to="/">
           <FontAwesomeIcon icon={faHome} /> Página Inicial
-        </a>
+        </Link>
+        <Link to="/faq">
+          <FontAwesomeIcon icon={faQuestionCircle} /> FAQ
+        </Link>
+        
+        {/* NOVO LINK ADICIONADO AQUI */}
+        <Link to="/desenvolvedoras">
+          <FontAwesomeIcon icon={faCode} /> Desenvolvedoras
+        </Link>
       </div>
 
       <div className="footer-copyright">
