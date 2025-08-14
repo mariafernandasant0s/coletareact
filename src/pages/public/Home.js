@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays, faDownload, faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons'; 
-import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
 import { apiPublic } from '../../config/api';
 import { useLocation } from 'react-router-dom';
 
@@ -11,8 +9,9 @@ function HomePage() {
   const [heroData, setHeroData] = useState(null);
   const [cronogramaData, setCronogramaData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [open, setOpen] = useState(false);
-  const location = useLocation();
+  
+  // LÓGICA DO "PINCE PARA AMPLIAR" REINTRODUZIDA
+  const [hintDismissed, setHintDismissed] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,41 +23,32 @@ function HomePage() {
         ]);
         setHeroData(heroRes.data);
         setCronogramaData(cronogramaRes.data);
-      } catch (error) {
-        console.error("Erro ao buscar dados da página inicial:", error);
-      } finally {
-        setLoading(false);
-      }
+      } catch (error) { console.error("Erro ao buscar dados da página inicial:", error); }
+      finally { setLoading(false); }
     };
     fetchData();
   }, []);
 
-  // ESTE useEffect FOI ATUALIZADO E AGORA É A PROVA DE FALHAS
+  const location = useLocation();
+  // LÓGICA DO SCROLL PARA O CRONOGRAMA (JÁ ESTAVA CORRETA)
   useEffect(() => {
-    // Só tenta rolar se: 1. A URL tiver um '#' E 2. Os dados do cronograma já tiverem carregado
     if (location.hash && cronogramaData) {
       const element = document.getElementById(location.hash.substring(1));
       if (element) {
-        // O timeout aqui ajuda a garantir que a rolagem aconteça depois da pintura da página
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
       }
     }
-  }, [location, cronogramaData]); // Roda quando a URL MUDA ou quando os DADOS do cronograma CHEGAM
+  }, [location, cronogramaData]);
 
-  if (loading) {
-    return <main style={{ padding: '40px', textAlign: 'center' }}><p>Carregando...</p></main>;
-  }
+  // FUNÇÃO PARA LIDAR COM O TOQUE/CLIQUE NA IMAGEM
+  const handleImageInteraction = () => {
+    setHintDismissed(true);
+  };
 
-  if (!heroData || !cronogramaData) {
-    return (
-      <main style={{ padding: '40px', textAlign: 'center' }}>
-        <h2>Oops! Não foi possível carregar a página.</h2>
-        <p>Houve um problema de comunicação com o servidor. Por favor, tente novamente mais tarde.</p>
-      </main>
-    );
-  }
+  if (loading) { return <main style={{ padding: '40px', textAlign: 'center' }}><p>Carregando...</p></main>; }
+  if (!heroData || !cronogramaData) { return ( <main style={{ padding: '40px', textAlign: 'center' }}> <h2>Oops! Não foi possível carregar a página.</h2> <p>Por favor, tente novamente mais tarde.</p> </main> ); }
  
   return (
     <>
@@ -82,12 +72,20 @@ function HomePage() {
             </div>
 
             <div className="cronograma-container">
-              <div className="cronograma-zoom-wrapper" onClick={() => setOpen(true)}>
+              <div 
+                className="cronograma-zoom-wrapper" 
+                onClick={handleImageInteraction}
+                onTouchStart={handleImageInteraction}
+              >
                 <img src={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} alt="Tabela com o cronograma semanal da coleta" />
-                <div className="zoom-hint">
-                  <FontAwesomeIcon icon={faUpDownLeftRight} />
-                  <span>Pince para ampliar</span>
-                </div>
+                
+                {/* A DICA AGORA SÓ APARECE SE AINDA NÃO FOI DISPENSADA */}
+                {!hintDismissed && (
+                  <div className="zoom-hint">
+                    <FontAwesomeIcon icon={faUpDownLeftRight} />
+                    <span>Pince para ampliar</span>
+                  </div>
+                )}
               </div>
 
               {cronogramaData.ultimaAtualizacao && (
@@ -100,11 +98,7 @@ function HomePage() {
                   <span>Baixar Cronograma</span>
               </a>
             </div>
-            <Lightbox
-                open={open}
-                close={() => setOpen(false)}
-                slides={[{ src: `${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`, alt: "Cronograma da Coleta Seletiva" }]}
-            />
+            {/* O Lightbox (zoom em tela cheia) continua removido */}
           </div>
         </section>
       )}
