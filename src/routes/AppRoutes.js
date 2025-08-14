@@ -1,4 +1,4 @@
-=import React, { useEffect } from 'react';
+import React, { useEffect } from 'react';
 // 1. Adicionar as importações necessárias
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'; 
 import PrivateRoute from './PrivateRoute';
