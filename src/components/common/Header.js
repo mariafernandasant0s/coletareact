@@ -77,7 +77,7 @@ function Header() {
                             </ul>
                         </li>
                         
-                        <li><a href="/#cronograma" onClick={handleCronogramaClick}>Cronograma</a></li>
+                        <li><a href="/index.html#cronograma" onClick={handleCronogramaClick}>Cronograma</a></li>
                         <li><a href="/docs/cartilha-deco.pdf" target="_blank" rel="noopener noreferrer" onClick={closeAllMenus}>Cartilha</a></li>
                         <li><NavLink to="/quemsomos" onClick={closeAllMenus}>Quem somos</NavLink></li>
                         <li><NavLink to="/total-coletado" onClick={closeAllMenus}>Total coletado</NavLink></li>
@@ -90,5 +90,6 @@ function Header() {
         </header>
     );
 }
+
 
 export default Header;
