@@ -56,7 +56,7 @@ function GenericPage({ slug }) {
     if (staticPages[slug]) { setPageData({ titulo: staticPages[slug] }); setLoading(false); } else { fetchPage(); }
   }, [slug]);
   
-  if (loading) { return <div style={{ textAlign: 'center', padding: '40px' }}>Carregando...</div>; }
+  if (loading) { return <div style={{ textAlign: 'center', padding: '40px' }}>Carregando..</div>; }
   if (!pageData) { return (<section className="info-section" style={{ textAlign: 'center' }}><h2>Página não encontrada</h2><p>O conteúdo que você está procurando não pôde ser carregado.</p></section>); }
   const pageIcon = pageIcons[slug];
 
@@ -95,3 +95,4 @@ function GenericPage({ slug }) {
 }
 
 export default GenericPage;
+
