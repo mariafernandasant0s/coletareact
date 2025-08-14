@@ -1,7 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// Adicionar o ícone de interrogação para o FAQ
-import { faHome, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'; 
+import { faHome, faQuestionCircle, faCode } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { Link } from 'react-router-dom';
 
@@ -12,6 +11,7 @@ import logoAcamar from '../../assets/imagens/logo-acamar.png';
 import logoEducacaoAmbiental from '../../assets/imagens/logo-educacao-ambiental.png';
 import logoSecretaria from '../../assets/imagens/logo-secretaria.png';
 import logoPrefeituraRodape from '../../assets/imagens/logo-prefeitura-rodape.png';
+import logoIfpr from '../../assets/imagens/assis-vertical.png';
 import logoOds6 from '../../assets/imagens/logo-ods6.png';
 import logoOds8 from '../../assets/imagens/logo-ods8.png';
 import logoOds10 from '../../assets/imagens/logo-ods10.png';
@@ -33,6 +33,7 @@ function Footer() {
           <img src={logoEducacaoAmbiental} alt="Logo Educação Ambiental" className="logo-principal-parceiro" />
           <img src={logoSecretaria} alt="Logo Secretaria Municipal" className="logo-principal-parceiro" />
           <img src={logoPrefeituraRodape} alt="Logo Prefeitura" className="logo-principal-parceiro" />
+          <img src={logoIfpr} alt="Logo IFPR Campus Assis Chateaubriand" className="logo-parceiro" />
         </div>
       </div>
 
@@ -48,15 +49,17 @@ function Footer() {
       </div>
 
       <div className="footer-quick-links">
-        <a href="https://www.instagram.com/uvr_assis/" target="_blank" rel="noopener noreferrer">
-          <FontAwesomeIcon icon={faInstagram} /> Insta UVR
-        </a>
         <Link to="/">
           <FontAwesomeIcon icon={faHome} /> Página Inicial
         </Link>
-        {/* NOVO LINK ADICIONADO AQUI */}
+        <a href="https://www.instagram.com/uvr_assis/" target="_blank" rel="noopener noreferrer">
+          <FontAwesomeIcon icon={faInstagram} /> Insta UVR
+        </a>
         <Link to="/faq">
           <FontAwesomeIcon icon={faQuestionCircle} /> FAQ
+        </Link>
+        <Link to="/desenvolvedoras">
+          <FontAwesomeIcon icon={faCode} /> Desenvolvedoras
         </Link>
       </div>
 
