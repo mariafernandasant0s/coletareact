@@ -274,8 +274,8 @@ body.contrast-mode img, body.contrast-mode iframe.youtube-video { filter: invert
   color: #444;
   font-size: 1.1em;
 }
-/* A "receita" da animação: ela aparece, pulsa duas vezes e some */
-@keyframes pulse-and-fade {
+
+ @keyframes pulse-and-fade {
   0% { opacity: 0; transform: scale(0.95); }
   20% { opacity: 1; transform: scale(1); }
   40% { opacity: 1; transform: scale(1.05); }
@@ -299,33 +299,36 @@ body.contrast-mode img, body.contrast-mode iframe.youtube-video { filter: invert
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-/* O 'hint' (pince) que fica sobre a imagem */
+/* Por padrão, em telas grandes, o 'hint' não aparece */
 .zoom-hint {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 25, 50, 0.5);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  
-  opacity: 0; /* Começa invisível */
-  pointer-events: none; /* Não interfere com o clique */
-  
-  /* Aplica a animação, que dura 8 segundos e só acontece uma vez */
-  animation: pulse-and-fade 8s ease-in-out forwards;
+  display: none;
 }
 
-/* Faz o 'hint' aparecer de novo quando o mouse passa por cima, mas sem a animação */
-.cronograma-zoom-wrapper:hover .zoom-hint {
-  opacity: 1;
-  animation: none; /* Desliga a animação para o hover */
-  transition: opacity 0.3s ease;
+/* REGRA PARA TELAS MENORES (TABLETS E CELULARES) */
+@media (max-width: 1024px) {
+  .zoom-hint {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 25, 50, 0.5);
+    color: white;
+    display: flex; /* <-- A MÁGICA ACONTECE AQUI */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    pointer-events: none;
+    animation: pulse-and-fade 8s ease-in-out forwards;
+  }
+
+  .cronograma-zoom-wrapper:hover .zoom-hint {
+    opacity: 1;
+    animation: none;
+    transition: opacity 0.3s ease;
+  }
 }
 
 .zoom-hint svg {
