@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarDays, faHandPointer, faDownload } from '@fortawesome/free-solid-svg-icons';
+// 1. ÍCONE CORRETO IMPORTADO AQUI
+import { faCalendarDays, faDownload, faSearchPlus } from '@fortawesome/free-solid-svg-icons'; 
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { apiPublic } from '../../config/api';
+import { useLocation } from 'react-router-dom';
 
 function HomePage() {
   const [heroData, setHeroData] = useState(null);
   const [cronogramaData, setCronogramaData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,6 +34,17 @@ function HomePage() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (location.hash) {
+        const element = document.getElementById(location.hash.substring(1));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }, 100);
+  }, [location]);
+
   if (loading) {
     return <main style={{ padding: '40px', textAlign: 'center' }}><p>Carregando...</p></main>;
   }
@@ -43,14 +57,14 @@ function HomePage() {
       </main>
     );
   }
-  
+ 
   return (
     <>
       <Helmet>
         <title>Início - Coleta Seletiva de Assis Chateaubriand</title>
         <meta name="description" content="Página inicial com o cronograma da coleta e outras informações." />
       </Helmet>
-      
+     
       {heroData.midiaUrl && (
         <section id="hero">
           <img src={`${process.env.REACT_APP_API_URL}${heroData.midiaUrl}`} alt={heroData.titulo} />
@@ -60,23 +74,23 @@ function HomePage() {
       {cronogramaData.midiaUrl && (
         <section id="cronograma" className="info-section">
           <div className="container">
-            <h2>
+            <div className="titulo-principal">
               <FontAwesomeIcon icon={faCalendarDays} />
-              {cronogramaData.titulo}
-            </h2>
-            <div className="cronograma-container" style={{textAlign: 'center'}}>
-              <div dangerouslySetInnerHTML={{ __html: cronogramaData.conteudo }} />
-              <div onClick={() => setOpen(true)} style={{cursor: 'pointer', maxWidth: '740px', margin: '20px auto'}}>
+              <h2>{cronogramaData.titulo}</h2>
+            </div>
+
+            <div className="cronograma-container">
+              <div className="cronograma-zoom-wrapper" onClick={() => setOpen(true)}>
                 <img src={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} alt="Tabela com o cronograma semanal da coleta" />
+                <div className="zoom-hint">
+                  {/* 2. ÍCONE CORRETO USADO AQUI */}
+                  <FontAwesomeIcon icon={faSearchPlus} />
+                  <span>Pince para ampliar</span>
+                </div>
               </div>
+
               {cronogramaData.ultimaAtualizacao && (
-                <div className="cronograma-timestamp" style={{ 
-                  textAlign: 'center', 
-                  marginTop: '15px', 
-                  fontSize: '14px', 
-                  color: '#666',
-                  fontStyle: 'italic'
-                }}>
+                <div className="cronograma-timestamp">
                   Atualizado em {cronogramaData.ultimaAtualizacao}
                 </div>
               )}
@@ -98,5 +112,3 @@ function HomePage() {
 }
 
 export default HomePage;
-
-
