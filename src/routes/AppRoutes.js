@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+=import React, { useEffect } from 'react';
 // 1. Adicionar as importações necessárias
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'; 
 import PrivateRoute from './PrivateRoute';
@@ -35,11 +35,11 @@ function AppRoutes() {
         <Route path="/como-separar/como-fazer" element={<GenericPage slug="como-fazer-separacao" />} />
         <Route path="/como-separar/residuos" element={<GenericPage slug="quais-residuos" />} />
         <Route path="/como-separar/porque-separar" element={<GenericPage slug="porque-separar" />} />
-        {/* <Route path="/cronograma" element={<GenericPage slug="cronograma" />} /> */}
         <Route path="/quemsomos" element={<GenericPage slug="quem-somos" />} />
         <Route path="/total-coletado" element={<GenericPage slug="total-coletado-grafico" />} />
         <Route path="/contato" element={<GenericPage slug="contato" />} />
         <Route path="/faq" element={<GenericPage slug="faq" />} />
+        <Route path="/desenvolvedoras" element={<GenericPage slug="desenvolvedoras" />} />
         
         <Route path="/login" element={<Navigate to="/admin/login" replace />} />
         <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
@@ -54,4 +54,3 @@ function AppRoutes() {
 }
 
 export default AppRoutes;
-
