@@ -163,43 +163,40 @@ body.contrast-mode img, body.contrast-mode iframe.youtube-video { filter: invert
    REGRAS DE TÍTULO - CORREÇÃO FINALÍSSIMA
    ============================================================= */
 
-.info-section .container {
-  text-align: center;
-}
-
 .titulo-principal {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px; /* Espaço entre o ícone e o texto */
+  gap: 15px;
   margin-bottom: 40px;
-  text-align: center; /* Centraliza o texto caso ele quebre */
+  text-align: center;
 }
 
 .titulo-principal svg {
   font-size: 1.8rem;
   color: #003366;
-  flex-shrink: 0; /* Impede o ícone de encolher */
+  flex-shrink: 0;
 }
 
 .titulo-principal h2 {
   font-family: 'Nunito Sans', sans-serif;
-  font-weight: 700; /* Peso da fonte original */
+  font-weight: 700;
   font-size: 2.1em;
   line-height: 1.3;
   margin: 0;
 }
 
-@media (max-width: 100px) {
-  .titulo-principal {
-    /* Em telas pequenas, permite que o título fique embaixo do ícone se necessário */
-    flex-direction: column;
-    gap: 10px;
-  }
+@media (max-width: 768px) {
+  /* A REGRA QUE COLOCAVA EM COLUNA FOI REMOVIDA DAQUI */
   .titulo-principal h2 {
     font-size: 1.8em;
   }
+  .titulo-principal svg {
+    font-size: 1.8rem;
+  }
 }
+
+
 /* Centraliza os subtítulos h4 na página "Quem Somos" */
 .content-wrapper .subtitulo-centralizado {
   text-align: center;
@@ -275,14 +272,14 @@ body.contrast-mode img, body.contrast-mode iframe.youtube-video { filter: invert
   font-size: 1.1em;
 }
 
- @keyframes pulse-and-fade {
-  0% { opacity: 0; transform: scale(0.95); }
-  20% { opacity: 1; transform: scale(1); }
-  40% { opacity: 1; transform: scale(1.05); }
-  60% { opacity: 1; transform: scale(1); }
-  80% { opacity: 1; transform: scale(1.05); }
-  90% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(0.95); }
+/* =============================================================
+   ESTILOS PARA O ZOOM DO CRONOGRAMA (SÓ MOBILE, SOME AO CLICAR)
+   ============================================================= */
+
+@keyframes pulse-infinite {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
 .cronograma-container {
@@ -291,7 +288,7 @@ body.contrast-mode img, body.contrast-mode iframe.youtube-video { filter: invert
 
 .cronograma-zoom-wrapper {
   position: relative;
-  cursor: pointer;
+  cursor: pointer; /* Cursor de clique para indicar interatividade */
   max-width: 740px;
   margin: 20px auto;
   border-radius: 8px;
@@ -299,7 +296,7 @@ body.contrast-mode img, body.contrast-mode iframe.youtube-video { filter: invert
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-/* Por padrão, em telas grandes, o 'hint' não aparece */
+/* Por padrão, em telas grandes (desktop), a dica NÃO aparece */
 .zoom-hint {
   display: none;
 }
@@ -314,20 +311,15 @@ body.contrast-mode img, body.contrast-mode iframe.youtube-video { filter: invert
     height: 100%;
     background-color: rgba(0, 25, 50, 0.5);
     color: white;
-    display: flex; /* <-- A MÁGICA ACONTECE AQUI */
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    opacity: 0;
     pointer-events: none;
-    animation: pulse-and-fade 8s ease-in-out forwards;
-  }
-
-  .cronograma-zoom-wrapper:hover .zoom-hint {
-    opacity: 1;
-    animation: none;
-    transition: opacity 0.3s ease;
+    
+    /* A animação só acontece em telas pequenas */
+    animation: pulse-infinite 2s ease-in-out infinite;
   }
 }
 
