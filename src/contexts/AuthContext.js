@@ -2,6 +2,9 @@ import React, { createContext, useState, useContext, useEffect, useCallback } fr
 import api from '../config/api';
 import { useNavigate } from 'react-router-dom';
 
+// Importando o novo componente de loading que criamos
+import LoadingSpinner from '../components/LoadingSpinner'; 
+
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
@@ -9,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Logout
+  // Função de Logout
   const logout = useCallback(() => {
     localStorage.removeItem("user_token");
     localStorage.removeItem("user_info");
@@ -17,7 +20,7 @@ export const AuthProvider = ({ children }) => {
     navigate("/admin/login");
   }, [navigate]);
 
-  // Adiciona automaticamente o token em todas as requisições
+  // Adiciona automaticamente o token em todas as requisições da API
   useEffect(() => {
     api.interceptors.request.use((config) => {
       const token = localStorage.getItem('user_token');
@@ -28,13 +31,13 @@ export const AuthProvider = ({ children }) => {
     });
   }, []);
 
-  // Carrega usuário no início
+  // Carrega as informações do usuário ao iniciar a aplicação
   useEffect(() => {
     const loadUser = async () => {
       try {
         const storedUser = localStorage.getItem('user_info');
         if (storedUser) {
-          setUser(JSON.parse(storedUser)); // já mostra info local
+          setUser(JSON.parse(storedUser)); // Mostra info local imediatamente
         }
 
         const token = localStorage.getItem('user_token');
@@ -45,7 +48,7 @@ export const AuthProvider = ({ children }) => {
         }
       } catch (error) {
         console.error('Falha ao carregar usuário:', error);
-        logout();
+        logout(); // Desloga se o token for inválido
       } finally {
         setLoading(false);
       }
@@ -53,16 +56,16 @@ export const AuthProvider = ({ children }) => {
 
     loadUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [logout]); // Adicionado logout como dependência
+  }, [logout]);
 
-  // Login
+  // Função de Login
   const login = useCallback(async (email, password) => {
     try {
       setLoading(true);
       const { data } = await api.post("/api/auth/login", { email, password });
 
       if (!data.token) {
-        throw new Error("Token não recebido");
+        throw new Error("Token não recebido do servidor");
       }
 
       localStorage.setItem("user_token", data.token);
@@ -90,12 +93,13 @@ export const AuthProvider = ({ children }) => {
     }
   }, [logout]);
 
-  // Permissão
+  // Função para verificar permissão de acesso
   const hasPermission = useCallback((requiredRole) => {
     if (!user) return false;
     return user.role === requiredRole;
   }, [user]);
 
+  // Valor a ser compartilhado pelo contexto
   const authValue = {
     user,
     loading,
@@ -107,11 +111,13 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={authValue}>
-      {loading ? <div>Carregando....</div> : children}
+      {/* Aqui está a mudança: exibe o LoadingSpinner enquanto 'loading' for true */}
+      {loading ? <LoadingSpinner /> : children}
     </AuthContext.Provider>
   );
 };
 
+// Hook customizado para facilitar o uso do contexto
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -119,5 +125,3 @@ export const useAuth = () => {
   }
   return context;
 };
-
-
