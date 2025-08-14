@@ -84,7 +84,7 @@ function Header() {
                         </li>
                         
                         {/* 4. O link do cronograma agora usa a nova função */}
-                        <li><a href="/#cronograma" onClick={handleCronogramaClick}>Cronograma</a></li>
+                        <li><a href="/index.html#cronograma" onClick={handleCronogramaClick}>Cronograma</a></li>
                         
                         <li><a href="docs/cartilha-deco.pdf" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Cartilha</a></li>
                         <li><NavLink to="/acamar" onClick={() => setIsMenuOpen(false)}>Quem somos</NavLink></li>
@@ -100,3 +100,4 @@ function Header() {
 }
 
 export default Header;
+
