@@ -46,7 +46,7 @@ function HomePage() {
   }, [location]);
 
   if (loading) {
-    return <main style={{ padding: '40px', textAlign: 'center' }}><p>Carregando...</p></main>;
+    return <main style={{ padding: '140px', textAlign: 'center' }}><p>Carregando...</p></main>;
   }
 
   if (!heroData || !cronogramaData) {
@@ -112,3 +112,4 @@ function HomePage() {
 }
 
 export default HomePage;
+
