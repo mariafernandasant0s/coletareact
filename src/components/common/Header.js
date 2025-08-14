@@ -1,7 +1,5 @@
-// src/components/common/Header.js
 import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-// ✅ CORREÇÃO AQUI: o caminho para as imagens mudou
+import { NavLink, useLocation } from 'react-router-dom'; // 1. IMPORTE useLocation
 import logoPrefeitura from '../../assets/imagens/logo-prefeitura.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp, faHome, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -9,7 +7,9 @@ import { faChevronDown, faChevronUp, faHome, faBars, faTimes } from '@fortawesom
 function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
-    const navigate = useNavigate();
+    
+    // 2. PEGUE A LOCALIZAÇÃO ATUAL
+    const location = useLocation();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -23,24 +23,23 @@ function Header() {
         setIsSubmenuOpen(!isSubmenuOpen);
     };
 
-    const handleCronogramaClick = (e) => {
+    // 3. FUNÇÃO DE ROLAGEM SIMPLIFICADA
+    const handleLocalScroll = (e) => {
         e.preventDefault();
-        if (isMenuOpen) {
-            setIsMenuOpen(false);
+        closeAllMenus(); // Fecha os menus
+        const section = document.getElementById('cronograma');
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-        navigate('/');
-        setTimeout(() => {
-            const section = document.getElementById('cronograma');
-            if (section) {
-                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }, 100);
     };
 
     const closeAllMenus = () => {
         setIsMenuOpen(false);
         setIsSubmenuOpen(false);
     };
+
+    // 4. VERIFICA SE ESTAMOS NA HOMEPAGE
+    const isHomePage = location.pathname === '/';
 
     return (
         <header className={`main-header ${isMenuOpen ? 'menu-is-active' : ''}`}>
@@ -77,7 +76,17 @@ function Header() {
                             </ul>
                         </li>
                         
-                        <li><a href="/index.html#cronograma" onClick={handleCronogramaClick}>Cronograma</a></li>
+                        {/* 5. LÓGICA CONDICIONAL NO LINK DO CRONOGRAMA */}
+                        <li>
+                            {isHomePage ? (
+                                // Se ESTÁ na Home, usa a função de rolagem local
+                                <a href="#cronograma" onClick={handleLocalScroll}>Cronograma</a>
+                            ) : (
+                                // Se NÃO ESTÁ na Home, usa um NavLink para a Home com o hash
+                                <NavLink to="/#cronograma" onClick={closeAllMenus}>Cronograma</NavLink>
+                            )}
+                        </li>
+
                         <li><a href="/docs/cartilha-deco.pdf" target="_blank" rel="noopener noreferrer" onClick={closeAllMenus}>Cartilha</a></li>
                         <li><NavLink to="/quemsomos" onClick={closeAllMenus}>Quem somos</NavLink></li>
                         <li><NavLink to="/total-coletado" onClick={closeAllMenus}>Total coletado</NavLink></li>
@@ -90,6 +99,5 @@ function Header() {
         </header>
     );
 }
-
 
 export default Header;
