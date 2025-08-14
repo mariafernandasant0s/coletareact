@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// 1. ÍCONE CORRETO IMPORTADO AQUI
-import { faCalendarDays, faDownload, faSearchPlus } from '@fortawesome/free-solid-svg-icons'; 
-import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
+import { faCalendarDays, faDownload, faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons'; 
 import { apiPublic } from '../../config/api';
 import { useLocation } from 'react-router-dom';
 
@@ -12,8 +9,8 @@ function HomePage() {
   const [heroData, setHeroData] = useState(null);
   const [cronogramaData, setCronogramaData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [open, setOpen] = useState(false);
-  const location = useLocation();
+  
+  const [hintDismissed, setHintDismissed] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,15 +22,13 @@ function HomePage() {
         ]);
         setHeroData(heroRes.data);
         setCronogramaData(cronogramaRes.data);
-      } catch (error) {
-        console.error("Erro ao buscar dados da página inicial:", error);
-      } finally {
-        setLoading(false);
-      }
+      } catch (error) { console.error("Erro ao buscar dados da página inicial:", error); }
+      finally { setLoading(false); }
     };
     fetchData();
   }, []);
 
+  const location = useLocation();
   useEffect(() => {
     setTimeout(() => {
       if (location.hash) {
@@ -45,18 +40,13 @@ function HomePage() {
     }, 100);
   }, [location]);
 
-  if (loading) {
-    return <main style={{ padding: '140px', textAlign: 'center' }}><p>Carregando...</p></main>;
-  }
+  // Função que lida tanto com o clique (desktop) quanto com o toque (mobile)
+  const handleImageInteraction = () => {
+    setHintDismissed(true);
+  };
 
-  if (!heroData || !cronogramaData) {
-    return (
-      <main style={{ padding: '40px', textAlign: 'center' }}>
-        <h2>Oops! Não foi possível carregar a página.</h2>
-        <p>Houve um problema de comunicação com o servidor. Por favor, tente novamente mais tarde.</p>
-      </main>
-    );
-  }
+  if (loading) { return <main style={{ padding: '40px', textAlign: 'center' }}><p>Carregando...</p></main>; }
+  if (!heroData || !cronogramaData) { return ( <main style={{ padding: '40px', textAlign: 'center' }}> <h2>Oops! Não foi possível carregar a página.</h2> <p>Por favor, tente novamente mais tarde.</p> </main> ); }
  
   return (
     <>
@@ -80,13 +70,20 @@ function HomePage() {
             </div>
 
             <div className="cronograma-container">
-              <div className="cronograma-zoom-wrapper" onClick={() => setOpen(true)}>
+              {/* ATUALIZAÇÃO AQUI: adicionado o onTouchStart */}
+              <div 
+                className="cronograma-zoom-wrapper" 
+                onClick={handleImageInteraction} 
+                onTouchStart={handleImageInteraction}
+              >
                 <img src={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} alt="Tabela com o cronograma semanal da coleta" />
-                <div className="zoom-hint">
-                  {/* 2. ÍCONE CORRETO USADO AQUI */}
-                  <FontAwesomeIcon icon={faSearchPlus} />
-                  <span>Pince para ampliar</span>
-                </div>
+                
+                {!hintDismissed && (
+                  <div className="zoom-hint">
+                    <FontAwesomeIcon icon={faUpDownLeftRight} />
+                    <span>Pince para ampliar</span>
+                  </div>
+                )}
               </div>
 
               {cronogramaData.ultimaAtualizacao && (
@@ -99,11 +96,6 @@ function HomePage() {
                   <span>Baixar Cronograma</span>
               </a>
             </div>
-            <Lightbox
-                open={open}
-                close={() => setOpen(false)}
-                slides={[{ src: `${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`, alt: "Cronograma da Coleta Seletiva" }]}
-            />
           </div>
         </section>
       )}
@@ -112,4 +104,3 @@ function HomePage() {
 }
 
 export default HomePage;
-
