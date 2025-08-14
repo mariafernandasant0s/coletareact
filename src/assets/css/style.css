@@ -163,10 +163,13 @@ body.contrast-mode img, body.contrast-mode iframe.youtube-video { filter: invert
    REGRAS DE TÍTULO - CORREÇÃO FINALÍSSIMA
    ============================================================= */
 
+/* =============================================================
+   REGRA DE OURO PARA TÍTULOS (VERSÃO FINAL E CORRIGIDA)
+   ============================================================= */
 .titulo-principal {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* MUDANÇA AQUI: Alinha pelo topo */
   gap: 15px;
   margin-bottom: 40px;
   text-align: center;
@@ -176,6 +179,7 @@ body.contrast-mode img, body.contrast-mode iframe.youtube-video { filter: invert
   font-size: 1.8rem;
   color: #003366;
   flex-shrink: 0;
+  margin-top: 0.2em; /* MUDANÇA AQUI: Ajuste fino para descer o ícone */
 }
 
 .titulo-principal h2 {
@@ -187,12 +191,15 @@ body.contrast-mode img, body.contrast-mode iframe.youtube-video { filter: invert
 }
 
 @media (max-width: 768px) {
-  /* A REGRA QUE COLOCAVA EM COLUNA FOI REMOVIDA DAQUI */
-  .titulo-principal h2 {
-    font-size: 1.8em;
+  .titulo-principal {
+    flex-direction: row; /* Garante que fique lado a lado no mobile também */
+    align-items: center; /* No mobile, centralizar verticalmente funciona melhor */
   }
   .titulo-principal svg {
-    font-size: 1.8rem;
+      margin-top: 0; /* Remove o ajuste de margem no mobile */
+  }
+  .titulo-principal h2 {
+    font-size: 1.8em;
   }
 }
 
