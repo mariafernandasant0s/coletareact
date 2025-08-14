@@ -1,35 +1,36 @@
 // src/App.js
-
 import React from 'react';
-// Não precisa mais de 'BrowserRouter as Router' nem 'AuthProvider' aqui
+import { BrowserRouter as Router } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { AuthProvider } from './contexts/AuthContext';
 import AppRoutes from './routes/AppRoutes';
-
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-import StickyInstaButton from './components/common/StickyInstaButton';
-import UtilityBar from './components/common/UtilityBar';
+
+// 1. IMPORTE O NOVO COMPONENTE
 import BackToTopButton from './components/BackToTopButton';
 
-import './assets/css/style.css'; 
+import './App.css';
+import "yet-another-react-lightbox/styles.css";
 
 function App() {
-  // Agora a estrutura está limpa e correta
   return (
-    <HelmetProvider>
-      {/* <Router> foi removido */}
-      {/* <AuthProvider> foi removido */}
-      
-      <UtilityBar />
-      <Header />
-      <main>
-        {/* AppRoutes irá renderizar as rotas corretas, pois o contexto do roteador já existe */}
-        <AppRoutes />
-      </main>
-      <Footer />
-      <StickyInstaButton />
-
-    </HelmetProvider>
+    <Router>
+      <HelmetProvider>
+        <AuthProvider>
+          <div className="app-container">
+            <Header />
+            <main className="main-content">
+              <AppRoutes />
+            </main>
+            <Footer />
+            
+            {/* 2. ADICIONE O BOTÃO AQUI */}
+            <BackToTopButton />
+          </div>
+        </AuthProvider>
+      </HelmetProvider>
+    </Router>
   );
 }
 
