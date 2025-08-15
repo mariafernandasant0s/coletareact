@@ -63,7 +63,7 @@ main > section:last-of-type { margin-bottom: 0; }
 .info-section > .container > img { margin: 35px auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
 .cronograma-container { position: relative; margin: 20px auto; }
 .zoom-hint { display: none; }
-footer { background-color: #ffffff; color: #333; padding: 0; margin-top: 40px; font-size: 0.9em; border-top: 1px solid #ddd; }
+footer { background-color: #ffffff; color: #333; padding: 0; margin-top: 60px; font-size: 0.9em; border-top: 1px solid #ddd; }
 .footer-line { padding: 20px 0; border-bottom: 1px solid #eee; }
 .footer-line:last-child { border-bottom: none; }
 .footer-logos .container,
@@ -298,42 +298,52 @@ body.contrast-mode img, body.contrast-mode iframe.youtube-video { filter: invert
 /* =============================================================
    REGRA DE OURO PARA TÍTULOS (VERSÃO FINAL E CORRIGIDA)
    ============================================================= */
-.titulo-principal {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; /* MUDANÇA AQUI: Alinha pelo topo */
-  gap: 15px;
-  margin-bottom: 40px;
-  text-align: center;
-}
+/* =============================================================
+   SOLUÇÃO FINAL SEM FLEXBOX - À PROVA DE FALHAS
+   ============================================================= */
 
-.titulo-principal svg {
-  font-size: 1.8rem;
-  color: #003366;
-  flex-shrink: 0;
-  margin-top: 0.2em; /* MUDANÇA AQUI: Ajuste fino para descer o ícone */
+.titulo-principal {
+  /* Centraliza TUDO que estiver dentro dele */
+  text-align: center;
+  
+  /* Espaçamento inferior */
+  margin-bottom: 40px;
 }
 
 .titulo-principal h2 {
+  /* Estilos de fonte */
+  margin: 0;
+  padding: 0; /* Garante que não há espaçamento interno */
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 700;
   font-size: 2.1em;
   line-height: 1.3;
-  margin: 0;
+  color: #003366;
 }
 
-@media (max-width: 768px) {
-  .titulo-principal {
-    flex-direction: row; /* Garante que fique lado a lado no mobile também */
-    align-items: center; /* No mobile, centralizar verticalmente funciona melhor */
-  }
-  .titulo-principal svg {
-      margin-top: 0; /* Remove o ajuste de margem no mobile */
-  }
+.titulo-principal h2 svg {
+  /* Estilos do ícone */
+  font-size: 0.9em; /* Tamanho relativo ao texto */
+  color: #003366;
+  
+  /* Espaço entre o ícone e o texto */
+  margin-right: 15px;
+  
+  /* 
+    A MÁGICA ESTÁ AQUI:
+    Alinha verticalmente o ícone com o meio do texto.
+    Funciona em qualquer situação.
+  */
+  vertical-align: middle; 
+}
+
+/* Ajuste para telas muito pequenas */
+@media (max-width: 400px) {
   .titulo-principal h2 {
     font-size: 1.8em;
   }
 }
+
 
 
 /* Centraliza os subtítulos h4 na página "Quem Somos" */
@@ -544,4 +554,56 @@ body.contrast-mode img, body.contrast-mode iframe.youtube-video { filter: invert
   .main-nav ul li.has-submenu:hover .icon-arrow {
       transform: rotate(180deg);
   }
+}
+
+/* ===================================================
+   ANIMAÇÃO DO BOTÃO FLUTUANTE DO INSTAGRAM
+   =================================================== */
+
+@keyframes pulse-float {
+  0% {
+    transform: scale(1);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.4);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.sticky-insta {
+  animation: pulse-float 2s infinite ease-in-out;
+}
+
+.sticky-insta:hover {
+  animation-play-state: paused; /* Pausa a animação ao passar o mouse */
+
+}
+/* =============================================================
+   INDICADOR DE CARREGAMENTO (SPINNER)
+   ============================================================= */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh; /* Garante que o spinner fique centralizado na área de conteúdo */
+  padding: 40px 0;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3; /* Cor de fundo do círculo */
+  border-top: 5px solid #003366; /* Cor principal da animação (azul do site) */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
