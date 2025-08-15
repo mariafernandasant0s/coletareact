@@ -1,103 +1,73 @@
-import React, { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom'; // 1. IMPORTE useLocation
-import logoPrefeitura from '../../assets/imagens/logo-prefeitura.jpg';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronUp, faHome, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faQuestionCircle, faCode } from '@fortawesome/free-solid-svg-icons';
+import { faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { Link } from 'react-router-dom';
 
-function Header() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
-    
-    // 2. PEGUE A LOCALIZAÇÃO ATUAL
-    const location = useLocation();
+import logoItaipu from '../../assets/imagens/logo-itaipu.png';
+import logoInpar from '../../assets/imagens/logo-inpar.png';
+import logoColetaAmiga from '../../assets/imagens/logo-coleta-amiga.png';
+import logoAcamar from '../../assets/imagens/logo-acamar.png';
+import logoEducacaoAmbiental from '../../assets/imagens/logo-educacao-ambiental.png';
+import logoSecretaria from '../../assets/imagens/logo-secretaria.png';
+import logoPrefeituraRodape from '../../assets/imagens/logo-prefeitura-rodape.png';
+import logoIfpr from '../../assets/imagens/assis-vertical.png';
+import logoOds6 from '../../assets/imagens/logo-ods6.png';
+import logoOds8 from '../../assets/imagens/logo-ods8.png';
+import logoOds10 from '../../assets/imagens/logo-ods10.png';
+import logoOds11 from '../../assets/imagens/logo-ods11.png';
+import logoOds12 from '../../assets/imagens/logo-ods12.png';
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-        if (isMenuOpen) {
-            setIsSubmenuOpen(false);
-        }
-    };
+function Footer() {
+  const currentYear = new Date().getFullYear();
 
-    const toggleSubmenu = (e) => {
-        e.preventDefault();
-        setIsSubmenuOpen(!isSubmenuOpen);
-    };
+  return (
+    <footer>
+      <div className="footer-line footer-logos">
+        <div className="container">
+          <h4 className="footer-section-title">Nossos Parceiros</h4>
+          <img src={logoItaipu} alt="Logo Itaipu Binacional" className="logo-parceiro" />
+          <img src={logoInpar} alt="Logo InPAR" className="logo-parceiro" />
+          <img src={logoColetaAmiga} alt="Logo Programa Coleta Amiga" className="logo-principal-parceiro" />
+          <img src={logoAcamar} alt="Logo ACAMAR" className="logo-parceiro" />
+          <img src={logoEducacaoAmbiental} alt="Logo Educação Ambiental" className="logo-principal-parceiro" />
+          <img src={logoSecretaria} alt="Logo Secretaria Municipal" className="logo-principal-parceiro" />
+          <img src={logoPrefeituraRodape} alt="Logo Prefeitura" className="logo-principal-parceiro" />
+          <img src={logoIfpr} alt="Logo IFPR Campus Assis Chateaubriand" className="logo-parceiro" />
+        </div>
+      </div>
 
-    // 3. FUNÇÃO DE ROLAGEM SIMPLIFICADA
-    const handleLocalScroll = (e) => {
-        e.preventDefault();
-        closeAllMenus(); // Fecha os menus
-        const section = document.getElementById('cronograma');
-        if (section) {
-            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    };
+      <div className="footer-line footer-ods">
+        <div className="container">
+          <h4 className="footer-section-title">Objetivos de Desenvolvimento Sustentável (ODS)</h4>
+          <img src={logoOds6} alt="Logo ODS 6" />
+          <img src={logoOds8} alt="Logo ODS 8" />
+          <img src={logoOds10} alt="Logo ODS 10" />
+          <img src={logoOds11} alt="Logo ODS 11" />
+          <img src={logoOds12} alt="Logo ODS 12" />
+        </div>
+      </div>
 
-    const closeAllMenus = () => {
-        setIsMenuOpen(false);
-        setIsSubmenuOpen(false);
-    };
+      <div className="footer-quick-links">
+        <Link to="/">
+          <FontAwesomeIcon icon={faHome} /> Página Inicial
+        </Link>
+        <a href="https://www.instagram.com/uvr_assis/" target="_blank" rel="noopener noreferrer">
+          <FontAwesomeIcon icon={faInstagram} /> Insta UVR
+        </a>
+        <Link to="/faq">
+          <FontAwesomeIcon icon={faQuestionCircle} /> FAQ
+        </Link>
+        <Link to="/desenvolvedoras">
+          <FontAwesomeIcon icon={faCode} /> Desenvolvedoras
+        </Link>
+      </div>
 
-    // 4. VERIFICA SE ESTAMOS NA HOMEPAGE
-    const isHomePage = location.pathname === '/';
-
-    return (
-        <header className={`main-header ${isMenuOpen ? 'menu-is-active' : ''}`}>
-            <div className="container">
-                <div className="logo-area">
-                    <NavLink to="/" className="logo-link" onClick={closeAllMenus}>
-                        <img src={logoPrefeitura} alt="Logo oficial da Prefeitura Municipal de Assis Chateaubriand" className="logo" />
-                    </NavLink>
-                </div>
-
-                <button 
-                    className={`menu-toggle ${isMenuOpen ? 'is-active' : ''}`} 
-                    onClick={toggleMenu} 
-                    aria-label="Abrir menu" 
-                    aria-expanded={isMenuOpen}
-                    aria-controls="main-nav"
-                >
-                    <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
-                </button>
-
-                <nav className={`main-nav ${isMenuOpen ? 'is-active' : ''}`} id="main-nav">
-                    <ul>
-                        <li><NavLink to="/" aria-label="Página Inicial" end onClick={closeAllMenus}><FontAwesomeIcon icon={faHome} /></NavLink></li>
-                        
-                        <li className={`has-submenu ${isSubmenuOpen ? 'submenu-is-active' : ''}`}>
-                            <a href="/#" onClick={toggleSubmenu}>
-                                Como separar
-                                <FontAwesomeIcon icon={isSubmenuOpen ? faChevronUp : faChevronDown} className="icon-arrow" />
-                            </a>
-                            <ul className={`submenu ${isSubmenuOpen ? 'submenu-active' : ''}`}>
-                                <li><NavLink to="/como-separar/como-fazer" onClick={closeAllMenus}>Como fazer a separação?</NavLink></li>
-                                <li><NavLink to="/como-separar/residuos" onClick={closeAllMenus}>Quais são os resíduos recicláveis?</NavLink></li>
-                                <li><NavLink to="/como-separar/porque-separar" onClick={closeAllMenus}>Por que separar os resíduos?</NavLink></li>
-                            </ul>
-                        </li>
-                        
-                        {/* 5. LÓGICA CONDICIONAL NO LINK DO CRONOGRAMA */}
-                        <li>
-                            {isHomePage ? (
-                                // Se ESTÁ na Home, usa a função de rolagem local
-                                <a href="#cronograma" onClick={handleLocalScroll}>Cronograma</a>
-                            ) : (
-                                // Se NÃO ESTÁ na Home, usa um NavLink para a Home com o hash
-                                <NavLink to="/#cronograma" onClick={closeAllMenus}>Cronograma</NavLink>
-                            )}
-                        </li>
-
-                        <li><a href="/docs/cartilha-deco.pdf" target="_blank" rel="noopener noreferrer" onClick={closeAllMenus}>Cartilha</a></li>
-                        <li><NavLink to="/quemsomos" onClick={closeAllMenus}>Quem somos</NavLink></li>
-                        <li><NavLink to="/total-coletado" onClick={closeAllMenus}>Total coletado</NavLink></li>
-                        <li className="menu-contato-destaque">
-                            <NavLink to="/contato" onClick={closeAllMenus}>Contato</NavLink>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
-    );
+      <div className="footer-copyright">
+        <p>© {currentYear} Prefeitura Municipal de Assis Chateaubriand. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+  );
 }
 
-export default Header;
+export default Footer;
