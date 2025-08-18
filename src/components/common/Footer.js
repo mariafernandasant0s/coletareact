@@ -64,7 +64,15 @@ function Footer() {
       </div>
 
       <div className="footer-copyright">
-        <p>© {currentYear} Prefeitura Municipal de Assis Chateaubriand. Todos os direitos reservados.</p>
+      <footer>
+
+  <p>© 2025 Prefeitura Municipal de Assis Chateaubriand. Todos os direitos reservados.</p>
+
+  <strong>Desenvolvido por:</strong> Maria Fernanda & Mariáh Fassina – IFPR Campus Assis Chateaubriand
+
+</footer>
+
+ 
       </div>
     </footer>
   );
