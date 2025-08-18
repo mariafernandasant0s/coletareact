@@ -13,7 +13,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faNewspaper, faBottleWater, faWineGlass, faGear, faRecycle, faSeedling,
   faTrashCan, faUsers, faChartPie, faQuestionCircle, faPhone, faCode,
-  faCheckSquare, faChartLine, faLeaf, faHandHoldingDollar, faDownload, faChevronDown
+  faCheckSquare, faChartLine, faLeaf, faHandHoldingDollar, faDownload, faChevronDown,
+  faEnvelope // Adicionado ícone de email
 } from '@fortawesome/free-solid-svg-icons';
 import fotoAcamar from '../../assets/imagens/foto-acamar-uvr.jpg';
 import graficoTotalColetado from '../../assets/imagens/grafico-total-coletado.png';
@@ -25,7 +26,7 @@ const pageIcons = {
   'faq': faQuestionCircle, 'contato': faPhone
 };
 
-// --- Componentes Internos (Completos e Corretos) ---
+// --- Componentes Internos ---
 
 const MaterialsList = () => {
   const materialsData = [
@@ -34,7 +35,7 @@ const MaterialsList = () => {
     { icon: faWineGlass, title: 'Vidros', items: 'garrafas de bebida, potes de conserva, frascos de perfume, potes de geleia, entre outros.' },
     { icon: faGear, title: 'Metais', items: 'latinhas de cerveja e refrigerante, latas de doces, leite em pó, azeite, latinhas de sardinha, arames, embalagens metálicas, latinhas de milho e ervilha, entre outros.' },
   ];
-  return <div className="materials-list">{materialsData.map(m => (<div key={m.title} className="material-item"><div className="material-icon"><FontAwesomeIcon icon={m.icon} style={{ color: '#0056b3' }} /></div><div className="material-details"><h3>{m.title}</h3><p>{m.items}</p></div></div>))}</div>;
+  return <div className="materials-list">{materialsData.map((m, index) => (<div key={m.title} className="material-item animated" style={{ animationDelay: `${index * 0.15}s` }}><div className="material-icon"><FontAwesomeIcon icon={m.icon} style={{ color: '#0056b3' }} /></div><div className="material-details"><h3>{m.title}</h3><p>{m.items}</p></div></div>))}</div>;
 };
 
 const QuemSomosContent = () => {
@@ -48,19 +49,74 @@ const QuemSomosContent = () => {
     <div className="content-wrapper">
       <h4 className="subtitulo-centralizado">O que é o Programa Coleta Amiga?</h4><p>O Programa Coleta Amiga foi instituído através da Lei Municipal nº 3250 em 03 de maio de 2022. Seus principais objetivos são:</p><div className="objectives-list">{objectivesData.map((o, i) => (<div key={i} className="objective-item"><div className="objective-icon"><FontAwesomeIcon icon={o.icon} style={{ color: '#0056b3' }} /></div><p className="objective-text">{o.text}</p></div>))}</div>  
       <h4 className="subtitulo-centralizado">O que é a ACAMAR?</h4><p>A ACAMAR é a Associação dos Catadores de Materiais Recicláveis de Assis Chateaubriand - PR, fundada em 10 de outubro de 2001. Ela é considerada uma Entidade de Utilidade Pública, conforme a Lei Municipal n° 3.217 de 23 de abril de 2020.</p><h4 className="subtitulo-centralizado">Qual o local de destino dos recicláveis?</h4><p>Todo material previamente separado pela população e recolhido com auxílio dos caminhões da Coleta Amiga é encaminhado para a Unidade de Valorização de Recicláveis (UVR).</p><img src={fotoAcamar} alt="Unidade de Valorização de Recicláveis da ACAMAR" style={{ margin: '35px auto 0 auto', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)' }} loading="lazy" />  
-      <h4 className="subtitulo-centralizado">Localização UVR</h4><div className="map-container"><iframe src="https://maps.google.com/maps?q=UVR%20Unidade%20de%20Valoriza%C3%A7%C3%A3o%20de%20Recicl%C3%A1veis%20de%20Assis%20Chateaubriand&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="450" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Localização da ACAMAR no Google Maps"></iframe></div>
+      <h4 className="subtitulo-centralizado">Localização UVR</h4><div className="map-container"><iframe src="http://googleusercontent.com/maps.google.com/9" width="100%" height="450" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Localização da ACAMAR no Google Maps"></iframe></div>
     </div>
-   );
+  );
 };
 
 const TotalColetadoContent = () => <div className="content-wrapper" style={{ textAlign: 'center' }}><img src={graficoTotalColetado} alt="Gráfico do total de resíduos coletados" style={{ margin: '20px auto 0 auto', maxWidth: '100%' }} loading="lazy" /></div>;
 const CronogramaContent = ({ pageData }) => <div className="cronograma-container">{pageData?.midiaUrl ? (<><img className="cronograma-image" src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} /><a href={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} className="download-button" download><FontAwesomeIcon icon={faDownload} /> Baixar Cronograma</a></>) : (<div style={{ textAlign: 'center', padding: '20px' }}><p>Imagem do cronograma não disponível.</p></div>)}</div>;
 const FaqContent = () => {
-  const [openIndex, setOpenIndex] = useState(null);
-  const faqData = [{question: "O que acontece se eu misturar lixo orgânico com o reciclável?",answer: "Misturar lixo orgânico (restos de comida) com materiais recicláveis pode contaminar todo o lote, inviabilizando a reciclagem. O material contaminado acaba sendo destinado ao aterro sanitário, o que anula o esforço da separação. Por isso, é fundamental separar corretamente."},{question: "Preciso lavar as embalagens antes de descartar?",answer: "Sim, é importante passar uma água para remover os resíduos de alimentos das embalagens, como potes de iogurte, latas de molho e garrafas. Isso evita o mau cheiro, a proliferação de insetos e ajuda no processo de triagem na UVR."},{question: "O que não é reciclável?",answer: "Alguns itens comuns que não devem ser colocados no lixo reciclável são: papel higiênico, guardanapos sujos, fotografias, fitas adesivas, esponjas de aço, pilhas, baterias e lixo eletrónico (estes devem ter um descarte especial)."}];
-  return <div className="content-wrapper faq-content">{faqData.map((item, index) => (<div className="faq-item" key={index}><button className={`faq-question ${openIndex === index ? 'is-open' : ''}`} onClick={() => setOpenIndex(openIndex === index ? null : index)}>{item.question}<FontAwesomeIcon icon={faChevronDown} className="faq-icon" /></button>{openIndex === index && (<div className="faq-answer"><p>{item.answer}</p></div>)}</div>))}</div>;
+    const [openIndex, setOpenIndex] = useState(null);
+    const faqData = [
+    { question: "Meu saco de ráfia foi extraviado, o que eu faço agora?", answer: "Você pode continuar separando normalmente os materiais recicláveis usando caixas de papelão ou sacolas de supermercado; o saco é apenas um auxílio. A entrega ocorre anualmente pelo município." },
+    { question: "Estou com bastante material reciclado na minha propriedade, posso agendar a coleta?", answer: "Sim. O agendamento pode ser feito normalmente pelo contato 44 99183 3010." },
+    { question: "A coleta seletiva ocorre em dias chuvosos?", answer: "Sim, a coleta ocorre normalmente." },
+    { question: "Em feriados ocorre a coleta?", answer: "Sim, a coleta ocorre normalmente, exceto em feriados como Natal e Ano Novo. Nos demais feriados pode haver alteração; se houver mudança, será informada com antecedência pelos canais oficiais da UVR." },
+    { question: "A coleta no meu bairro é pela manhã. Posso deixar o material na frente da minha residência na noite anterior?", answer: "Não. Deixar na noite anterior aumenta o risco de ser coletado pela coleta convencional, por pessoas informais ou ter contato com animais da região." },
+    { question: "Eu separo os recicláveis e deixo tudo na lixeira em frente à minha casa, mas não exatamente no dia em que o caminhão do material reciclável passa no meu bairro. Estes meus resíduos serão encaminhados para reciclagem?", answer: "Possivelmente não. Há risco de ser coletado pela coleta convencional, que encaminha o material para a Unidade de Transbordo e Aterro Sanitário, resultando na perda de todo o material." }
+  ];
+  const handleToggle = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+  return (
+    <div className="content-wrapper faq-content">
+      {faqData.map((item, index) => (
+        <div className="faq-item" key={index}>
+          <button 
+            className={`faq-question ${openIndex === index ? 'is-open' : ''}`} 
+            onClick={() => handleToggle(index)}
+          >
+            {item.question}
+            <FontAwesomeIcon icon={faChevronDown} className="faq-icon" />
+          </button>
+          <div className={`faq-answer ${openIndex === index ? 'is-open' : ''}`}>
+            <div className="faq-answer-content">
+              <p>{item.answer}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 };
 
+const ContatoContent = () => {
+  return (
+    <div className="contact-info-container">
+      <div className="contact-item">
+        <FontAwesomeIcon icon={faEnvelope} className="contact-icon" />
+        <div>
+          <strong>Email</strong>
+          <br />
+          <a href="mailto:uvr.assischat@gmail.com">uvr.assischat@gmail.com</a>
+        </div>
+      </div>
+      <div className="contact-item">
+        <FontAwesomeIcon icon={faPhone} className="contact-icon" />
+        <div>
+          <strong>Telefone</strong>
+          <br />
+          <a href="tel:+5544991833010">(44) 99183-3010</a>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ================================================================
+// CÓDIGO DO PAGELOADER RESTAURADO
+// ================================================================
 const PageLoader = () => (
   <section className="info-section">
     <div className="container" style={{ padding: '20px 0' }}>
@@ -105,9 +161,6 @@ function GenericPage({ slug }) {
     fetchPageData();
   }, [slug]);
 
-  // ================================================================
-  // LÓGICA DE RENDERIZAÇÃO CORRIGIDA (SEM LINHAS DUPLICADAS)
-  // ================================================================
   if (loading) {
     return <PageLoader />;
   }
@@ -129,6 +182,7 @@ function GenericPage({ slug }) {
       case 'cronograma': return <CronogramaContent pageData={pageData} />;
       case 'total-coletado-grafico': return <TotalColetadoContent />;
       case 'faq': return <FaqContent />;
+      case 'contato': return <ContatoContent />;
       default:
         return (pageData.conteudo && pageData.conteudo.trim() !== '')
           ? <div className="content-wrapper" dangerouslySetInnerHTML={{ __html: pageData.conteudo }} />
@@ -146,17 +200,16 @@ function GenericPage({ slug }) {
       </Helmet>
       <section className="info-section">
         <div className="container">
-          <AnimateOnScroll>
-            <div className="content-wrapper">
-              <div className="titulo-principal">
-                <h2>
-                  {pageIcons[slug] && <FontAwesomeIcon icon={pageIcons[slug]} />}
-                  {pageData.titulo}
-                </h2>
-              </div>
-              {renderPageContent( )}
+          <div className="content-wrapper content-fade-in">
+            <div className="titulo-principal">
+              <h2>
+                {pageIcons[slug] && <FontAwesomeIcon icon={pageIcons[slug]} />}
+                {pageData.titulo}
+              </h2>
             </div>
-          </AnimateOnScroll>
+            {renderPageContent()}
+          </div>
+          
           {pageData.midiaUrl && (pageData.midiaUrl.includes('youtube.com') || pageData.midiaUrl.includes('youtu.be')) && (
             <AnimateOnScroll>
               <iframe className="youtube-video" src={convertYouTubeUrl(pageData.midiaUrl)} title={pageData.titulo} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
