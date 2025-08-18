@@ -221,4 +221,4 @@ function GenericPage({ slug }) {
   );
 }
 
-export default GenericPage;
+export default GenericPage; 
