@@ -52,7 +52,7 @@ const QuemSomosContent = () => {
       <h4 className="subtitulo-centralizado">Localização UVR</h4>
       <div className="map-container">
         {/* URL DO MAPA ATUALIZADA AQUI */}
-        <iframe src="https://maps.app.goo.gl/JVbz8uAW7Cw4EwDUA" width="100%" height="450" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Localização da ACAMAR no Google Maps"></iframe>
+        <iframe src="https://maps.app.goo.gl/eTctE3rBHMWGZFsr9" width="100%" height="450" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Localização da ACAMAR no Google Maps"></iframe>
       </div>
     </div>
   );
@@ -223,3 +223,4 @@ function GenericPage({ slug }) {
 }
 
 export default GenericPage;
+
