@@ -1,40 +1,40 @@
-// src/routes/AppRoutes.js
+// src/routes/AppRoutes.js (Versão Final e Corrigida)
 
-import React, { Suspense, lazy, useEffect } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'; 
+
+// Importações das suas páginas
 import PrivateRoute from './PrivateRoute';
+import HomePage from '../pages/public/Home';
+import GenericPage from '../pages/public/GenericPage';
+import NotFoundPage from '../pages/public/NotFoundPage';
+import AdminLogin from '../pages/admin/AdminLogin';
+import AdminDashboard from '../pages/admin/AdminDashboard';
+import EditPage from '../pages/admin/EditPage';
 
-// --- Componentes de Página Carregados com "Lazy Loading" ---
-const HomePage = lazy(() => import('../pages/public/Home'));
-const GenericPage = lazy(() => import('../pages/public/GenericPage'));
-const NotFoundPage = lazy(() => import('../pages/public/NotFoundPage'));
-const AdminLogin = lazy(() => import('../pages/admin/AdminLogin'));
-const AdminDashboard = lazy(() => import('../pages/admin/AdminDashboard'));
-const EditPage = lazy(() => import('../pages/admin/EditPage'));
-
-// --- Componente para Rolar a Página para o Topo ---
+// Componente que garante que cada nova página carregue no topo
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation();
+
   useEffect(() => {
     if (!hash) {
       window.scrollTo(0, 0);
     }
-  }, [pathname, hash]);
+  }, [pathname]);
+
   return null;
 };
 
+// Componente principal de rotas
 function AppRoutes() {
+  const location = useLocation();
+
   return (
-    /* 
-      ================================================================
-      A CORREÇÃO ESTÁ AQUI:
-      O fallback agora é um div simples, que não depende de nenhum
-      componente externo que não existe.
-      ================================================================
-    */
-    <Suspense fallback={<div style={{ textAlign: 'center', padding: '40px' }}>Carregando...</div>}>
-      <ScrollToTop />
-      <Routes>
+    <>
+      <ScrollToTop /> {/* <-- O ScrollToTop VEM PARA CÁ */}
+      
+      {/* A 'key' aqui garante que a animação de surgimento rode a cada mudança de página */}
+      <Routes location={location} key={location.pathname}>
         {/* Rotas Públicas */}
         <Route path="/" element={<HomePage />} />
         <Route path="/como-separar/como-fazer" element={<GenericPage slug="como-fazer-separacao" />} />
@@ -50,13 +50,19 @@ function AppRoutes() {
         <Route path="/login" element={<Navigate to="/admin/login" replace />} />
         <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
-        <Route path="/admin/paginas/edit/:id" element={<PrivateRoute><EditPage /></PrivateRoute>} />
+        <Route 
+          path="/admin/dashboard" 
+          element={<PrivateRoute><AdminDashboard /></PrivateRoute>} 
+        />
+        <Route 
+          path="/admin/paginas/edit/:id" 
+          element={<PrivateRoute><EditPage /></PrivateRoute>} 
+        />
 
-        {/* Rota de "Não Encontrado" */}
+        {/* Rota para Página Não Encontrada */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </Suspense>
+    </>
   );
 }
 
