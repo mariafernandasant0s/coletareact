@@ -1,4 +1,6 @@
-import React from 'react'; // Apenas o React é necessário aqui
+// src/App.js (Versão Correta, sem Router)
+
+import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import AppRoutes from './routes/AppRoutes';
 
@@ -11,15 +13,17 @@ import BackToTopButton from './components/BackToTopButton';
 import './assets/css/style.css'; 
 
 function App() {
-  // O código 'useEffect' para rolar a página foi removido daqui.
-
   return (
     <HelmetProvider>
+      {/* O Router NÃO fica aqui */}
       <UtilityBar />
       <Header />
-      <main>
+      
+      {/* A classe para a animação de surgimento fica aqui */}
+      <main className="content-fade-in">
         <AppRoutes />
       </main>
+      
       <Footer />
       <StickyInstaButton />
       <BackToTopButton /> 
