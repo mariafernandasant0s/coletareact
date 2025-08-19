@@ -52,7 +52,8 @@ const QuemSomosContent = () => {
       <h4 className="subtitulo-centralizado">Localização UVR</h4>
       <div className="map-container">
         {/* URL DO MAPA ATUALIZADA AQUI */}
-        <iframe src="https://maps.app.goo.gl/eTctE3rBHMWGZFsr9" width="100%" height="450" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Localização da ACAMAR no Google Maps"></iframe>
+       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3633.7922928942185!2d-53.478903499999994!3d-24.388527999999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94f3a9a0df9b73f3%3A0x1a27a21825729844!2sUVR%20-%20Unidade%20de%20Valoriza%C3%A7%C3%A3o%20de%20Recicl%C3%A1veis%20de%20Assis%20Chateaubriand!5e0!3m2!1spt-BR!2sbr!4v1755569389724!5m2!1spt-BR!2sbr" width="600" height="450" style={{border:0}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+      </div>
       </div>
     </div>
   );
@@ -223,4 +224,5 @@ function GenericPage({ slug }) {
 }
 
 export default GenericPage;
+
 
