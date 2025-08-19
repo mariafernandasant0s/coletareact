@@ -44,7 +44,7 @@ const QuemSomosContent = () => {
       <h4 className="subtitulo-centralizado">Localização UVR</h4>
       <div className="map-container">
         {/* IFRAME ATUALIZADO AQUI */}
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3633.7922928942185!2d-53.478903499999994!3d-24.388527999999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94f3a9a0df9b73f3%3A0x1a27a21825729844!2sUVR%20-%20Unidade%20de%20Valoriza%C3%A7%C3%A3o%20de%20Recicl%C3%A1veis%20de%20Assis%20Chateaubriand!5e0!3m2!1spt-BR!2sbr!4v1755568245970!5m2!1spt-BR!2sbr" width="600" height="450" style={{border:0}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://www.google.com/maps/place/UVR+-+Unidade+de+Valoriza%C3%A7%C3%A3o+de+Recicl%C3%A1veis+de+Assis+Chateaubriand/@-24.388528,-53.4789035,17z/data=!3m1!4b1!4m6!3m5!1s0x94f3a9a0df9b73f3:0x1a27a21825729844!8m2!3d-24.388528!4d-53.4789035!16s%2Fg%2F11s1t4pl7w?entry=ttu&g_ep=EgoyMDI1MDgxMy4wIKXMDSoASAFQAw%3D%3D" width="600" height="450" style={{border:0}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </div>
   );
@@ -61,3 +61,4 @@ function GenericPage({ slug }) {
 }
 
 export default GenericPage;
+
