@@ -1,6 +1,6 @@
 /* ===================================================
    ARQUIVO DE ESTILOS FINAL - PROJETO COLETA SELETIVA
-   Versão: FINALÍSSIMA (Título Devs Corrigido)
+   Versão: FINALÍSSIMA (Com Transição Mobile Corrigida)
    =================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700;800&display=swap');
@@ -8,7 +8,7 @@
 html {
   box-sizing: border-box;
   overflow-x: hidden;
-  scroll-behavior: smooth;
+
 }
 
 *,
@@ -520,228 +520,6 @@ footer {
   transform: scale(1.05);
 }
 
-/* SUBSTITUA TODO O BLOCO @media (max-width: 1080px) POR ESTE */
-
-/* ===================================================
-   COLE ESTE BLOCO FINAL NO LUGAR DO SEU @media ANTIGO
-   =================================================== */
-
-@media (max-width: 1080px) {
-  /* Botão de menu (hambúrguer) */
-  .menu-toggle {
-    display: block;
-    background: none;
-    border: none;
-    color: #003366;
-    font-size: 1.5rem;
-    cursor: pointer;
-    z-index: 2; /* z-index relativo ao header, não precisa ser alto */
-  }
-  
-  .main-header.menu-is-active .menu-toggle {
-    color: #ffffff;
-  }
-
-  /* Fundo escuro (Overlay) */
-  .overlay { /* Corrigido para a classe .overlay do seu CSS */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1010; /* Posição: ABAIXO do header (1020) */
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-  }
-
-  .overlay.is-active {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  /* Menu gaveta */
-  .main-nav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 85%;
-    max-width: 320px;
-    height: 100vh;
-    background-color: #ffffff;
-    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
-    padding-top: 70px;
-    transform: translateX(100%);
-    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    /* Não precisa mais de z-index aqui, pois ele já está dentro do header */
-  }
-
-  .main-nav.is-active {
-    transform: translateX(0);
-  }
-
-  /* Estilos dos links dentro da gaveta */
-  .main-nav ul { flex-direction: column; align-items: stretch; gap: 0; }
-  .main-nav ul li { border-bottom: 1px solid #f0f0f0; }
-  .main-nav ul li a { padding: 15px 25px; width: 100%; justify-content: space-between; font-size: 1.1rem; color: #003366; text-transform: none; }
-  .main-nav ul li.menu-contato-destaque a { margin-left: 0; border-radius: 0; background-color: #003366; color: #ffffff; }
-  .main-nav ul li.menu-contato-destaque a:hover { background-color: #001f3d; }
-  .submenu { position: static; box-shadow: none; border: none; min-width: auto; background-color: #f5f5f5; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
-  .submenu.submenu-active { max-height: 500px; }
-  .submenu li a { padding-left: 40px; color: #333; }
-}
-
-  .main-nav ul li a .icon-arrow {
-    display: block;
-  }
-
-  .main-nav ul li a[aria-label="Página Inicial"] {
-    justify-content: flex-start;
-  }
-
-  .main-nav ul li.menu-contato-destaque a {
-    background-color: transparent;
-    color: #003366;
-    padding: 15px 20px;
-    border: none;
-    margin-left: 0;
-  }
-
-  .main-nav ul li.menu-contato-destaque a:hover {
-    background-color: #f5f5f5;
-  }
-
-  .submenu {
-    position: static;
-    box-shadow: none;
-    border: none;
-    padding: 0;
-    min-width: auto;
-    background-color: #f9f9f9;
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out, padding 0.4s ease-in-out;
-  }
-
-  .submenu.submenu-active {
-    max-height: 200px;
-    /* Ajustado para um valor razoável */
-    opacity: 1;
-  }
-
-  .submenu li a {
-    padding: 12px 20px 12px 35px;
-    color: #333;
-    border-top: 1px solid #eee;
-  }
-
-  /* Animações do submenu (opcional, mas melhora a experiência) */
- /* Adicione este código dentro do seu @media (min-width: 1081px) */
-
-.main-nav ul li.has-submenu .submenu li {
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.main-nav ul li.has-submenu:hover .submenu li {
-  opacity: 1;
-}
-
-/* Efeito cascata também no desktop */
-.main-nav ul li.has-submenu:hover .submenu li:nth-child(1) {
-  transition-delay: 0.05s;
-}
-.main-nav ul li.has-submenu:hover .submenu li:nth-child(2) {
-  transition-delay: 0.1s;
-}
-.main-nav ul li.has-submenu:hover .submenu li:nth-child(3) {
-  transition-delay: 0.15s;
-}
-/* ===================================================
-   BLOCO RESPONSIVO CORRIGIDO E FINAL
-   =================================================== */
-
-/* --- ESTILOS PARA DESKTOP (ACIMA DE 1080px) --- */
-@media (min-width: 1081px) {
-  /* Comportamento do submenu com hover no desktop */
-  .main-nav ul li.has-submenu .submenu {
-    position: absolute !important;
-    display: block;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0.3s;
-  }
-
-  .main-nav ul li.has-submenu:hover > .submenu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-
-  /* Animação da seta no desktop */
-  .main-nav ul li.has-submenu .icon-arrow {
-    transform: rotate(0deg);
-    transition: transform 0.3s ease-in-out;
-  }
-
-  .main-nav ul li.has-submenu:hover .icon-arrow {
-    transform: rotate(180deg);
-  }
-}
-
-
-/* ===================================================
-   BLOCO RESPONSIVO CONSOLIDADO E CORRIGIDO
-   =================================================== */
-@media (max-width: 1080px) {
-  /* Botão de menu (hambúrguer) */
-  .menu-toggle {
-    display: block;
-    background: none;
-    border: none;
-    color: #003366;
-    font-size: 1.5rem;
-    cursor: pointer;
-    z-index: 1022; /* Acima de tudo para ser clicável */
-  }
-  .main-header.menu-is-active .menu-toggle {
-    color: #003366; /* Cor do X quando o menu está aberto */
-  }
-
-  /* Menu gaveta */
-  .main-nav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 85%;
-    max-width: 320px;
-    height: 100vh;
-    background-color: #ffffff; /* Fundo BRANCO */
-    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
-    padding-top: 70px;
-    transform: translateX(100%);
-    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    z-index: 1021; /* Camada ACIMA do overlay e do header */
-  }
-  .main-nav.is-active {
-    transform: translateX(0);
-  }
-
-  /* Itens e links dentro da gaveta */
-  .main-nav ul { flex-direction: column; align-items: stretch; gap: 0; }
-  .main-nav ul li { border-bottom: 1px solid #f0f0f0; }
-  .main-nav ul li a { padding: 15px 25px; width: 100%; justify-content: space-between; font-size: 1.1rem; color: #003366; text-transform: none; }
-  .main-nav ul li.menu-contato-destaque a { margin-left: 0; border-radius: 0; background-color: #003366; color: #ffffff; }
-  .main-nav ul li.menu-contato-destaque a:hover { background-color: #001f3d; }
-  .submenu { position: static; box-shadow: none; border: none; min-width: auto; background-color: #f5f5f5; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
-  .submenu.submenu-active { max-height: 500px; }
-  .submenu li a { padding-left: 40px; color: #333; }
-}
-
 .main-nav ul li a[aria-label="Página Inicial"] {
   justify-content: center;
 }
@@ -753,57 +531,6 @@ footer {
 
 .main-nav ul li.menu-contato-destaque a:hover {
   background-color: #001f3d !important;
-}
-
-@media (max-width: 768px) {
-  .container {
-    width: 100%;
-    padding: 0;
-  }
-
-  .main-header .container {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  .info-section {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .info-section p,
-  .info-section ul li span,
-  .objetivos-lista li span {
-    font-size: 1.2em;
-  }
-
-  .footer-section-title {
-    font-size: 1.2em;
-    font-weight: 700;
-  }
-
-  .footer-logos .container,
-  .footer-ods .container {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .footer-logos .logo-principal-parceiro,
-  .footer-logos .logo-parceiro,
-  .footer-ods img {
-    max-height: none;
-    width: 45%;
-    max-width: 160px;
-    height: auto;
-  }
-
-  .footer-quick-links a {
-    margin: 0 10px 10px 10px;
-  }
-
-  .zoom-hint {
-    display: none;
-  }
 }
 
 .download-button {
@@ -820,18 +547,15 @@ footer {
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, background-color 0.3s ease;
 }
 
 .download-button:hover {
   background-color: #003366;
   color: #ffffff;
   text-decoration: none;
-  transform: translateY(-2px);
-  cursor: pointer;
-  transform: translateY(-3px); /* Move o botão 3px para cima */
+  transform: translateY(-3px);
   box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
 }
 
@@ -942,6 +666,18 @@ body.contrast-mode iframe.youtube-video {
   border-top: none;
   padding: 20px;
   border-radius: 0 0 5px 5px;
+  max-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease-out, opacity 0.2s ease-out 0.2s;
+}
+
+.faq-answer.is-open {
+  max-height: 250px;
+  visibility: visible;
+  opacity: 1;
+  transition: max-height 0.4s ease-out, opacity 0.3s ease-in;
 }
 
 .faq-answer p {
@@ -1008,35 +744,14 @@ body.contrast-mode iframe.youtube-video {
   padding-top: 5px;
 }
 
-/* =============================================================
-   CORREÇÃO FINAL E DEFINITIVA PARA HOVER DO MENU DESKTOP
-   ============================================================= */
-
-
-/* =============================================================
-   REGRAS DE TÍTULO - CORREÇÃO FINALÍSSIMA
-   ============================================================= */
-
-/* =============================================================
-   REGRA DE OURO PARA TÍTULOS (VERSÃO FINAL E CORRIGIDA)
-   ============================================================= */
-/* =============================================================
-   SOLUÇÃO FINAL SEM FLEXBOX - À PROVA DE FALHAS
-   ============================================================= */
-
 .titulo-principal {
-  /* Centraliza TUDO que estiver dentro dele */
   text-align: center;
-
-  /* Espaçamento inferior */
   margin-bottom: 40px;
 }
 
 .titulo-principal h2 {
-  /* Estilos de fonte */
   margin: 0;
   padding: 0;
-  /* Garante que não há espaçamento interno */
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 700;
   font-size: 2.1em;
@@ -1045,39 +760,18 @@ body.contrast-mode iframe.youtube-video {
 }
 
 .titulo-principal h2 svg {
-  /* Estilos do ícone */
   font-size: 0.9em;
-  /* Tamanho relativo ao texto */
   color: #003366;
-
-  /* Espaço entre o ícone e o texto */
   margin-right: 15px;
-
-  /* 
-    A MÁGICA ESTÁ AQUI:
-    Alinha verticalmente o ícone com o meio do texto.
-    Funciona em qualquer situação.
-  */
   vertical-align: middle;
 }
 
-/* Ajuste para telas muito pequenas */
-@media (max-width: 400px) {
-  .titulo-principal h2 {
-    font-size: 1.8em;
-  }
-}
-
-
-
-/* Centraliza os subtítulos h4 na página "Quem Somos" */
 .content-wrapper .subtitulo-centralizado {
   text-align: center;
   margin-top: 40px;
   margin-bottom: 20px;
 }
 
-/* Estilos para a página Desenvolvedoras */
 .devs-container {
   display: flex;
   justify-content: center;
@@ -1086,7 +780,6 @@ body.contrast-mode iframe.youtube-video {
   margin-bottom: 60px;
 }
 
-/* Em seu CSS, substitua a regra .dev-card por esta: */
 .dev-card {
   width: 100%;
   max-width: 400px;
@@ -1097,16 +790,13 @@ body.contrast-mode iframe.youtube-video {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  /* ADIÇÃO PRINCIPAL AQUI: */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Adicione esta nova regra logo após .dev-card */
 .dev-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 30px rgba(0, 40, 80, 0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 40, 80, 0.15);
 }
-
 
 .dev-info {
   padding: 25px;
@@ -1138,9 +828,7 @@ body.contrast-mode iframe.youtube-video {
   height: 250px;
   object-fit: cover;
   margin-top: auto;
-  /* Encontre a regra .dev-card .dev-photo e adicione a linha abaixo */
   object-position: center;
-
 }
 
 .article-section {
@@ -1158,22 +846,10 @@ body.contrast-mode iframe.youtube-video {
   font-size: 1.1em;
 }
 
-/* =============================================================
-   ESTILOS PARA O ZOOM DO CRONOGRAMA (SÓ MOBILE, SOME AO CLICAR)
-   ============================================================= */
-
 @keyframes pulse-infinite {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.05);
-  }
-
-  100% {
-    transform: scale(1);
-  }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
 .cronograma-container {
@@ -1183,7 +859,6 @@ body.contrast-mode iframe.youtube-video {
 .cronograma-zoom-wrapper {
   position: relative;
   cursor: pointer;
-  /* Cursor de clique para indicar interatividade */
   max-width: 740px;
   margin: 20px auto;
   border-radius: 8px;
@@ -1191,12 +866,344 @@ body.contrast-mode iframe.youtube-video {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Por padrão, em telas grandes (desktop), a dica NÃO aparece */
 .zoom-hint {
   display: none;
 }
 
-/* REGRA PARA TELAS MENORES (TABLETS E CELULARES) */
+.cronograma-timestamp {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 68, 136, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 51, 102, 0.7);
+}
+
+@keyframes pulse-float {
+  0% { transform: scale(1); box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); }
+  50% { transform: scale(1.08); box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.4); }
+  100% { transform: scale(1); box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); }
+}
+
+.sticky-insta {
+  animation: pulse-float 2s infinite ease-in-out;
+}
+
+.sticky-insta:hover {
+  animation-play-state: paused;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 40px 0;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #003366;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeInFromBottom {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.material-item.animated {
+  opacity: 0;
+  animation: fadeInFromBottom 0.6s ease-out forwards;
+}
+
+.content-fade-in {
+  animation: fadeInFromBottom 0.6s ease-out forwards;
+}
+
+.contact-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 35px;
+  margin-top: 100px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+  text-align: left;
+}
+
+.contact-item .contact-icon {
+  font-size: 2rem;
+  color: #0056b3;
+  width: 45px;
+  text-align: center;
+  flex-shrink: 0;
+  padding-top: 5px;
+}
+
+.contact-item > div {
+  line-height: 1.4;
+}
+
+.contact-item strong {
+  font-size: 1.5rem;
+  color: #333;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.contact-item a {
+  font-weight: 400;
+  text-decoration: none;
+  color: #555;
+  font-size: 1.3rem;
+}
+
+.contact-item a:hover {
+  text-decoration: underline;
+}
+
+.dev-contact {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.dev-contact .svg-inline--fa {
+  color: #0056b3;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.dev-contact a {
+  display: inline-block;
+  background-color: #f0f7ff;
+  color: #003366;
+  padding: 10px 18px;
+  border-radius: 50px;
+  border: 1px solid #d9e8ff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  text-transform: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  word-break: break-all;
+}
+
+.dev-contact a:hover {
+  background-color: #d9e8ff;
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+
+/* =============================================================
+   BLOCO RESPONSIVO FINAL E CONSOLIDADO
+   (Contém a correção para a transição do menu mobile)
+   ============================================================= */
+
+/* --- ESTILOS PARA DESKTOP (ACIMA DE 1080px) --- */
+@media (min-width: 1081px) {
+  /* Animação de fade e deslize para o submenu no desktop */
+  .main-nav ul li.has-submenu .submenu {
+    position: absolute !important;
+    display: block;
+    max-height: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0.3s;
+  }
+
+  .main-nav ul li.has-submenu:hover > .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  /* Animação suave para a seta */
+  .main-nav ul li.has-submenu .icon-arrow {
+    transform: rotate(0deg);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .main-nav ul li.has-submenu:hover .icon-arrow {
+    transform: rotate(180deg);
+  }
+}
+
+
+/* --- ESTILOS PARA TABLET E MOBILE (ATÉ 1080px) --- */
+@media (max-width: 1080px) {
+  /* Esconde o menu de desktop e mostra o botão hamburguer */
+  .main-nav ul {
+    display: none;
+  }
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: #003366;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1022;
+  }
+
+  /* Menu gaveta que desliza da direita */
+  nav.main-nav {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 85%;
+    max-width: 320px;
+    height: 100vh;
+    background-color: #ffffff;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+    padding-top: 70px;
+    z-index: 1021;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  nav.main-nav.is-active {
+    transform: translateX(0);
+  }
+
+  /* Itens dentro da gaveta */
+  nav.main-nav ul {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+  nav.main-nav ul li {
+    border-bottom: 1px solid #f0f0f0;
+  }
+  nav.main-nav ul li a {
+    padding: 15px 25px;
+    width: 100%;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    text-transform: none;
+    color: #003366;
+  }
+
+  /* Remove a borda redonda do "Contato" */
+  nav.main-nav ul li.menu-contato-destaque a {
+    margin-left: 0;
+    border-radius: 0;
+  }
+  
+  /* ==================================
+     A MÁGICA DA TRANSIÇÃO ESTÁ AQUI
+     ================================== */
+  .submenu {
+    display: block; /* Garante que o elemento exista no layout */
+    position: static;
+    box-shadow: none;
+    border: none;
+    min-width: auto;
+    background-color: #f5f5f5;
+    padding: 0;
+    max-height: 0; /* Começa fechado (com altura 0) */
+    overflow: hidden; /* Esconde o conteúdo que transborda */
+    /* A transição que cria o efeito de "deslizar" */
+    transition: max-height 0.4s ease-out; 
+  }
+  /* Quando o submenu está ativo, a altura máxima é expandida, revelando o conteúdo */
+  .submenu.submenu-active {
+    max-height: 500px; /* Um valor alto o suficiente para caber o conteúdo */
+  }
+  .submenu li a {
+    padding-left: 40px;
+    color: #333;
+  }
+}
+
+/* --- Ajustes finos para telas menores --- */
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 0;
+  }
+
+  .main-header .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .info-section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .info-section p,
+  .info-section ul li span,
+  .objetivos-lista li span {
+    font-size: 1.2em;
+  }
+
+  .footer-section-title {
+    font-size: 1.2em;
+    font-weight: 700;
+  }
+
+  .footer-logos .container,
+  .footer-ods .container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer-logos .logo-principal-parceiro,
+  .footer-logos .logo-parceiro,
+  .footer-ods img {
+    max-height: none;
+    width: 45%;
+    max-width: 160px;
+    height: auto;
+  }
+
+  .footer-quick-links a {
+    margin: 0 10px 10px 10px;
+  }
+}
+
+/* Ajuste para o zoom do cronograma em telas menores */
 @media (max-width: 1024px) {
   .zoom-hint {
     position: absolute;
@@ -1212,231 +1219,20 @@ body.contrast-mode iframe.youtube-video {
     align-items: center;
     gap: 10px;
     pointer-events: none;
-
-    /* A animação só acontece em telas pequenas */
     animation: pulse-infinite 2s ease-in-out infinite;
   }
+  .zoom-hint svg { font-size: 2.5em; }
+  .zoom-hint span { font-size: 1.1em; font-weight: 700; }
 }
 
-.zoom-hint svg {
-  font-size: 2.5em;
-}
-
-.zoom-hint span {
-  font-size: 1.1em;
-  font-weight: 700;
-}
-
-.cronograma-timestamp {
-  text-align: center;
-  margin-top: 15px;
-  font-size: 14px;
-  color: #666;
-  font-style: italic;
-}
-
-/* Garante que o botão de menu (hambúrguer/X) fique na frente do menu gaveta */
-
-/* --- Barra de Rolagem Personalizada (Versão Suave e Discreta) --- */
-::-webkit-scrollbar {
-  width: 8px;
-  /* 1. DEIXEI MAIS FINA */
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-  /* 2. O FUNDO AGORA É TRANSPARENTE */
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 68, 136, 0.5);
-  /* 3. COR AZUL COM 50% DE TRANSPARÊNCIA */
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 51, 102, 0.7);
-  /* Fica um pouco mais visível no hover */
-}
-
-/* =============================================================
-   GARANTIA DE ESTILOS PARA DESKTOP (ACIMA DE 1080px)
-   ============================================================= */
-/* =============================================================
-   TRANSIÇÕES SUAVES PARA O MENU DESKTOP
-   ============================================================= */
-
-@media (min-width: 1081px) {
-
-  /* 
-    1. PREPARAMOS O ESTADO INICIAL DO SUBMENU (ESCONDIDO)
-    - Começa invisível (opacity: 0)
-    - Começa ligeiramente deslocado para baixo (transform: translateY(10px))
-    - Definimos a duração e o tipo da transição (transition: ...)
-  */
-  .main-nav ul li.has-submenu .submenu {
-    position: absolute !important;
-    display: block;
-    /* Usamos 'block' mas controlamos com opacidade */
-    max-height: none;
-
-    opacity: 0;
-    /* Começa totalmente transparente */
-    visibility: hidden;
-    /* Começa inacessível para o mouse e leitores de tela */
-    transform: translateY(10px);
-    /* Começa 10px abaixo da sua posição final */
-
-    /* A MÁGICA ACONTECE AQUI: */
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0.3s;
-  }
-
-  /* 
-    2. DEFINIMOS O ESTADO FINAL (VISÍVEL QUANDO O MOUSE ESTÁ EM CIMA)
-    - Fica totalmente visível (opacity: 1)
-    - Volta para sua posição original (transform: translateY(0))
-  */
-  .main-nav ul li.has-submenu:hover>.submenu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    /* A transição de 'visibility' é atrasada para que o menu não desapareça no meio da animação */
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-
-  /* 3. BÔNUS: Animação suave para a seta também */
-  .main-nav ul li.has-submenu .icon-arrow {
-    transform: rotate(0deg);
-    transition: transform 0.3s ease-in-out;
-    /* Adiciona a transição na seta */
-  }
-
-  .main-nav ul li.has-submenu:hover .icon-arrow {
-    transform: rotate(180deg);
+/* Ajuste para títulos em telas muito pequenas */
+@media (max-width: 400px) {
+  .titulo-principal h2 {
+    font-size: 1.8em;
   }
 }
-
 /* ===================================================
-   ANIMAÇÃO DO BOTÃO FLUTUANTE DO INSTAGRAM
-   =================================================== */
-
-@keyframes pulse-float {
-  0% {
-    transform: scale(1);
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-  }
-
-  50% {
-    transform: scale(1.08);
-    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.4);
-  }
-
-  100% {
-    transform: scale(1);
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-  }
-}
-
-.sticky-insta {
-  animation: pulse-float 2s infinite ease-in-out;
-}
-
-.sticky-insta:hover {
-  animation-play-state: paused;
-  /* Pausa a animação ao passar o mouse */
-
-}
-
-/* =============================================================
-   INDICADOR DE CARREGAMENTO (SPINNER)
-   ============================================================= */
-.spinner-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 60vh;
-  /* Garante que o spinner fique centralizado na área de conteúdo */
-  padding: 40px 0;
-}
-
-.spinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid #f3f3f3;
-  /* Cor de fundo do círculo */
-  border-top: 5px solid #003366;
-  /* Cor principal da animação (azul do site) */
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-/* 1. Definição da animação de "surgir" */
-@keyframes fadeInFromBottom {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 2. Classe que será aplicada nos itens da lista */
-.material-item.animated {
-  opacity: 0; /* Começa invisível */
-  animation: fadeInFromBottom 0.6s ease-out forwards;
-}
-
-/* 1. Definição da animação de "surgir de baixo" */
-@keyframes fadeInFromBottom {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 2. Classe que aplica a animação aos itens da lista */
-.material-item.animated {
-  opacity: 0; /* Começa invisível para a animação funcionar */
-  /* Aplica a animação e a mantém no estado final (forwards) */
-  animation: fadeInFromBottom 0.6s ease-out forwards;
-}
-/* CÓDIGO CORRIGIDO (SUBSTITUA O ANTERIOR POR ESTE) */
-
-/* Esconde a resposta de forma mais robusta */
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  visibility: hidden; /* <-- ADICIONADO: Garante que o conteúdo fique 100% invisível */
-  opacity: 0;       /* <-- ADICIONADO: Para uma transição de fade mais suave */
-  transition: max-height 0.4s ease-out, opacity 0.2s ease-out 0.2s;
-}
-
-/* Mostra a resposta quando a classe .is-open é adicionada */
-.faq-answer.is-open {
-  max-height: 250px; /* Um valor alto o suficiente para caber qualquer resposta */
-  visibility: visible; /* <-- ADICIONADO: Torna o conteúdo visível novamente */
-  opacity: 1;        /* <-- ADICIONADO: Faz o conteúdo aparecer */
-  transition: max-height 0.4s ease-out, opacity 0.3s ease-in;
-}
-
-
-/* ===================================================
-   ANIMAÇÃO DE SURGIMENTO PARA O CONTEÚDO
+   ANIMAÇÃO DE SURGIMENTO PARA O CONTEÚDO DAS PÁGINAS
    =================================================== */
 
 /* 1. Define a animação: começa invisível e um pouco abaixo, 
@@ -1456,113 +1252,4 @@ body.contrast-mode iframe.youtube-video {
 .content-fade-in {
   /* Aplica a animação definida acima */
   animation: fadeInFromBottom 0.6s ease-out forwards;
-}
-
-/* ===================================================
-   CÓDIGO FINAL, CENTRALIZADO E COM FONTES GIGANTES
-   (SUBSTITUA O CSS DE CONTATO ANTERIOR POR ESTE)
-   =================================================== */
-
-/* ===================================================
-   CÓDIGO FINAL COM ESPAÇAMENTO AJUSTADO
-   (Substitua o CSS de contato anterior por este)
-   =================================================== */
-
-/* Container principal que centraliza o bloco na página */
-.contact-info-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 35px; /* Espaço entre Email e Telefone */
-  margin-top: 100px; /* Espaço abaixo do título da página */
-  width: 90%;
-  max-width: 500px;
-}
-
-/* Cada linha de contato (ícone + texto) */
-.contact-item {
-  display: flex;
-  align-items: flex-start; /* Alinha pelo topo */
-  gap: 20px; /* Espaço entre ícone e texto */
-  width: 100%;
-  text-align: left;
-}
-
-/* O ícone (Email, Telefone) */
-.contact-item .contact-icon {
-  font-size: 2rem;
-  color: #0056b3;
-  width: 45px;
-  text-align: center;
-  flex-shrink: 0;
-  padding-top: 5px; /* Ajuste fino de alinhamento vertical */
-}
-
-/* O bloco de texto (direita do ícone) */
-.contact-item > div {
-  line-height: 1.4; /* Deixa o texto mais junto */
-}
-
-/* Os títulos "Email" e "Telefone" */
-.contact-item strong {
-  font-size: 1.5rem;
-  color: #333;
-  display: block;
-  margin-bottom: 3px; /* A CORREÇÃO PRINCIPAL: Menos espaço aqui */
-}
-
-/* Os links de email e telefone */
-.contact-item a {
-  font-weight: 400;
-  text-decoration: none;
-  color: #555;
-  font-size: 1.3rem;
-}
-
-.contact-item a:hover {
-  text-decoration: underline;
-}
-/* ===================================================
-   ESTILO DE BOTÃO PARA O EMAIL DAS DESENVOLVEDORAS
-   (Substitua o CSS de .dev-contact anterior por este)
-   =================================================== */
-
-/* O container que alinha o ícone e o botão */
-.dev-contact {
-  display: flex;
-  align-items: center;
-  gap: 15px; /* Espaço entre o ícone e o botão de email */
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #eee; /* Linha sutil de separação */
-}
-
-/* O ícone de email ao lado do botão */
-.dev-contact .svg-inline--fa {
-  color: #0056b3; /* Cor azul para o ícone */
-  font-size: 1.5rem; /* Tamanho do ícone */
-  flex-shrink: 0;
-}
-
-/* O link de email, agora estilizado como um botão */
-.dev-contact a {
-  display: inline-block; /* Necessário para aplicar padding e outros estilos de bloco */
-  background-color: #f0f7ff; /* Fundo azul bem claro */
-  color: #003366; /* Texto azul escuro para bom contraste */
-  padding: 10px 18px; /* Espaçamento interno para criar o formato de botão */
-  border-radius: 50px; /* Bordas totalmente arredondadas (formato pílula) */
-  border: 1px solid #d9e8ff; /* Borda sutil da mesma cor, um pouco mais escura */
-  font-weight: 700; /* Deixa o texto do email em negrito */
-  font-size: 0.9rem;
-  text-decoration: none; /* Remove o sublinhado padrão do link */
-  text-transform: none;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  word-break: break-all;
-}
-
-/* Efeito ao passar o mouse por cima do botão */
-.dev-contact a:hover {
-  background-color: #d9e8ff; /* Fundo fica um pouco mais escuro */
-  transform: translateY(-2px); /* Efeito sutil de "elevação" */
-  text-decoration: none; /* Garante que não apareça sublinhado no hover */
 }
