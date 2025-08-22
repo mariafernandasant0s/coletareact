@@ -5,7 +5,7 @@ import { faDownload, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 // IMPORTANTE: Coloque suas fotos na pasta 'src/assets/imagens'
 import fotoSua from '../assets/imagens/placeholder-sua-foto.jpeg'; // Troque pelo nome da sua foto
-import fotoMariah from '../assets/imagens/placeholder-mariah-foto.jpeg'; // Troque pelo nome da foto dela
+import fotoMariah from '../assets/imagens/placeholder-devmariah.jpg'; // Troque pelo nome da foto dela
 
 function DesenvolvedorasContent() {
   return (
@@ -69,3 +69,4 @@ function DesenvolvedorasContent() {
 }
 
 export default DesenvolvedorasContent;
+
