@@ -13,10 +13,9 @@ import {
   faNewspaper, faBottleWater, faWineGlass, faGear, faRecycle, faSeedling,
   faTrashCan, faUsers, faChartPie, faQuestionCircle, faPhone, faCode,
   faCheckSquare, faChartLine, faLeaf, faHandHoldingDollar, faDownload, faChevronDown,
-  faEnvelope
+  faEnvelope, faDroplet, faLaptop
 } from '@fortawesome/free-solid-svg-icons';
 import fotoAcamar from '../../assets/imagens/foto-acamar-uvr.jpg';
-import graficoTotalColetado from '../../assets/imagens/grafico-total-coletado.png';
 import DesenvolvedorasContent from '../../components/DesenvolvedorasContent';
 
 const pageIcons = {
@@ -33,6 +32,8 @@ const MaterialsList = () => {
     { icon: faBottleWater, title: 'Plásticos', items: 'garrafa pet, embalagens de detergente, amaciante, óleo de cozinha, álcool, tampas de plástico, pacotes em gerais, frascos de xampu, potinhos de iogurte, sacolas de supermercados, copos descartáveis, balde, PVC, entre outros.' },
     { icon: faWineGlass, title: 'Vidros', items: 'garrafas de bebida, potes de conserva, frascos de perfume, potes de geleia, entre outros.' },
     { icon: faGear, title: 'Metais', items: 'latinhas de cerveja e refrigerante, latas de doces, leite em pó, azeite, latinhas de sardinha, arames, embalagens metálicas, latinhas de milho e ervilha, entre outros.' },
+    { icon: faDroplet, title: 'Óleo Usado', items: 'óleo de cozinha utilizado (de fritura), armazenado em garrafas PET ou recipientes bem vedados, entre outros. ⚠️ Importante: nunca descarte óleo usado na pia ou no vaso sanitário, pois pode causar entupimentos e contaminar a água.' },
+    { icon: faLaptop, title: 'Eletrônicos', items: 'celulares, carregadores, notebooks, computadores, teclados, mouses, televisores, monitores, rádios, câmeras, pilhas, baterias, controles remotos, eletrodomésticos pequenos, entre outros. ⚠️ Importante: esses itens devem ser entregues em pontos de coleta específicos para resíduos eletroeletrônicos, pois contêm materiais tóxicos e recicláveis.' }
   ];
   return <div className="materials-list">{materialsData.map((m, index) => (<div key={m.title} className="material-item animated" style={{ animationDelay: `${index * 0.15}s` }}><div className="material-icon"><FontAwesomeIcon icon={m.icon} style={{ color: '#0056b3' }} /></div><div className="material-details"><h3>{m.title}</h3><p>{m.items}</p></div></div>))}</div>;
 };
@@ -48,12 +49,24 @@ const QuemSomosContent = () => {
     <div className="content-wrapper">
       <h4 className="subtitulo-centralizado">O que é o Programa Coleta Amiga?</h4><p>O Programa Coleta Amiga foi instituído através da Lei Municipal nº 3250 em 03 de maio de 2022. Seus principais objetivos são:</p><div className="objectives-list">{objectivesData.map((o, i) => (<div key={i} className="objective-item"><div className="objective-icon"><FontAwesomeIcon icon={o.icon} style={{ color: '#0056b3' }} /></div><p className="objective-text">{o.text}</p></div>))}</div>
       <h4 className="subtitulo-centralizado">O que é a ACAMAR?</h4><p>A ACAMAR é a Associação dos Catadores de Materiais Recicláveis de Assis Chateaubriand - PR, fundada em 10 de outubro de 2001. Ela é considerada uma Entidade de Utilidade Pública, conforme a Lei Municipal n° 3.217 de 23 de abril de 2020.</p><h4 className="subtitulo-centralizado">Qual o local de destino dos recicláveis?</h4><p>Todo material previamente separado pela população e recolhido com auxílio dos caminhões da Coleta Amiga é encaminhado para a Unidade de Valorização de Recicláveis (UVR).</p><img src={fotoAcamar} alt="Unidade de Valorização de Recicláveis da ACAMAR" style={{ margin: '35px auto 0 auto', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)' }} loading="lazy" />
-      <h4 className="subtitulo-centralizado">Localização UVR</h4><div className="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.0000000000005!2d-53.5255!3d-24.3666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94f2d3a0b1c2d3e5%3A0x1a2b3c4d5e6f7g8h!2sACAMAR%20-%20Associa%C3%A7%C3%A3o%20de%20Catadores%20de%20Materiais%20Recicl%C3%A1veis!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr0" width="100%" height="450" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Localização da ACAMAR no Google Maps"></iframe></div>
+      <h4 className="subtitulo-centralizado">Localização UVR</h4>
+      <div className="map-container">
+        {/* <<< MAPA CORRIGIDO AQUI >>> */}
+        <iframe 
+            src="https://maps.google.com/maps?q=UVR%20-%20Unidade%20de%20Valoriza%C3%A7%C3%A3o%20de%20Recicl%C3%A1veis%20de%20Assis%20Chateaubriand&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+            width="100%" 
+            height="450" 
+            style={{border:0}} 
+            allowFullScreen="" 
+            loading="lazy" 
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Localização da UVR no Google Maps">
+        </iframe>
+      </div>
     </div>
   );
 };
 
-const TotalColetadoContent = () => <div className="content-wrapper" style={{ textAlign: 'center' }}><img src={graficoTotalColetado} alt="Gráfico do total de resíduos coletados" style={{ margin: '20px auto 0 auto', maxWidth: '100%' }} loading="lazy" /></div>;
 const CronogramaContent = ({ pageData }) => <div className="cronograma-container">{pageData?.midiaUrl ? (<><img className="cronograma-image" src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} /><a href={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} className="download-button" download><FontAwesomeIcon icon={faDownload} /> Baixar Cronograma</a></>) : (<div style={{ textAlign: 'center', padding: '20px' }}><p>Imagem do cronograma não disponível.</p></div>)}</div>;
 
 const FaqContent = () => {
@@ -139,7 +152,7 @@ function GenericPage({ slug }) {
       setLoading(true);
       try {
         const staticPages = {
-          'desenvolvedoras': 'Desenvolvedoras', 'quem-somos': 'Quem Somos', 'total-coletado-grafico': 'Total Coletado',
+          'desenvolvedoras': 'Desenvolvedoras', 'quem-somos': 'Quem Somos',
           'faq': 'Perguntas Frequentes', 'quais-residuos': 'Quais são os Resíduos Recicláveis?', 'contato': 'Entre em Contato'
         };
         if (staticPages[slug]) {
@@ -167,13 +180,12 @@ function GenericPage({ slug }) {
       case 'quem-somos': return <QuemSomosContent />;
       case 'quais-residuos': return <MaterialsList />;
       case 'cronograma': return <CronogramaContent pageData={pageData} />;
-      case 'total-coletado-grafico': return <TotalColetadoContent />;
       case 'faq': return <FaqContent />;
       case 'contato': return <ContatoContent />;
       default:
         return (pageData.conteudo && pageData.conteudo.trim() !== '')
           ? <div className="content-wrapper" dangerouslySetInnerHTML={{ __html: pageData.conteudo }} />
-          : <div style={{ textAlign: 'center', padding: '20px' }}><p>O conteúdo para esta página ainda não foi adicionado.</p></div>;
+          : null;
     }
   };
 
@@ -211,10 +223,17 @@ function GenericPage({ slug }) {
             </div>
             {renderPageContent()}
           </div>
-          {pageData.midiaUrl && (pageData.midiaUrl.includes('youtube.com') || pageData.midiaUrl.includes('youtu.be')) && (
+          
+          {pageData.midiaUrl && (
             <AnimateOnScroll>
-              <div className="youtube-video-container">
-                <iframe className="youtube-video" src={convertYouTubeUrl(pageData.midiaUrl)} title={pageData.titulo} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
+              <div className="page-media-container">
+                { (pageData.midiaUrl.includes('youtube.com') || pageData.midiaUrl.includes('youtu.be')) ? (
+                  <div className="youtube-video-container">
+                    <iframe className="youtube-video" src={convertYouTubeUrl(pageData.midiaUrl)} title={pageData.titulo} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
+                  </div>
+                ) : (
+                  <img src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} className="page-image" />
+                )}
               </div>
             </AnimateOnScroll>
           )}
