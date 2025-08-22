@@ -1264,3 +1264,20 @@ body.contrast-mode iframe.youtube-video {
   /* Aplica a animação definida acima */
   animation: fadeInFromBottom 0.6s ease-out forwards;
 }
+/* ===================================================
+   CONTROLE DE TAMANHO PARA MÍDIAS DE PÁGINA
+   (Como a imagem do Total Coletado)
+   =================================================== */
+
+   .page-media-container {
+    width: 100%;
+    max-width: 600px;
+    /* >>> MEXA AQUI <<< */
+    margin: 0 auto; /* Diminui o primeiro valor (espaço de cima) */
+  }
+  
+  .page-image {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
