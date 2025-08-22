@@ -532,6 +532,34 @@ footer {
 .main-nav ul li.menu-contato-destaque a:hover {
   background-color: #001f3d !important;
 }
+/* Estilos para o Sino de Notificação na UtilityBar */
+
+/* Container para o sino, para ajudar no espaçamento */
+.notification-container {
+  margin-left: 15px; /* Espaço antes dos controles de acessibilidade */
+}
+
+/* Estilo principal do sino na utility bar */
+.utility-notification-bell {
+  color: #ffffff;
+  font-size: 1.1em;
+  transition: color 0.2s ease, transform 0.2s ease;
+  padding: 0 5px; /* Pequeno espaço para o clique */
+}
+
+/* Efeito de hover igual ao do ícone do Instagram */
+.utility-notification-bell:hover {
+  color: #aaa;
+  transform: scale(1.1);
+  text-decoration: none;
+}
+
+/* Adicione ao seu arquivo CSS principal */
+.utility-icons-group {
+  display: flex;
+  align-items: center;
+}
+
 
 .download-button {
   display: inline-flex;

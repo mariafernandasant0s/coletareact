@@ -5,43 +5,41 @@ import { faCalendarDays, faDownload, faUpDownLeftRight } from '@fortawesome/free
 import { apiPublic } from '../../config/api';
 import { useLocation } from 'react-router-dom';
 
-// --- INÍCIO DAS ADIÇÕES ---
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-// Componente que define o "esqueleto" da página enquanto ela carrega
+import EmailSubscriptionForm from '../../components/EmailSubscriptionForm';
+
 const HomePageLoader = () => (
   <main>
     <SkeletonTheme baseColor="#e0e0e0" highlightColor="#f5f5f5">
-      {/* Esqueleto do Hero (banner do topo) */}
       <Skeleton height={350} style={{ marginBottom: '40px' }} />
-
       <div className="container">
-        {/* Esqueleto do título "Cronograma da Coleta" */}
         <h2 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '30px', gap: '15px' }}>
           <Skeleton width={40} height={40} />
           <Skeleton width={300} height={36} />
         </h2>
-
-        {/* Esqueleto da imagem do cronograma */}
         <Skeleton height={500} style={{ borderRadius: '8px' }}/>
-
-        {/* Esqueleto do botão de download */}
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
           <Skeleton width={200} height={45} style={{ borderRadius: '50px' }} />
+        </div>
+        <div style={{ marginTop: '60px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+                <Skeleton width={450} height={200} />
+            </div>
         </div>
       </div>
     </SkeletonTheme>
   </main>
 );
-// --- FIM DAS ADIÇÕES ---
-
 
 function HomePage() {
   const [heroData, setHeroData] = useState(null);
   const [cronogramaData, setCronogramaData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [hintDismissed, setHintDismissed] = useState(false);
+
+  const location = useLocation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,18 +60,17 @@ function HomePage() {
     fetchData();
   }, []);
 
-  const location = useLocation();
-
   useEffect(() => {
-    if (location.hash && cronogramaData) {
-      const element = document.getElementById(location.hash.substring(1));
+    if (!loading && location.hash) {
+      const id = location.hash.substring(1);
+      const element = document.getElementById(id);
       if (element) {
         setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 100);
       }
     }
-  }, [location, cronogramaData]);
+  }, [location, loading]);
 
   const handleImageInteraction = () => {
     setHintDismissed(true);
@@ -81,14 +78,11 @@ function HomePage() {
 
   const handleDownload = async (e) => {
     e.preventDefault(); 
-    
     const imageUrl = `${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`;
     const fileName = "Cronograma_Coleta_Assis_Chateaubriand.png";
-
     try {
       const response = await fetch(imageUrl);
       if (!response.ok) throw new Error('A imagem não pôde ser carregada.');
-      
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -98,15 +92,12 @@ function HomePage() {
       link.click();
       link.parentNode.removeChild(link);
       window.URL.revokeObjectURL(url);
-
     } catch (error) {
       console.error('Erro ao baixar o arquivo:', error);
       window.open(imageUrl, '_blank');
     }
   };
 
-  // --- MUDANÇA PRINCIPAL AQUI ---
-  // Substituímos o texto "Carregando..." pelo nosso novo componente
   if (loading) {
     return <HomePageLoader />;
   }
@@ -142,15 +133,9 @@ function HomePage() {
                 {cronogramaData.titulo}
               </h2>
             </div>
-
             <div className="cronograma-container">
-              <div
-                className="cronograma-zoom-wrapper"
-                onClick={handleImageInteraction}
-                onTouchStart={handleImageInteraction}
-              >
+              <div className="cronograma-zoom-wrapper" onClick={handleImageInteraction} onTouchStart={handleImageInteraction}>
                 <img src={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} alt="Tabela com o cronograma semanal da coleta" />
-                
                 {!hintDismissed && (
                   <div className="zoom-hint">
                     <FontAwesomeIcon icon={faUpDownLeftRight} />
@@ -158,18 +143,12 @@ function HomePage() {
                   </div>
                 )}
               </div>
-
               {cronogramaData.ultimaAtualizacao && (
                 <div className="cronograma-timestamp">
                   Atualizado em {cronogramaData.ultimaAtualizacao}
                 </div>
               )}
-
-              <a 
-                href={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} 
-                onClick={handleDownload} 
-                className="download-button ripple"
-              >
+              <a href={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} onClick={handleDownload} className="download-button ripple">
                 <FontAwesomeIcon icon={faDownload} />
                 <span>Baixar Cronograma</span>
               </a>
@@ -177,6 +156,20 @@ function HomePage() {
           </div>
         </section>
       )}
+
+      <section 
+        id="inscrever" 
+        className="info-section" 
+        style={{
+          backgroundColor: '#f8f9fa', 
+          paddingTop: '10px',
+          paddingBottom: '60px'
+        }}
+      >
+        <div className="container">
+            <EmailSubscriptionForm />
+        </div>
+      </section>
     </>
   );
 }
