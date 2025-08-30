@@ -1,45 +1,48 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../../contexts/AuthContext';
 import './Admin.css';
 
+// Ícones para mostrar/ocultar senha
+const EyeOpenIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+    <circle cx="12" cy="12" r="3"></circle>
+  </svg>
+ );
+
+const EyeClosedIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+    <line x1="1" y1="1" x2="23" y2="23"></line>
+  </svg>
+ );
+
 function AdminLogin() {
   const navigate = useNavigate();
-  const auth = useAuth();
+  const { login } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-
-  // Log para garantir que o componente foi renderizado
-  useEffect(() => {
-    console.log('AdminLogin renderizado');
-  }, []);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
-
     try {
-      const result = await auth.login(email, password);
-      console.log('Login feito com sucesso');
-
-      // Pega o token salvo no localStorage com a chave correta
-      const token = localStorage.getItem('user_token');
-      console.log('Token salvo no localStorage:', token);
-
+      const result = await login(email, password);
       if (result.success) {
-        // Redireciona para o dashboard admin
         navigate('/admin/dashboard');
       } else {
-        setError(result.error || 'Erro inesperado no login');
+        setError(result.error || 'E-mail ou senha inválidos.');
       }
     } catch (err) {
-      setError('Erro inesperado ao tentar fazer login.');
-      console.error(err);
+      console.error("Erro inesperado no login:", err);
+      setError('Não foi possível conectar ao servidor.');
     } finally {
       setLoading(false);
     }
@@ -62,33 +65,35 @@ function AdminLogin() {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Senha</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              autoComplete="current-password"
+              disabled={loading}
             />
           </div>
 
+          <div className="form-group">
+            <label htmlFor="password">Senha</label>
+            <div className="input-wrapper">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoComplete="current-password"
+                disabled={loading}
+              />
+              <button
+                type="button"
+                className="password-toggle-btn"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+              >
+                {showPassword ? <EyeClosedIcon /> : <EyeOpenIcon />}
+              </button>
+            </div>
+          </div>
+
           {error && (
-            <div
-              style={{
-                backgroundColor: '#ff4d4f',
-                color: 'white',
-                padding: '10px 15px',
-                borderRadius: 4,
-                marginBottom: 15,
-                fontWeight: 'bold',
-                boxShadow: '0 1px 4px rgba(0,0,0,0.2)',
-              }}
-              role="alert"
-            >
+            <div className="error-message" role="alert">
               {error}
             </div>
           )}
@@ -103,4 +108,3 @@ function AdminLogin() {
 }
 
 export default AdminLogin;
-

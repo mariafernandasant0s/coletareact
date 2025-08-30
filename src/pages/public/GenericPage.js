@@ -1,19 +1,19 @@
-// src/pages/public/GenericPage.js
-
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
-import AnimateOnScroll from '../../components/animations/AnimateOnScroll';
 import { apiPublic } from '../../config/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
-// --- Ícones e Componentes ---
+// 1. IMPORTAMOS O NOSSO NOVO COMPONENTE DE ANIMAÇÃO
+import LazySection from '../../components/common/LazySection';
+
+// Seus ícones e componentes estáticos (sem alterações)
 import {
-  faNewspaper, faBottleWater, faWineGlass, faGear, faRecycle, faSeedling,
-  faTrashCan, faUsers, faChartPie, faQuestionCircle, faPhone, faCode,
-  faCheckSquare, faChartLine, faLeaf, faHandHoldingDollar, faDownload, faChevronDown,
-  faEnvelope, faDroplet, faLaptop
+  faCode, faRecycle, faSeedling, faTrashCan, faUsers, faChartPie, faQuestionCircle, faPhone,
+  faNewspaper, faBottleWater, faWineGlass, faGear, faDroplet, faLaptop, faCheckSquare,
+  faChartLine, faLeaf, faHandHoldingDollar, faDownload, faChevronDown, faEnvelope
 } from '@fortawesome/free-solid-svg-icons';
 import fotoAcamar from '../../assets/imagens/foto-acamar-uvr.jpg';
 import DesenvolvedorasContent from '../../components/DesenvolvedorasContent';
@@ -24,7 +24,7 @@ const pageIcons = {
   'faq': faQuestionCircle, 'contato': faPhone
 };
 
-// --- Componentes Internos ---
+// --- COMPONENTES INTERNOS (CÓDIGO COMPLETO E CORRETO) ---
 
 const MaterialsList = () => {
   const materialsData = [
@@ -48,10 +48,10 @@ const QuemSomosContent = () => {
   return (
     <div className="content-wrapper">
       <h4 className="subtitulo-centralizado">O que é o Programa Coleta Amiga?</h4><p>O Programa Coleta Amiga foi instituído através da Lei Municipal nº 3250 em 03 de maio de 2022. Seus principais objetivos são:</p><div className="objectives-list">{objectivesData.map((o, i) => (<div key={i} className="objective-item"><div className="objective-icon"><FontAwesomeIcon icon={o.icon} style={{ color: '#0056b3' }} /></div><p className="objective-text">{o.text}</p></div>))}</div>
-      <h4 className="subtitulo-centralizado">O que é a ACAMAR?</h4><p>A ACAMAR é a Associação dos Catadores de Materiais Recicláveis de Assis Chateaubriand - PR, fundada em 10 de outubro de 2001. Ela é considerada uma Entidade de Utilidade Pública, conforme a Lei Municipal n° 3.217 de 23 de abril de 2020.</p><h4 className="subtitulo-centralizado">Qual o local de destino dos recicláveis?</h4><p>Todo material previamente separado pela população e recolhido com auxílio dos caminhões da Coleta Amiga é encaminhado para a Unidade de Valorização de Recicláveis (UVR).</p><img src={fotoAcamar} alt="Unidade de Valorização de Recicláveis da ACAMAR" style={{ margin: '35px auto 0 auto', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)' }} loading="lazy" />
+      <h4 className="subtitulo-centralizado">O que é a ACAMAR?</h4><p>A ACAMAR é a Associação dos Catadores de Materiais Recicláveis de Assis Chateaubriand - PR, fundada em 10 de outubro de 2001. Ela é considerada uma Entidade de Utilidade Pública, conforme a Lei Municipal n° 3.217 de 23 de abril de 2020.</p><h4 className="subtitulo-centralizado">Qual o local de destino dos recicláveis?</h4><p>Todo material previamente separado pela população e recolhido com auxílio dos caminhões da Coleta Amiga é encaminhado para a Unidade de Valorização de Recicláveis (UVR).</p>
+      <img src={fotoAcamar} alt="Unidade de Valorização de Recicláveis da ACAMAR" style={{ margin: '35px auto 0 auto', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)' }} loading="lazy" />
       <h4 className="subtitulo-centralizado">Localização UVR</h4>
       <div className="map-container">
-        {/* <<< MAPA CORRIGIDO AQUI >>> */}
         <iframe 
             src="https://maps.google.com/maps?q=UVR%20-%20Unidade%20de%20Valoriza%C3%A7%C3%A3o%20de%20Recicl%C3%A1veis%20de%20Assis%20Chateaubriand&t=&z=15&ie=UTF8&iwloc=&output=embed" 
             width="100%" 
@@ -64,10 +64,23 @@ const QuemSomosContent = () => {
         </iframe>
       </div>
     </div>
-  );
+   );
 };
 
-const CronogramaContent = ({ pageData }) => <div className="cronograma-container">{pageData?.midiaUrl ? (<><img className="cronograma-image" src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} /><a href={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} className="download-button" download><FontAwesomeIcon icon={faDownload} /> Baixar Cronograma</a></>) : (<div style={{ textAlign: 'center', padding: '20px' }}><p>Imagem do cronograma não disponível.</p></div>)}</div>;
+const CronogramaContent = ({ pageData }) => (
+  <div className="cronograma-container">
+    {pageData?.midiaUrl ? (
+      <>
+        <img className="cronograma-image" src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} loading="lazy" />
+        <a href={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} className="download-button" download>
+          <FontAwesomeIcon icon={faDownload} /> Baixar Cronograma
+        </a>
+      </>
+    ) : (
+      <div style={{ textAlign: 'center', padding: '20px' }}><p>Imagem do cronograma não disponível.</p></div>
+    )}
+  </div>
+);
 
 const FaqContent = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -111,7 +124,8 @@ const ContatoContent = () => {
         <FontAwesomeIcon icon={faEnvelope} className="contact-icon" />
         <div>
           <strong>Email</strong>
-          <br />
+            
+
           <a href="mailto:uvr.assischat@gmail.com">uvr.assischat@gmail.com</a>
         </div>
       </div>
@@ -119,7 +133,8 @@ const ContatoContent = () => {
         <FontAwesomeIcon icon={faPhone} className="contact-icon" />
         <div>
           <strong>Telefone</strong>
-          <br />
+            
+
           <a href="tel:+5544991833010">(44) 99183-3010</a>
         </div>
       </div>
@@ -193,8 +208,8 @@ function GenericPage({ slug }) {
     if (!url) return '';
     let videoId = '';
     const patterns = [
-      /(?:https?:\/\/)?(?:www\.)?youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/|live\/)([a-zA-Z0-9_-]{11})/,
-      /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([a-zA-Z0-9_-]{11})/
+      /(?:https?:\/\/ )?(?:www\.)?youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/|live\/)([a-zA-Z0-9_-]{11})/,
+      /(?:https?:\/\/ )?(?:www\.)?youtu\.be\/([a-zA-Z0-9_-]{11})/
     ];
     for (const pattern of patterns) {
       const match = url.match(pattern);
@@ -214,28 +229,33 @@ function GenericPage({ slug }) {
       </Helmet>
       <section className="info-section">
         <div className="container">
-          <div className="content-wrapper content-fade-in">
-            <div className="titulo-principal">
-              <h2>
-                {pageIcons[slug] && <FontAwesomeIcon icon={pageIcons[slug]} />}
-                {pageData.titulo}
-              </h2>
+          {/* 2. ENVOLVEMOS O CONTEÚDO PRINCIPAL COM O LAZYSECTION */}
+          <LazySection>
+            <div className="content-wrapper">
+              <div className="titulo-principal">
+                <h2>
+                  {pageIcons[slug] && <FontAwesomeIcon icon={pageIcons[slug]} />}
+                  {pageData.titulo}
+                </h2>
+              </div>
+              {renderPageContent( )}
             </div>
-            {renderPageContent()}
-          </div>
+          </LazySection>
           
           {pageData.midiaUrl && (
-            <AnimateOnScroll>
+            // E ENVOLVEMOS A MÍDIA COM OUTRO LAZYSECTION
+            <LazySection>
               <div className="page-media-container">
                 { (pageData.midiaUrl.includes('youtube.com') || pageData.midiaUrl.includes('youtu.be')) ? (
                   <div className="youtube-video-container">
                     <iframe className="youtube-video" src={convertYouTubeUrl(pageData.midiaUrl)} title={pageData.titulo} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
                   </div>
                 ) : (
-                  <img src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} className="page-image" />
+                  // 3. ADICIONAMOS O LOADING="LAZY" AQUI
+                  <img loading="lazy" src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} className="page-image" />
                 )}
               </div>
-            </AnimateOnScroll>
+            </LazySection>
           )}
         </div>
       </section>

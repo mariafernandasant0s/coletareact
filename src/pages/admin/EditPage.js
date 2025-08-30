@@ -1,12 +1,13 @@
-// src/pages/admin/EditPage.js
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import api from '../../config/api'; // Usa a api privada por padrão
+import api from '../../config/api';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { Helmet } from 'react-helmet-async';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './Admin.css';
+
+const Spinner = () => <div className="spinner-dashboard"></div>;
 
 function EditPage() {
   const { id } = useParams();
@@ -15,10 +16,9 @@ function EditPage() {
   const [titulo, setTitulo] = useState('');
   const [conteudo, setConteudo] = useState('');
   const [midiaUrl, setMidiaUrl] = useState('');
-  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // Carrega os dados da página
   useEffect(() => {
     const fetchPageData = async () => {
       try {
@@ -28,7 +28,6 @@ function EditPage() {
         setMidiaUrl(data.midiaUrl || '');
       } catch (error) {
         console.error("Erro ao buscar dados da página:", error);
-        alert('Não foi possível carregar os dados para edição.');
       } finally {
         setLoading(false);
       }
@@ -36,19 +35,15 @@ function EditPage() {
     fetchPageData();
   }, [id]);
 
-  // Upload de imagem para Multer
   const handleUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
     const formData = new FormData();
-    formData.append('foto', file); // ⚠️ Deve bater com upload.single('foto') no back
-
+    formData.append('foto', file);
     try {
       const { data } = await api.post('/api/auth/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      // Ajusta para preview
       setMidiaUrl(`/uploads/${data.arquivo}`);
       alert('Imagem enviada! Clique em "Salvar Alterações" para confirmar.');
     } catch (error) {
@@ -57,7 +52,6 @@ function EditPage() {
     }
   };
 
-  // Salvar alterações da página
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
@@ -68,54 +62,61 @@ function EditPage() {
     } catch (error) {
       console.error(error);
       alert('Erro ao salvar as alterações.');
+    } finally {
       setSaving(false);
     }
   };
 
   if (loading) {
-    return <AdminLayout><p>Carregando editor...</p></AdminLayout>;
+    return <AdminLayout><Spinner /></AdminLayout>;
   }
 
   return (
     <AdminLayout>
       <Helmet><title>Editando: {titulo}</title></Helmet>
-      <div className="admin-content">
-        <h1>Editando: "{titulo}"</h1>
-        <form onSubmit={handleSubmit} className="edit-form">
-          
-          <div className="form-group">
-            <label htmlFor="titulo">Título da Seção</label>
-            <input type="text" id="titulo" value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+      <div className="painel-container">
+        <header className="painel-header">
+          <div>
+            <h1>Editando Seção</h1>
+            <p>"{titulo}"</p>
           </div>
-          
+        </header>
+        <form onSubmit={handleSubmit} className="form-edicao">
+          <div className="form-group form-group-titulo">
+            <label htmlFor="titulo">Título da Seção</label>
+            <input id="titulo" className="form-input" value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+          </div>
           <div className="form-group">
             <label>Conteúdo Principal</label>
             <ReactQuill theme="snow" value={conteudo} onChange={setConteudo} />
           </div>
-
           <div className="form-group">
-            <label htmlFor="midia">Mídia (URL da Imagem/Vídeo)</label>
+            <label htmlFor="midiaUrl">Mídia (URL de Imagem/Vídeo ou Upload)</label>
             {midiaUrl && (
-              <div className="media-preview">
+              <div className="media-preview-wrapper">
                 {midiaUrl.includes('youtube') 
-                  ? <p>Vídeo: {midiaUrl}</p> 
-                  : <img src={`${process.env.REACT_APP_API_URL}${midiaUrl}`} alt="Prévia da imagem atual" />}
+                  ? <p className="video-preview-text">URL do Vídeo: {midiaUrl}</p> 
+                  : <img src={`${process.env.REACT_APP_API_URL}${midiaUrl}`} alt="Prévia da imagem" className="media-preview" />}
               </div>
             )}
             <input 
               type="text" 
+              id="midiaUrl"
+              className="form-input"
               value={midiaUrl} 
               onChange={(e) => setMidiaUrl(e.target.value)} 
-              placeholder="Cole uma URL de vídeo ou envie uma imagem abaixo" 
+              placeholder="Cole uma URL ou envie uma imagem abaixo" 
             />
-            
-            <label htmlFor="upload" style={{ marginTop: '15px', display: 'block' }}>Substituir por nova imagem:</label>
-            <input type="file" id="upload" onChange={handleUpload} />
           </div>
-
-          <button type="submit" className="btn-save" disabled={saving}>
-            {saving ? 'Salvando...' : 'Salvar Alterações'}
-          </button>
+          <div className="form-group form-group-upload">
+            <label htmlFor="upload">Substituir por nova imagem:</label>
+            <input id="upload" className="form-input-file" type="file" onChange={handleUpload} />
+          </div>
+          <div className="form-actions">
+            <button type="submit" className="btn-principal" disabled={saving}>
+              {saving ? 'Salvando...' : 'Salvar Alterações'}
+            </button>
+          </div>
         </form>
       </div>
     </AdminLayout>
@@ -123,4 +124,3 @@ function EditPage() {
 }
 
 export default EditPage;
-

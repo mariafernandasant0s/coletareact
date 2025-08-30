@@ -1,20 +1,188 @@
-/* src/pages/admin/Admin.css */
+/* ==========================================================================
+   DESIGN SYSTEM GERAL (CORES, FONTES, ETC.)
+   ========================================================================== */
+:root {
+  --cor-principal: #0056b3;
+  --cor-principal-hover: #003366;
+  --cor-fundo: #f4f7fa;
+  --cor-painel: #ffffff;
+  --cor-texto-titulo: #1a2d4d;
+  --cor-texto-corpo: #5a6b82;
+  --cor-texto-sutil: #9aabc0;
+  --cor-borda: #e5eaf1;
+  --sombra-painel: 0 4px 16px rgba(26, 45, 77, 0.06);
+  --raio-borda: 12px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
 
-/* Estilo para a página de fundo e o container do login */
+body {
+  background-color: var(--cor-fundo);
+  margin: 0;
+}
+
+/* ==========================================================================
+   PAINEL DE CONTROLE (DASHBOARD) - DESIGN DE LISTA DE AÇÕES
+   ========================================================================== */
+.painel-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.painel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.painel-header h1 {
+  font-size: 32px;
+  color: var(--cor-texto-titulo);
+  margin: 0 0 4px 0;
+}
+
+.painel-header p {
+  font-size: 18px;
+  color: var(--cor-texto-corpo);
+  margin: 0;
+}
+
+.btn-principal {
+  background-color: var(--cor-principal);
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 12px 24px;
+  border-radius: var(--raio-borda);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-principal:hover {
+  background-color: var(--cor-principal-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 86, 179, 0.25);
+}
+
+.btn-principal:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.lista-acoes {
+  background-color: var(--cor-painel);
+  border-radius: var(--raio-borda);
+  box-shadow: var(--sombra-painel);
+  overflow: hidden;
+  border: 1px solid var(--cor-borda);
+}
+
+.item-acao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--cor-borda);
+  transition: background-color 0.2s ease;
+}
+
+.item-acao:last-child {
+  border-bottom: none;
+}
+
+.item-acao:hover {
+  background-color: #fcfdff;
+}
+
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.item-icon {
+  flex-shrink: 0;
+  color: var(--cor-principal);
+}
+
+.item-info h2 {
+  font-size: 18px;
+  color: var(--cor-texto-titulo);
+  margin: 0 0 2px 0;
+  font-weight: 600;
+}
+
+.item-info span {
+  font-size: 14px;
+  color: var(--cor-texto-sutil);
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+}
+
+.btn-acao-editar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f0f5fa;
+  color: var(--cor-texto-corpo);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-acao-editar:hover {
+  background-color: var(--cor-principal);
+  color: white;
+}
+
+.btn-acao-editar svg {
+  transition: transform 0.2s ease;
+}
+
+.btn-acao-editar:hover svg {
+  transform: translateX(3px);
+}
+
+.spinner-dashboard {
+  border: 4px solid var(--cor-borda);
+  border-top: 4px solid var(--cor-principal);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 80px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   PÁGINA DE LOGIN (ESTILO CONSISTENTE)
+   ========================================================================== */
 .admin-page-background {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f0f2f5;
   padding: 20px;
 }
 
 .login-container {
   padding: 40px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: var(--cor-painel);
+  border-radius: var(--raio-borda);
+  box-shadow: var(--sombra-painel);
   width: 100%;
   max-width: 400px;
   text-align: center;
@@ -22,7 +190,7 @@
 
 .login-container h2 {
   margin-bottom: 30px;
-  color: #003366;
+  color: var(--cor-texto-titulo);
 }
 
 .form-group {
@@ -33,112 +201,238 @@
 .form-group label {
   display: block;
   margin-bottom: 8px;
-  font-weight: 700;
-  color: #555;
+  font-weight: 600;
+  color: var(--cor-texto-corpo);
 }
 
 .form-group input[type="email"],
 .form-group input[type="password"],
 .form-group input[type="text"] {
   width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1em;
+  padding: 12px 16px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
 }
 
-.btn-login, .btn-save {
+.form-group input:focus {
+  outline: none;
+  border-color: var(--cor-principal);
+  box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.2);
+}
+
+.btn-login {
   width: 100%;
   padding: 12px;
   border: none;
-  background-color: #0056b3;
+  background-color: var(--cor-principal);
   color: white;
   font-size: 1.1em;
   font-weight: 700;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
 }
 
-.btn-login:hover, .btn-save:hover {
-  background-color: #003366;
+.btn-login:hover:not(:disabled) {
+  background-color: var(--cor-principal-hover);
 }
 
-.btn-login:disabled, .btn-save:disabled {
+.btn-login:disabled {
   background-color: #999;
   cursor: not-allowed;
 }
 
 .error-message {
   color: #d93025;
-  margin-top: -10px;
   margin-bottom: 15px;
   text-align: center;
+  font-weight: 500;
 }
 
-/* Tabela do Dashboard */
-.admin-table {
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper input {
+  padding-right: 45px !important;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  bottom: 1px;
+  width: 45px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--cor-texto-sutil);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.password-toggle-btn:hover {
+  color: var(--cor-texto-titulo);
+}
+
+/* ==========================================================================
+   ESTILO DE DESTAQUE PARA ITENS IMPORTANTES
+   ========================================================================== */
+
+.item-destaque {
+  background-color: #e6f0ff;
+  border-left: 3px solid var(--cor-principal);
+  border-color: var(--cor-borda) var(--cor-borda) var(--cor-borda) var(--cor-principal);
+}
+
+.item-destaque:hover {
+  background-color: #dbe9ff;
+}
+
+.item-destaque .btn-acao-editar {
+  background-color: white;
+  border: 1px solid #b3d1f2;
+}
+
+.item-destaque .btn-acao-editar:hover {
+  background-color: var(--cor-principal);
+  border-color: var(--cor-principal);
+  color: white;
+}
+
+/* ==========================================================================
+   ESTILOS ADICIONAIS PARA A PÁGINA DE EDIÇÃO
+   ========================================================================== */
+
+.form-edicao {
+  background-color: var(--cor-painel);
+  padding: 32px;
+  border-radius: var(--raio-borda);
+  border: 1px solid var(--cor-borda);
+  margin-top: 32px;
+}
+
+.form-input {
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 30px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.admin-table th, .admin-table td {
-  border: 1px solid #ddd;
-  padding: 12px 15px;
-  text-align: left;
-}
-
-.admin-table th {
-  background-color: #f2f2f2;
-  color: #333;
-  font-weight: 700;
-}
-
-.admin-table tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.btn-edit {
-  background-color: #28a745;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: normal;
-  display: inline-block;
-  transition: background-color 0.2s ease;
-}
-.btn-edit:hover {
-  background-color: #218838;
-  color: white;
-  text-decoration: none;
-}
-
-/* Formulário de Edição */
-.edit-form {
-  margin-top: 30px;
-}
-
-.media-preview img {
-  max-width: 250px;
-  max-height: 250px;
-  border: 1px solid #ddd;
-  padding: 5px;
-  margin-top: 10px;
-  object-fit: cover;
-  border-radius: 4px;
-}
-
-.media-preview p {
-  font-style: italic;
-  color: #555;
-}
-
-/* Estilo para o Editor de Texto Rico */
-.ql-editor {
-  min-height: 200px;
+  padding: 12px 16px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
   font-size: 16px;
-  background-color: #fff;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+  background-color: #fcfdff;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--cor-principal);
+  box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.2);
+}
+
+.ql-toolbar.ql-snow {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border: 1px solid var(--cor-borda);
+  background-color: #f7fafc;
+}
+
+.ql-container.ql-snow {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border: 1px solid var(--cor-borda);
+  border-top: 0;
+  font-size: 16px;
+  color: var(--cor-texto-corpo);
+}
+
+.ql-editor {
+  min-height: 250px;
+}
+
+.form-input-file {
+  font-size: 16px;
+  color: var(--cor-texto-corpo);
+  width: 100%;
+}
+
+.form-input-file::file-selector-button {
+  font-weight: 600;
+  color: var(--cor-principal);
+  background-color: #e6f0ff;
+  padding: 8px 16px;
+  border: 1px solid var(--cor-principal);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 16px;
+}
+
+.form-input-file::file-selector-button:hover {
+  background-color: var(--cor-principal);
+  color: white;
+}
+
+.media-preview-wrapper {
+  margin-bottom: 16px;
+}
+
+.media-preview {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: var(--raio-borda);
+  border: 1px solid var(--cor-borda);
+  object-fit: cover;
+  display: block;
+}
+
+.video-preview-text {
+  background-color: #f7fafc;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--cor-borda);
+  color: var(--cor-texto-corpo);
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font-size: 14px;
+  word-break: break-all;
+}
+
+.form-actions {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--cor-borda);
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Estilo para o botão secundário (Tutorial) com ícone */
+.btn-secundario {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: transparent;
+  border: 1px solid var(--cor-borda);
+  color: var(--cor-texto-corpo);
+  font-weight: 600;
+  font-size: 16px;
+  padding: 12px 20px;
+  border-radius: var(--raio-borda);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secundario:hover {
+  background-color: var(--cor-fundo);
+  border-color: #d8dde4;
+  color: var(--cor-texto-titulo);
 }
