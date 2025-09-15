@@ -10,6 +10,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 import EmailSubscriptionForm from '../../components/EmailSubscriptionForm';
 
+// Loader para página inicial
 const HomePageLoader = () => (
   <main>
     <SkeletonTheme baseColor="#e0e0e0" highlightColor="#f5f5f5">
@@ -24,9 +25,9 @@ const HomePageLoader = () => (
           <Skeleton width={200} height={45} style={{ borderRadius: '50px' }} />
         </div>
         <div style={{ marginTop: '60px' }}>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
-                <Skeleton width={450} height={200} />
-            </div>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+            <Skeleton width={450} height={200} />
+          </div>
         </div>
       </div>
     </SkeletonTheme>
@@ -46,8 +47,8 @@ function HomePage() {
       setLoading(true);
       try {
         const [heroRes, cronogramaRes] = await Promise.all([
-          apiPublic.get('/api/pagina/slug/home-hero'),
-          apiPublic.get('/api/pagina/slug/cronograma-da-coleta-de-residuos'),
+          apiPublic.get('/api/paginas/slug/home-hero'), // Corrigido para plural
+          apiPublic.get('/api/paginas/slug/cronograma-da-coleta-de-residuos'), // Corrigido para plural
         ]);
         
         setHeroData(heroRes.data);
@@ -147,7 +148,7 @@ function HomePage() {
                 {!hintDismissed && (
                   <div className="zoom-hint">
                     <FontAwesomeIcon icon={faUpDownLeftRight} />
-                    <span>Pince para ampliar</span>
+                    <span>Pinça para ampliar</span>
                   </div>
                 )}
               </div>
@@ -179,7 +180,7 @@ function HomePage() {
         }}
       >
         <div className="container">
-            <EmailSubscriptionForm />
+          <EmailSubscriptionForm />
         </div>
       </section>
     </>
