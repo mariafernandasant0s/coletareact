@@ -13,9 +13,15 @@ function EditPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  // Estados para os campos do formulário
   const [titulo, setTitulo] = useState('');
   const [conteudo, setConteudo] = useState('');
   const [midiaUrl, setMidiaUrl] = useState('');
+  
+  // Estado APENAS para o arquivo selecionado no input
+  const [imagemSelecionada, setImagemSelecionada] = useState(null);
+
+  // Estados de controle da UI
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -35,35 +41,47 @@ function EditPage() {
     fetchPageData();
   }, [id]);
 
-  const handleUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const formData = new FormData();
-    formData.append('foto', file);
-    try {
-      const { data } = await api.post('/api/auth/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      setMidiaUrl(`/uploads/${data.arquivo}`);
-      alert('Imagem enviada! Clique em "Salvar Alterações" para confirmar.');
-    } catch (error) {
-      console.error(error);
-      alert('Erro ao enviar imagem.');
-    }
-  };
-
+  // NOVA LÓGICA DE SUBMISSÃO - UNIFICADA
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
+
+    // 1. Cria um FormData, que é necessário para enviar arquivos e texto juntos.
+    const formData = new FormData();
+    formData.append('titulo', titulo);
+    formData.append('conteudo', conteudo);
+    formData.append('slug', titulo.toLowerCase().replace(/\s+/g, '-')); // Gera o slug a partir do título
+
+    // 2. Se uma nova imagem foi selecionada, anexa ao FormData com o nome 'midia'.
+    if (imagemSelecionada) {
+      formData.append('midia', imagemSelecionada);
+    } else {
+      // 3. Se não houver nova imagem, envia a URL antiga para que o back-end a mantenha.
+      formData.append('midiaUrl', midiaUrl);
+    }
+
     try {
-      await api.put(`/api/paginas/${id}`, { titulo, conteudo, midiaUrl });
+      // 4. Envia a requisição PUT com o FormData.
+      // O cabeçalho 'Content-Type': 'multipart/form-data' é adicionado automaticamente pelo navegador.
+      await api.put(`/api/paginas/${id}`, formData);
+      
       alert('Página atualizada com sucesso!');
       navigate('/admin/dashboard');
     } catch (error) {
-      console.error(error);
+      console.error("Erro ao salvar as alterações:", error);
       alert('Erro ao salvar as alterações.');
     } finally {
       setSaving(false);
+    }
+  };
+
+  // Função simples para guardar o arquivo selecionado no estado
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImagemSelecionada(file);
+      // Opcional: mostra uma prévia da imagem nova
+      setMidiaUrl(URL.createObjectURL(file)); 
     }
   };
 
@@ -81,6 +99,7 @@ function EditPage() {
             <p>"{titulo}"</p>
           </div>
         </header>
+        {/* O formulário agora chama a nova função handleSubmit */}
         <form onSubmit={handleSubmit} className="form-edicao">
           <div className="form-group form-group-titulo">
             <label htmlFor="titulo">Título da Seção</label>
@@ -91,26 +110,22 @@ function EditPage() {
             <ReactQuill theme="snow" value={conteudo} onChange={setConteudo} />
           </div>
           <div className="form-group">
-            <label htmlFor="midiaUrl">Mídia (URL de Imagem/Vídeo ou Upload)</label>
+            <label>Mídia Atual</label>
             {midiaUrl && (
               <div className="media-preview-wrapper">
-                {midiaUrl.includes('youtube') 
-                  ? <p className="video-preview-text">URL do Vídeo: {midiaUrl}</p> 
-                  : <img src={`${process.env.REACT_APP_API_URL}${midiaUrl}`} alt="Prévia da imagem" className="media-preview" />}
+                {/* Lógica para mostrar a imagem vinda da API ou a prévia da nova imagem */}
+                <img 
+                  src={midiaUrl.startsWith('blob:') ? midiaUrl : `${process.env.REACT_APP_API_URL}${midiaUrl}`} 
+                  alt="Prévia da mídia" 
+                  className="media-preview" 
+                />
               </div>
             )}
-            <input 
-              type="text" 
-              id="midiaUrl"
-              className="form-input"
-              value={midiaUrl} 
-              onChange={(e) => setMidiaUrl(e.target.value)} 
-              placeholder="Cole uma URL ou envie uma imagem abaixo" 
-            />
           </div>
           <div className="form-group form-group-upload">
             <label htmlFor="upload">Substituir por nova imagem:</label>
-            <input id="upload" className="form-input-file" type="file" onChange={handleUpload} />
+            {/* O input de arquivo agora chama handleFileChange */}
+            <input id="upload" className="form-input-file" type="file" onChange={handleFileChange} />
           </div>
           <div className="form-actions">
             <button type="submit" className="btn-principal" disabled={saving}>
