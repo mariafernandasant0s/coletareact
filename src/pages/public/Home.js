@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays, faDownload, faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons';
-import { apiPublic } from '../../config/api';
+import { apiPublic } from '../../config/api'; // Usando a instância pública
 import { useLocation } from 'react-router-dom';
 
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
@@ -45,10 +45,14 @@ function HomePage() {
     const fetchData = async () => {
       setLoading(true);
       try {
+        // ======================= A CORREÇÃO ESTÁ AQUI =======================
+        // Alteramos 'home-cronograma' para o slug real que você definiu no CMS.
         const [heroRes, cronogramaRes] = await Promise.all([
           apiPublic.get('/api/paginas/slug/home-hero'),
-          apiPublic.get('/api/paginas/slug/home-cronograma'),
+          apiPublic.get('/api/paginas/slug/cronograma-da-coleta-de-residuos'), // <-- CÓDIGO CORRIGIDO
         ]);
+        // ====================================================================
+        
         setHeroData(heroRes.data);
         setCronogramaData(cronogramaRes.data);
       } catch (error) {
