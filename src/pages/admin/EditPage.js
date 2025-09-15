@@ -1,6 +1,3 @@
-Claro, aqui está o código completo do arquivo `EditPage.js` com a correção aplicada e sem os comentários.
-
-```javascript
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import apiPrivate, { putWithUpload } from '../../config/api'; 
@@ -122,4 +119,3 @@ function EditPage() {
 }
 
 export default EditPage;
-```
