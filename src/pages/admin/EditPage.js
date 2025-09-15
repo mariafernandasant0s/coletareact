@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import api from '../../config/api';
+// Importa a instância padrão (apiPrivate) e a nova função de upload
+import apiPrivate, { putWithUpload } from '../../config/api'; 
 import AdminLayout from '../../components/admin/AdminLayout';
 import { Helmet } from 'react-helmet-async';
 import ReactQuill from 'react-quill';
@@ -13,22 +14,18 @@ function EditPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Estados para os campos do formulário
   const [titulo, setTitulo] = useState('');
   const [conteudo, setConteudo] = useState('');
   const [midiaUrl, setMidiaUrl] = useState('');
-  
-  // Estado APENAS para o arquivo selecionado no input
   const [imagemSelecionada, setImagemSelecionada] = useState(null);
-
-  // Estados de controle da UI
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPageData = async () => {
       try {
-        const { data } = await api.get(`/api/paginas/${id}`);
+        // Usa a instância apiPrivate para a requisição GET
+        const { data } = await apiPrivate.get(`/api/paginas/${id}`);
         setTitulo(data.titulo);
         setConteudo(data.conteudo);
         setMidiaUrl(data.midiaUrl || '');
@@ -41,7 +38,6 @@ function EditPage() {
     fetchPageData();
   }, [id]);
 
-  // LÓGICA DE SUBMISSÃO UNIFICADA
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
@@ -49,7 +45,7 @@ function EditPage() {
     const formData = new FormData();
     formData.append('titulo', titulo);
     formData.append('conteudo', conteudo);
-    formData.append('slug', titulo.toLowerCase().replace(/\s+/g, '-'));
+    formData.append('slug', titulo.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''));
 
     if (imagemSelecionada) {
       formData.append('midia', imagemSelecionada);
@@ -58,19 +54,19 @@ function EditPage() {
     }
 
     try {
-      await api.put(`/api/paginas/${id}`, formData);
+      // Usa a nova função 'putWithUpload' que garante o header correto
+      await putWithUpload(`/api/paginas/${id}`, formData);
       
       alert('Página atualizada com sucesso!');
       navigate('/admin/dashboard');
     } catch (error) {
-      console.error("Erro ao salvar as alterações:", error);
+      console.error("Erro ao salvar as alterações:", error.response ? error.response.data : error.message);
       alert('Erro ao salvar as alterações.');
     } finally {
       setSaving(false);
     }
   };
 
-  // Função para guardar o arquivo selecionado no estado
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -85,26 +81,10 @@ function EditPage() {
 
   return (
     <AdminLayout>
-      {/* ==================== INÍCIO DO TESTE VISUAL "MARRETA" ==================== */}
-      <h1 style={{
-        backgroundColor: 'red', 
-        color: 'white', 
-        padding: '20px', 
-        textAlign: 'center', 
-        fontSize: '24px',
-        margin: 0,
-      }}>
-        SE VOCÊ ESTÁ VENDO ISSO, O ARQUIVO É O CERTO!
-      </h1>
-      {/* ===================== FIM DO TESTE VISUAL "MARRETA" ===================== */}
-      
       <Helmet><title>Editando: {titulo}</title></Helmet>
       <div className="painel-container">
         <header className="painel-header">
-          <div>
-            <h1>Editando Seção</h1>
-            <p>"{titulo}"</p>
-          </div>
+          <div><h1>Editando Seção</h1><p>"{titulo}"</p></div>
         </header>
         <form onSubmit={handleSubmit} className="form-edicao">
           <div className="form-group form-group-titulo">
