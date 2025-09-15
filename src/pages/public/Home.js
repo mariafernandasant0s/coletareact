@@ -10,6 +10,20 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 import EmailSubscriptionForm from '../../components/EmailSubscriptionForm';
 
+// ===================================================================
+// FUNÇÃO INTELIGENTE PARA RESOLVER A URL DA IMAGEM
+// ===================================================================
+const getImageUrl = (path) => {
+  if (!path) return '';
+  // Se o caminho já é uma URL completa (Cloudinary), retorna ele mesmo.
+  if (path.startsWith('http://' ) || path.startsWith('https://' )) {
+    return path;
+  }
+  // Se for um caminho local (upload no servidor), adiciona o prefixo da API.
+  return `${process.env.REACT_APP_API_URL}${path}`;
+};
+
+
 const HomePageLoader = () => (
   <main>
     <SkeletonTheme baseColor="#e0e0e0" highlightColor="#f5f5f5">
@@ -79,7 +93,7 @@ function HomePage() {
 
   const handleDownload = async (e) => {
     e.preventDefault(); 
-    const imageUrl = cronogramaData.midiaUrl;
+    const imageUrl = getImageUrl(cronogramaData.midiaUrl);
     const fileName = "Cronograma_Coleta_Assis_Chateaubriand.png";
     try {
       const response = await fetch(imageUrl);
@@ -121,7 +135,7 @@ function HomePage() {
       
       {heroData.midiaUrl && (
         <section id="hero">
-          <img src={heroData.midiaUrl} alt={heroData.titulo} />
+          <img src={getImageUrl(heroData.midiaUrl)} alt={heroData.titulo} />
         </section>
       )}
 
@@ -141,7 +155,7 @@ function HomePage() {
                 onTouchStart={handleImageInteraction}
               >
                 <img 
-                  src={cronogramaData.midiaUrl} 
+                  src={getImageUrl(cronogramaData.midiaUrl)} 
                   alt="Tabela com o cronograma semanal da coleta" 
                 />
                 {!hintDismissed && (
@@ -157,7 +171,7 @@ function HomePage() {
                 </div>
               )}
               <a 
-                href={cronogramaData.midiaUrl} 
+                href={getImageUrl(cronogramaData.midiaUrl)} 
                 onClick={handleDownload} 
                 className="download-button ripple"
               >
