@@ -1,4 +1,7 @@
-  import React, { useState, useEffect } from 'react';
+Claro, aqui está o código completo do arquivo `EditPage.js` com a correção aplicada e sem os comentários.
+
+```javascript
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import apiPrivate, { putWithUpload } from '../../config/api'; 
 import AdminLayout from '../../components/admin/AdminLayout';
@@ -43,7 +46,6 @@ function EditPage() {
     const formData = new FormData();
     formData.append('titulo', titulo);
     formData.append('conteudo', conteudo);
-    formData.append('slug', titulo.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''));
 
     if (imagemSelecionada) {
       formData.append('midia', imagemSelecionada);
@@ -97,7 +99,7 @@ function EditPage() {
             {midiaUrl && (
               <div className="media-preview-wrapper">
                 <img 
-                  src={midiaUrl.startsWith('blob:') ? midiaUrl : `${process.env.REACT_APP_API_URL}${midiaUrl}`} 
+                  src={midiaUrl.startsWith('blob:') ? midiaUrl : midiaUrl} 
                   alt="Prévia da mídia" 
                   className="media-preview" 
                 />
@@ -120,3 +122,4 @@ function EditPage() {
 }
 
 export default EditPage;
+```
