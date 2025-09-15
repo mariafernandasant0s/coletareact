@@ -41,28 +41,23 @@ function EditPage() {
     fetchPageData();
   }, [id]);
 
-  // NOVA LÓGICA DE SUBMISSÃO - UNIFICADA
+  // LÓGICA DE SUBMISSÃO UNIFICADA
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
 
-    // 1. Cria um FormData, que é necessário para enviar arquivos e texto juntos.
     const formData = new FormData();
     formData.append('titulo', titulo);
     formData.append('conteudo', conteudo);
-    formData.append('slug', titulo.toLowerCase().replace(/\s+/g, '-')); // Gera o slug a partir do título
+    formData.append('slug', titulo.toLowerCase().replace(/\s+/g, '-'));
 
-    // 2. Se uma nova imagem foi selecionada, anexa ao FormData com o nome 'midia'.
     if (imagemSelecionada) {
       formData.append('midia', imagemSelecionada);
     } else {
-      // 3. Se não houver nova imagem, envia a URL antiga para que o back-end a mantenha.
       formData.append('midiaUrl', midiaUrl);
     }
 
     try {
-      // 4. Envia a requisição PUT com o FormData.
-      // O cabeçalho 'Content-Type': 'multipart/form-data' é adicionado automaticamente pelo navegador.
       await api.put(`/api/paginas/${id}`, formData);
       
       alert('Página atualizada com sucesso!');
@@ -75,12 +70,11 @@ function EditPage() {
     }
   };
 
-  // Função simples para guardar o arquivo selecionado no estado
+  // Função para guardar o arquivo selecionado no estado
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImagemSelecionada(file);
-      // Opcional: mostra uma prévia da imagem nova
       setMidiaUrl(URL.createObjectURL(file)); 
     }
   };
@@ -91,6 +85,19 @@ function EditPage() {
 
   return (
     <AdminLayout>
+      {/* ==================== INÍCIO DO TESTE VISUAL "MARRETA" ==================== */}
+      <h1 style={{
+        backgroundColor: 'red', 
+        color: 'white', 
+        padding: '20px', 
+        textAlign: 'center', 
+        fontSize: '24px',
+        margin: 0,
+      }}>
+        SE VOCÊ ESTÁ VENDO ISSO, O ARQUIVO É O CERTO!
+      </h1>
+      {/* ===================== FIM DO TESTE VISUAL "MARRETA" ===================== */}
+      
       <Helmet><title>Editando: {titulo}</title></Helmet>
       <div className="painel-container">
         <header className="painel-header">
@@ -99,7 +106,6 @@ function EditPage() {
             <p>"{titulo}"</p>
           </div>
         </header>
-        {/* O formulário agora chama a nova função handleSubmit */}
         <form onSubmit={handleSubmit} className="form-edicao">
           <div className="form-group form-group-titulo">
             <label htmlFor="titulo">Título da Seção</label>
@@ -113,7 +119,6 @@ function EditPage() {
             <label>Mídia Atual</label>
             {midiaUrl && (
               <div className="media-preview-wrapper">
-                {/* Lógica para mostrar a imagem vinda da API ou a prévia da nova imagem */}
                 <img 
                   src={midiaUrl.startsWith('blob:') ? midiaUrl : `${process.env.REACT_APP_API_URL}${midiaUrl}`} 
                   alt="Prévia da mídia" 
@@ -124,7 +129,6 @@ function EditPage() {
           </div>
           <div className="form-group form-group-upload">
             <label htmlFor="upload">Substituir por nova imagem:</label>
-            {/* O input de arquivo agora chama handleFileChange */}
             <input id="upload" className="form-input-file" type="file" onChange={handleFileChange} />
           </div>
           <div className="form-actions">
