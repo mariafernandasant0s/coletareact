@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+  import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-// Importa a instância padrão (apiPrivate) e a nova função de upload
 import apiPrivate, { putWithUpload } from '../../config/api'; 
 import AdminLayout from '../../components/admin/AdminLayout';
 import { Helmet } from 'react-helmet-async';
@@ -24,7 +23,6 @@ function EditPage() {
   useEffect(() => {
     const fetchPageData = async () => {
       try {
-        // Usa a instância apiPrivate para a requisição GET
         const { data } = await apiPrivate.get(`/api/paginas/${id}`);
         setTitulo(data.titulo);
         setConteudo(data.conteudo);
@@ -54,7 +52,6 @@ function EditPage() {
     }
 
     try {
-      // Usa a nova função 'putWithUpload' que garante o header correto
       await putWithUpload(`/api/paginas/${id}`, formData);
       
       alert('Página atualizada com sucesso!');
