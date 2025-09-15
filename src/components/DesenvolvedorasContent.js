@@ -57,7 +57,7 @@ function DesenvolvedorasContent() {
       <div className="article-section">
         <h2 className="subtitulo-centralizado">Nosso Artigo</h2>
         <p className="article-summary">
-         O artigo apresenta o desenvolvimento de um website sobre coleta seletiva para a Prefeitura de Assis Chateaubriand, com o objetivo de facilitar a comunicação entre a população e o poder público. O trabalho surgiu da necessidade de conscientizar a comunidade sobre a separação correta dos resíduos e valorizar o papel da ACAMAR, associação responsável pela coleta no município. O site foi elaborado por alunas do IFPR, com foco em acessibilidade, clareza e navegabilidade, trazendo informações sobre legislação, dicas práticas e a importância ambiental da reciclagem. Como resultado, foi criada uma ferramenta digital que contribui para a educação ambiental, promove a participação cidadã e fortalece a parceria entre a Prefeitura, a ACAMAR e a população local.
+O crescente volume de resíduos sólidos urbanos representa um desafio significativo para os municípios brasileiros, demandando soluções eficazes para sua gestão. Em Assis Chateaubriand, a descontinuidade de um website informativo em 2020 comprometeu a comunicação sobre a coleta seletiva, dificultando o acesso da população a informações essenciais, como cronograma e diretrizes de separação, e limitando a adesão ao programa Coleta Amiga, operacionalizado pela Associação dos Catadores de Materiais Recicláveis (ACAMAR). Diante dessa problemática, o presente trabalho teve como objetivo o desenvolvimento de um novo website para a coleta seletiva do município, visando restabelecer um canal de comunicação oficial, acessível e atualizado. A metodologia envolveu o levantamento de requisitos junto ao Departamento de Meio Ambiente, o desenvolvimento de um protótipo e a implementação de uma plataforma digital utilizando tecnologias como React para o front-end e Node.js para o back-end. O resultado é um site responsivo e interativo, que centraliza o cronograma de coleta, guias de separação de resíduos, dados sobre o volume coletado e informações sobre o programa. A plataforma inclui um painel administrativo que permite à gestão municipal atualizar os conteúdos de forma autônoma, solucionando o problema de obsolescência informacional. Adicionalmente, foram integrados recursos de acessibilidade, como tradução para Libras e controles de contraste e fonte, e um sistema de notificação por e-mail para manter os cidadãos informados a respeito de atualizações do cronograma. O projeto conclui-se com a entrega de uma solução tecnológica funcional que fortalece a gestão de resíduos, promove a conscientização ambiental e facilita o engajamento da comunidade chateaubriandense.
         </p>
         <a href="/caminho-para-o-artigo.pdf" className="download-button btn-gradiente" target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon icon={faDownload} />
@@ -69,5 +69,6 @@ function DesenvolvedorasContent() {
 }
 
 export default DesenvolvedorasContent;
+
 
 
