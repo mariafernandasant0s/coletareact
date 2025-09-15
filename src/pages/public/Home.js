@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays, faDownload, faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons';
-import { apiPublic } from '../../config/api'; // Usando a instância pública
+import { apiPublic } from '../../config/api';
 import { useLocation } from 'react-router-dom';
 
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
@@ -10,7 +10,6 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 import EmailSubscriptionForm from '../../components/EmailSubscriptionForm';
 
-// Loader para página inicial
 const HomePageLoader = () => (
   <main>
     <SkeletonTheme baseColor="#e0e0e0" highlightColor="#f5f5f5">
@@ -47,8 +46,8 @@ function HomePage() {
       setLoading(true);
       try {
         const [heroRes, cronogramaRes] = await Promise.all([
-          apiPublic.get('/api/paginas/slug/home-hero'), // Corrigido para plural
-          apiPublic.get('/api/paginas/slug/cronograma-da-coleta-de-residuos'), // Corrigido para plural
+          apiPublic.get('/api/paginas/slug/home-hero'),
+          apiPublic.get('/api/paginas/slug/cronograma-da-coleta-de-residuos'),
         ]);
         
         setHeroData(heroRes.data);
@@ -80,7 +79,7 @@ function HomePage() {
 
   const handleDownload = async (e) => {
     e.preventDefault(); 
-    const imageUrl = `${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`;
+    const imageUrl = cronogramaData.midiaUrl;
     const fileName = "Cronograma_Coleta_Assis_Chateaubriand.png";
     try {
       const response = await fetch(imageUrl);
@@ -122,7 +121,7 @@ function HomePage() {
       
       {heroData.midiaUrl && (
         <section id="hero">
-          <img src={`${process.env.REACT_APP_API_URL}${heroData.midiaUrl}`} alt={heroData.titulo} />
+          <img src={heroData.midiaUrl} alt={heroData.titulo} />
         </section>
       )}
 
@@ -142,7 +141,7 @@ function HomePage() {
                 onTouchStart={handleImageInteraction}
               >
                 <img 
-                  src={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} 
+                  src={cronogramaData.midiaUrl} 
                   alt="Tabela com o cronograma semanal da coleta" 
                 />
                 {!hintDismissed && (
@@ -158,7 +157,7 @@ function HomePage() {
                 </div>
               )}
               <a 
-                href={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} 
+                href={cronogramaData.midiaUrl} 
                 onClick={handleDownload} 
                 className="download-button ripple"
               >
