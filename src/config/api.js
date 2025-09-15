@@ -16,7 +16,8 @@ export const apiPrivate = axios.create({
 // Interceptor para adicionar o token no header Authorization na instância privada
 apiPrivate.interceptors.request.use(
   (config) => {
-    const userInfo = localStorage.getItem('user_info'); // ajuste para sua chave correta
+    // USA A CHAVE CORRETA: 'user_info'
+    const userInfo = localStorage.getItem('user_info'); 
     if (userInfo) {
       const token = JSON.parse(userInfo).token;
       if (token) {
@@ -38,17 +39,17 @@ apiPrivate.interceptors.request.use(
  * @returns {Promise} - A promessa da requisição Axios.
  */
 export const putWithUpload = (url, formData) => {
+  // USA A CHAVE CORRETA: 'user_info'
   const userInfo = localStorage.getItem('user_info');
   let token = null;
   if (userInfo) {
     token = JSON.parse(userInfo).token;
   }
 
-  // Usamos axios.put diretamente para não passar pelos interceptors que podem
-  // interferir com o Content-Type de multipart/form-data.
   return axios.put(`${API_BASE_URL}${url}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
+      // Adiciona o cabeçalho de autorização corretamente
       Authorization: token ? `Bearer ${token}` : '',
     },
   });
