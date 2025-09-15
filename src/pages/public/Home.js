@@ -45,13 +45,10 @@ function HomePage() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        // ======================= A CORREÇÃO ESTÁ AQUI =======================
-        // Alteramos 'home-cronograma' para o slug real que você definiu no CMS.
         const [heroRes, cronogramaRes] = await Promise.all([
-          apiPublic.get('/api/paginas/slug/home-hero'),
-          apiPublic.get('/api/paginas/slug/cronograma-da-coleta-de-residuos'), // <-- CÓDIGO CORRIGIDO
+          apiPublic.get('/api/pagina/slug/home-hero'),
+          apiPublic.get('/api/pagina/slug/cronograma-da-coleta-de-residuos'),
         ]);
-        // ====================================================================
         
         setHeroData(heroRes.data);
         setCronogramaData(cronogramaRes.data);
@@ -138,8 +135,15 @@ function HomePage() {
               </h2>
             </div>
             <div className="cronograma-container">
-              <div className="cronograma-zoom-wrapper" onClick={handleImageInteraction} onTouchStart={handleImageInteraction}>
-                <img src={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} alt="Tabela com o cronograma semanal da coleta" />
+              <div 
+                className="cronograma-zoom-wrapper" 
+                onClick={handleImageInteraction} 
+                onTouchStart={handleImageInteraction}
+              >
+                <img 
+                  src={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} 
+                  alt="Tabela com o cronograma semanal da coleta" 
+                />
                 {!hintDismissed && (
                   <div className="zoom-hint">
                     <FontAwesomeIcon icon={faUpDownLeftRight} />
@@ -152,7 +156,11 @@ function HomePage() {
                   Atualizado em {cronogramaData.ultimaAtualizacao}
                 </div>
               )}
-              <a href={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} onClick={handleDownload} className="download-button ripple">
+              <a 
+                href={`${process.env.REACT_APP_API_URL}${cronogramaData.midiaUrl}`} 
+                onClick={handleDownload} 
+                className="download-button ripple"
+              >
                 <FontAwesomeIcon icon={faDownload} />
                 <span>Baixar Cronograma</span>
               </a>
