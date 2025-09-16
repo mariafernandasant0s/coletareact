@@ -156,13 +156,11 @@
 
 @media (max-width: 600px) {
 
-  /* Ajusta o padding do container para dar mais espaço em telas pequenas */
   .subscription-form-container {
     padding: 24px 20px;
-    margin: 20px auto; /* Menos margem vertical no mobile */
+    margin: 20px auto;
   }
 
-  /* Diminui um pouco o título e o parágrafo no mobile */
   .subscription-form-container h3 {
     font-size: 1.2rem;
   }
@@ -171,30 +169,24 @@
     margin-bottom: 20px;
   }
 
-  /* --- A MÁGICA ACONTECE AQUI --- */
-
-  /* 1. Muda a direção do formulário para vertical */
   .subscription-form {
-    flex-direction: column; /* Coloca os itens um embaixo do outro */
-    border-radius: 10px; /* Mantém as bordas arredondadas */
-    border: none; /* Remove a borda do grupo, já que não faz mais sentido */
-    box-shadow: none; /* Remove a sombra interna */
+    flex-direction: column;
+    border-radius: 10px;
+    border: none;
+    box-shadow: none;
   }
 
-  /* 2. Estiliza o input para o modo vertical */
   .subscription-form input[type="email"] {
-    border-radius: 8px; /* Adiciona bordas arredondadas em todos os cantos */
-    border: 1px solid #ced4da; /* Adiciona uma borda própria */
-    text-align: center; /* Centraliza o texto do placeholder */
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    text-align: center;
   }
 
-  /* 3. Estiliza o botão para o modo vertical */
   .subscription-form button {
-    border-radius: 8px; /* Adiciona bordas arredondadas em todos os cantos */
-    width: 100%; /* Faz o botão ocupar a largura total */
+    border-radius: 8px;
+    width: 100%;
   }
 
-  /* Remove o efeito de deslize do botão no mobile, pois não funciona bem com toque */
   .subscription-form button:hover span {
     transform: none;
   }
@@ -202,9 +194,8 @@
     opacity: 0;
   }
 
-  /* Ajusta as mensagens de feedback para ocupar a largura total */
   .success-message, .error-message {
-    display: flex; /* Garante que o display seja flex para o ícone */
+    display: flex;
     width: 100%;
     box-sizing: border-box;
   }
