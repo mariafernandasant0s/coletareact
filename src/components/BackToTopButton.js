@@ -1,5 +1,3 @@
-// src/components/BackToTopButton.js
-
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
@@ -7,16 +5,14 @@ import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
 function BackToTopButton() {
     const [isVisible, setIsVisible] = useState(false);
 
-    // Função que verifica a posição do scroll para mostrar/esconder o botão
     const toggleVisibility = () => {
-        if (window.pageYOffset > 300) { // O botão aparece depois de 300px de scroll
+        if (window.pageYOffset > 300) {
             setIsVisible(true);
         } else {
             setIsVisible(false);
         }
     };
 
-    // Função que leva o utilizador de volta ao topo
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
