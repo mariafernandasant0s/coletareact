@@ -548,29 +548,29 @@ footer {
 .main-nav ul li.menu-contato-destaque a:hover {
   background-color: #001f3d !important;
 }
-/* Estilos para o Sino de Notificação na UtilityBar */
 
-/* Container para o sino, para ajudar no espaçamento */
+
+
 .notification-container {
-  margin-left: 15px; /* Espaço antes dos controles de acessibilidade */
+  margin-left: 15px; 
 }
 
-/* Estilo principal do sino na utility bar */
+
 .utility-notification-bell {
   color: #ffffff;
   font-size: 1.1em;
   transition: color 0.2s ease, transform 0.2s ease;
-  padding: 0 5px; /* Pequeno espaço para o clique */
+  padding: 0 5px; 
 }
 
-/* Efeito de hover igual ao do ícone do Instagram */
+
 .utility-notification-bell:hover {
   color: #aaa;
   transform: scale(1.1);
   text-decoration: none;
 }
 
-/* Adicione ao seu arquivo CSS principal */
+
 .utility-icons-group {
   display: flex;
   align-items: center;
@@ -792,37 +792,29 @@ body.contrast-mode iframe.youtube-video {
   text-align: center;
   margin-bottom: 40px;
 }
- /* =============================================================
-   EFEITO DE GRADIENTE FINAL (VERSÃO ELEGANTE E SUAVE)
-   ============================================================= */
 
-/* 1. A animação que move o gradiente da esquerda para a direita */
 @keyframes slide-right {
   0% { background-position: 0% 50%; }
   100% { background-position: 100% 50%; }
 }
 
-/* 2. A animação de flutuação sutil (continua igual) */
+
 @keyframes subtle-float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-2px); } /* Menos movimento */
   100% { transform: translateY(0px); }
 }
 
-/* =============================================================
-   EFEITO DE GRADIENTE FINAL (VERSÃO ELEGANTE E SUAVE)
-   ============================================================= */
 
-/* 1. A animação que move o gradiente da esquerda para a direita */
 @keyframes slide-right {
   0% { background-position: 0% 50%; }
   100% { background-position: 100% 50%; }
 }
 
-/* 2. A animação de flutuação sutil (continua igual) */
+
 @keyframes subtle-float {
   0% { transform: translateY(0px); }
-  50% { transform: translateY(-2px); } /* Menos movimento */
+  50% { transform: translateY(-2px); } 
   100% { transform: translateY(0px); }
 }
 
@@ -834,36 +826,32 @@ body.contrast-mode iframe.youtube-video {
   font-size: 2.1em;
   line-height: 1.3;
   
-  /* 3. O Gradiente (inspirado no botão, com 2 cores) */
+
   background-image: linear-gradient(
-    90deg, /* <<< Direção da esquerda para a direita */
-    #004488, /* Cor 1 (Cor do seu botão) */
-    #226096, /* Cor 2 (Um azul um pouco mais claro e vibrante) */
-    #004488  /* Repete a Cor 1 para um loop perfeito */
+    90deg, 
+    #004488, 
+    #226096, 
+    #004488  
   );
   
-  /* 4. A Mágica da Animação */
-  background-size: 200% 100%; /* Fundo 2x maior */
+  background-size: 200% 100%; 
   animation: 
-    slide-right 8s linear infinite, /* <<< Animação de deslize */
-    subtle-float 6s ease-in-out infinite; /* <<< Animação de flutuação */
+    slide-right 8s linear infinite, 
+    subtle-float 6s ease-in-out infinite; 
 
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-/* --- O ÍCONE (SIMPLES E ELEGANTE) --- */
+
 .titulo-principal h2 svg {
   font-size: 0.9em;
   margin-right: 15px;
   vertical-align: -3px;
 
-  /* 5. Cor sólida, a cor principal do gradiente */
-  color: #004488; 
 
-  /* 6. Sombra BEM LEVINHA */
-  /* Sombra preta, quase transparente, com um blur suave */
+  color: #004488; 
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
 }
 
@@ -1047,55 +1035,48 @@ body.contrast-mode iframe.youtube-video {
 }
 
 
- /* ===================================================
-   ESTILOS DE CONTATO COM FONTES AJUSTADAS
-   (Substitua o CSS de contato anterior por este)
-   =================================================== */
 
-/* Container principal que centraliza o bloco na página */
 .contact-info-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 25px; /* Espaço entre Email e Telefone */
-  margin-top: 100px; /* Espaço abaixo do título da página */
+  gap: 25px; 
+  margin-top: 100px; 
   width: 90%;
   max-width: 500px;
 }
 
-/* Cada linha de contato (ícone + texto) */
 .contact-item {
   display: flex;
-  align-items: flex-start; /* Alinha pelo topo */
-  gap: 20px; /* Espaço entre ícone e texto */
+  align-items: flex-start; 
+  gap: 20px; 
   width: 100%;
   text-align: left;
 }
 
-/* O ícone (Email, Telefone) */
+
 .contact-item .contact-icon {
-  font-size: 1.7rem;  /* <<< DIMINUÍDO */
+  font-size: 1.7rem; 
   color: #0056b3;
   width: 45px;
   text-align: center;
   flex-shrink: 0;
-  padding-top: 4px; /* Ajuste fino de alinhamento vertical */
+  padding-top: 4px; 
 }
 
-/* O bloco de texto (direita do ícone) */
+
 .contact-item > div {
-  line-height: 1.3; /* Deixa o texto mais junto */
+  line-height: 1.3; 
 }
 
-/* Os títulos "Email" e "Telefone" */
+
 .contact-item strong {
-  font-size: 1.2rem;  /* <<< DIMINUÍDO */
+  font-size: 1.2rem;  
   color: #333;
   display: block;
   margin-bottom: 3px;
 }
 
-/* Os links de email e telefone */
 .contact-item a {
   font-weight: 400;
   text-decoration: none;
@@ -1144,14 +1125,9 @@ body.contrast-mode iframe.youtube-video {
 }
 
 
-/* =============================================================
-   BLOCO RESPONSIVO FINAL E CONSOLIDADO
-   (Contém a correção para a transição do menu mobile)
-   ============================================================= */
 
-/* --- ESTILOS PARA DESKTOP (ACIMA DE 1080px) --- */
 @media (min-width: 1081px) {
-  /* Animação de fade e deslize para o submenu no desktop */
+
   .main-nav ul li.has-submenu .submenu {
     position: absolute !important;
     display: block;
@@ -1169,7 +1145,7 @@ body.contrast-mode iframe.youtube-video {
     transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
-  /* Animação suave para a seta */
+
   .main-nav ul li.has-submenu .icon-arrow {
     transform: rotate(0deg);
     transition: transform 0.3s ease-in-out;
@@ -1181,9 +1157,8 @@ body.contrast-mode iframe.youtube-video {
 }
 
 
-/* --- ESTILOS PARA TABLET E MOBILE (ATÉ 1080px) --- */
+
 @media (max-width: 1080px) {
-  /* Esconde o menu de desktop e mostra o botão hamburguer */
   .main-nav ul {
     display: none;
   }
@@ -1197,7 +1172,7 @@ body.contrast-mode iframe.youtube-video {
     z-index: 1022;
   }
 
-  /* Menu gaveta que desliza da direita */
+
   nav.main-nav {
     display: block;
     position: fixed;
@@ -1217,7 +1192,7 @@ body.contrast-mode iframe.youtube-video {
     transform: translateX(0);
   }
 
-  /* Itens dentro da gaveta */
+
   nav.main-nav ul {
     display: flex;
     flex-direction: column;
@@ -1236,31 +1211,28 @@ body.contrast-mode iframe.youtube-video {
     color: #003366;
   }
 
-  /* Remove a borda redonda do "Contato" */
+
   nav.main-nav ul li.menu-contato-destaque a {
     margin-left: 0;
     border-radius: 0;
   }
   
-  /* ==================================
-     A MÁGICA DA TRANSIÇÃO ESTÁ AQUI
-     ================================== */
+
   .submenu {
-    display: block; /* Garante que o elemento exista no layout */
+    display: block; 
     position: static;
     box-shadow: none;
     border: none;
     min-width: auto;
     background-color: #f5f5f5;
     padding: 0;
-    max-height: 0; /* Começa fechado (com altura 0) */
-    overflow: hidden; /* Esconde o conteúdo que transborda */
-    /* A transição que cria o efeito de "deslizar" */
+    max-height: 0; 
+    overflow: hidden; 
     transition: max-height 0.4s ease-out; 
   }
-  /* Quando o submenu está ativo, a altura máxima é expandida, revelando o conteúdo */
+
   .submenu.submenu-active {
-    max-height: 500px; /* Um valor alto o suficiente para caber o conteúdo */
+    max-height: 500px; 
   }
   .submenu li a {
     padding-left: 40px;
@@ -1268,7 +1240,7 @@ body.contrast-mode iframe.youtube-video {
   }
 }
 
-/* --- Ajustes finos para telas menores --- */
+
 @media (max-width: 768px) {
   .container {
     width: 100%;
@@ -1316,7 +1288,7 @@ body.contrast-mode iframe.youtube-video {
   }
 }
 
-/* Ajuste para o zoom do cronograma em telas menores */
+
 @media (max-width: 1024px) {
   .zoom-hint {
     position: absolute;
@@ -1338,17 +1310,12 @@ body.contrast-mode iframe.youtube-video {
   .zoom-hint span { font-size: 1.1em; font-weight: 700; }
 }
 
-/* Ajuste para títulos em telas muito pequenas */
+
 @media (max-width: 400px) {.contact-info-container {
     font-size: 1.8em;
   }
 }
-/* ===================================================
-   ANIMAÇÃO DE SURGIMENTO PARA O CONTEÚDO DAS PÁGINAS
-   =================================================== */
 
-/* 1. Define a animação: começa invisível e um pouco abaixo, 
-      e termina visível na posição correta. */
 @keyframes fadeInFromBottom {
   from {
     opacity: 0;
@@ -1360,25 +1327,23 @@ body.contrast-mode iframe.youtube-video {
   }
 }
 
-/* 2. Cria a classe que aplica a animação. */
+
 .content-fade-in {
-  /* Aplica a animação definida acima */
+
   animation: fadeInFromBottom 0.6s ease-out forwards;
 }
-/* ===================================================
-   CONTROLE DE TAMANHO PARA MÍDIAS DE PÁGINA
-   (Como a imagem do Total Coletado)
-   =================================================== */
+
 
    .page-media-container {
     width: 100%;
     max-width: 600px;
-    /* >>> MEXA AQUI <<< */
-    margin: 0 auto; /* Diminui o primeiro valor (espaço de cima) */
+
+    margin: 0 auto; 
   }
   
   .page-image {
     width: 100%;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
   }
