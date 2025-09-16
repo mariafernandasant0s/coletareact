@@ -1,7 +1,6 @@
 // src/components/Header.js
 
 import React, { useState } from 'react';
-// 1. Importe o useNavigate para navegação e o Link para o link especial
 import { NavLink, useNavigate } from 'react-router-dom';
 import logoPrefeitura from '../assets/imagens/logo-prefeitura.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +10,7 @@ function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
     
-    // 2. Inicialize a função de navegação
+ 
     const navigate = useNavigate();
 
     const toggleMenu = () => {
@@ -26,25 +25,24 @@ function Header() {
         setIsSubmenuOpen(!isSubmenuOpen);
     };
 
-    // 3. Crie a função para rolar até o cronograma
     const handleCronogramaClick = (e) => {
-        e.preventDefault(); // Previne o comportamento padrão do link
+        e.preventDefault(); 
 
-        // Fecha o menu mobile, se estiver aberto
+        
         if (isMenuOpen) {
             setIsMenuOpen(false);
         }
 
-        // Primeiro, navega para a página inicial
+
         navigate('/');
 
-        // Depois, espera um instante para a página carregar e então rola a tela
+    
         setTimeout(() => {
             const section = document.getElementById('cronograma');
             if (section) {
                 section.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-        }, 100); // Um pequeno atraso garante que a seção exista antes de rolar
+        }, 100);
     };
 
     return (
@@ -83,7 +81,7 @@ function Header() {
                             </ul>
                         </li>
                         
-                        {/* 4. O link do cronograma agora usa a nova função */}
+                       
                         <li><a href="/index.html#cronograma" onClick={handleCronogramaClick}>Cronograma</a></li>
                         
                         <li><a href="docs/cartilha-deco.pdf" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Cartilha</a></li>
@@ -100,4 +98,5 @@ function Header() {
 }
 
 export default Header;
+
 
