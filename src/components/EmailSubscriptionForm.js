@@ -1,12 +1,12 @@
-// src/components/EmailSubscriptionForm.js (Versão Final com Ícone Interno)
+
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import './EmailSubscriptionForm.css'; // O CSS "Premium" que finalizamos
+import './EmailSubscriptionForm.css'; 
 
-// 1. IMPORTAR O FONT AWESOME E O ÍCONE
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell } from '@fortawesome/free-solid-svg-icons'; // Usando o sino, mas pode ser faEnvelope, etc.
+import { faBell } from '@fortawesome/free-solid-svg-icons'; 
 
 const EmailSubscriptionForm = () => {
   const [email, setEmail] = useState('');
@@ -16,7 +16,6 @@ const EmailSubscriptionForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // ... (toda a sua lógica de handleSubmit continua igual)
     setLoading(true);
     setMessage('');
     setError('');
@@ -45,9 +44,8 @@ const EmailSubscriptionForm = () => {
 
   return (
     <div className="subscription-form-container">
-      {/* 2. ADICIONAR O ÍCONE AO LADO DO TÍTULO */}
       <h3>
-        <FontAwesomeIcon icon={faBell} /> {/* <<< ÍCONE AQUI */}
+        <FontAwesomeIcon icon={faBell} /> 
         Fique por dentro das atualizações
       </h3>
 
