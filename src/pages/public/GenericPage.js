@@ -6,10 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-// 1. IMPORTAMOS O NOSSO NOVO COMPONENTE DE ANIMAÇÃO
+
 import LazySection from '../../components/common/LazySection';
 
-// Seus ícones e componentes estáticos (sem alterações)
+
 import {
   faCode, faRecycle, faSeedling, faTrashCan, faUsers, faChartPie, faQuestionCircle, faPhone,
   faNewspaper, faBottleWater, faWineGlass, faGear, faDroplet, faLaptop, faCheckSquare,
@@ -24,7 +24,6 @@ const pageIcons = {
   'faq': faQuestionCircle, 'contato': faPhone
 };
 
-// --- COMPONENTES INTERNOS (CÓDIGO COMPLETO E CORRETO) ---
 
 const MaterialsList = () => {
   const materialsData = [
@@ -229,7 +228,6 @@ function GenericPage({ slug }) {
       </Helmet>
       <section className="info-section">
         <div className="container">
-          {/* 2. ENVOLVEMOS O CONTEÚDO PRINCIPAL COM O LAZYSECTION */}
           <LazySection>
             <div className="content-wrapper">
               <div className="titulo-principal">
@@ -243,7 +241,7 @@ function GenericPage({ slug }) {
           </LazySection>
           
           {pageData.midiaUrl && (
-            // E ENVOLVEMOS A MÍDIA COM OUTRO LAZYSECTION
+         
             <LazySection>
               <div className="page-media-container">
                 { (pageData.midiaUrl.includes('youtube.com') || pageData.midiaUrl.includes('youtu.be')) ? (
@@ -251,7 +249,6 @@ function GenericPage({ slug }) {
                     <iframe className="youtube-video" src={convertYouTubeUrl(pageData.midiaUrl)} title={pageData.titulo} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
                   </div>
                 ) : (
-                  // 3. ADICIONAMOS O LOADING="LAZY" AQUI
                   <img loading="lazy" src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} className="page-image" />
                 )}
               </div>
@@ -264,3 +261,4 @@ function GenericPage({ slug }) {
 }
 
 export default GenericPage;
+
