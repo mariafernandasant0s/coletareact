@@ -62,7 +62,7 @@
   flex-grow: 1;
   padding: 40px;
 }
-/* Extra pequeno (até 576px) */
+
 @media (max-width: 576px) {
   .admin-layout {
     flex-direction: column;
@@ -87,7 +87,7 @@
   }
 }
 
-/* Pequeno (≥ 577px e ≤ 768px) */
+
 @media (min-width: 577px) and (max-width: 768px) {
   .admin-sidebar {
     width: 200px;
@@ -101,7 +101,7 @@
   }
 }
 
-/* Médio (≥ 769px e ≤ 992px) */
+
 @media (min-width: 769px) and (max-width: 992px) {
   .admin-sidebar {
     width: 220px;
@@ -111,16 +111,16 @@
   }
 }
 
-/* Grande (≥ 993px e ≤ 1200px) */
+
 @media (min-width: 993px) and (max-width: 1200px) {
   .admin-sidebar {
     width: 240px;
   }
 }
 
-/* Extra grande (≥ 1201px) */
 @media (min-width: 1201px) {
   .admin-sidebar {
-    width: 250px; /* Padrão */
+    width: 250px; 
   }
 }
+
