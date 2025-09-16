@@ -5,13 +5,13 @@ import App from './App';
 import { AuthProvider } from './contexts/AuthContext';
 import reportWebVitals from './reportWebVitals';
 
-// ✅ Adiciona suporte aos ícones FontAwesome (evita erro em produção)
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 library.add(fas, fab);
 
-// ✅ Error Boundary para capturar falhas e não quebrar o site
+
 class ErrorBoundary extends React.Component {
   state = { hasError: false };
 
@@ -36,7 +36,7 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-// ✅ Criação da raiz do React 18
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
@@ -51,5 +51,5 @@ root.render(
   </React.StrictMode>
 );
 
-// ✅ Monitoramento de performance (opcional)
+
 reportWebVitals(console.log);
