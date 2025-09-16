@@ -13,7 +13,7 @@ function LazySection({ children }) {
           observer.unobserve(ref.current);
         }
       },
-      { threshold: 0.1 } // Aciona quando 10% do elemento está visível
+      { threshold: 0.1 } 
     );
 
     const currentRef = ref.current;
@@ -28,7 +28,7 @@ function LazySection({ children }) {
     };
   }, []);
 
-  // Aplica a classe de animação apenas quando o componente se torna visível
+
   return (
     <div ref={ref} className={isVisible ? 'content-fade-in' : 'content-hidden'}>
       {children}
