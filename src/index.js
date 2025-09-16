@@ -50,5 +50,4 @@ root.render(
   </React.StrictMode>
 );
 
-// ✅ Monitoramento de performance (opcional)
 reportWebVitals(console.log);
