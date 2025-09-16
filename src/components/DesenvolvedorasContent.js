@@ -1,17 +1,17 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// 1. ADICIONADO O ÍCONE DE ENVELOPE (EMAIL)
+
 import { faDownload, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
-// IMPORTANTE: Coloque suas fotos na pasta 'src/assets/imagens'
-import fotoSua from '../assets/imagens/placeholder-sua-foto.jpeg'; // Troque pelo nome da sua foto
-import fotoMariah from '../assets/imagens/placeholder-mariah-foto.jpg'; // Troque pelo nome da foto dela
+
+import fotoSua from '../assets/imagens/placeholder-sua-foto.jpeg'; 
+import fotoMariah from '../assets/imagens/placeholder-mariah-foto.jpg'; 
 
 function DesenvolvedorasContent() {
   return (
     <>
       <div className="devs-container">
-        {/* Card Maria Fernanda */}
+    
         <div className="dev-card">
           <img src={fotoSua} alt="Foto de Maria Fernanda" className="dev-photo" />
           <div className="dev-info">
@@ -22,7 +22,7 @@ function DesenvolvedorasContent() {
             <p className="dev-description">
               Responsável pelo desenvolvimento do front-end do projeto.
             </p>
-            {/* 2. CAMPO DE EMAIL ADICIONADO */}
+            
             <div className="dev-contact">
               <FontAwesomeIcon icon={faEnvelope} />
               <a href="mailto:20233017583@estudantes.ifpr.edu.br">
@@ -32,7 +32,7 @@ function DesenvolvedorasContent() {
           </div>
         </div>
 
-        {/* Card Mariáh */}
+        
         <div className="dev-card">
           <img src={fotoMariah} alt="Foto de Mariáh Fassina" className="dev-photo" />
           <div className="dev-info">
@@ -43,7 +43,7 @@ function DesenvolvedorasContent() {
             <p className="dev-description">
               Responsável pelo desenvolvimento do back-end do projeto.
             </p>
-            {/* 3. CAMPO DE EMAIL ADICIONADO */}
+         
             <div className="dev-contact">
               <FontAwesomeIcon icon={faEnvelope} />
               <a href="mailto:20233017592@estudantes.ifpr.edu.br">
@@ -69,6 +69,7 @@ O crescente volume de resíduos sólidos urbanos representa um desafio significa
 }
 
 export default DesenvolvedorasContent;
+
 
 
 
