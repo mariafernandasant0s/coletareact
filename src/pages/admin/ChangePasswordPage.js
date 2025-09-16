@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../../contexts/AuthContext';
 import axios from 'axios';
-import './Admin.css'; // Reutiliza o CSS do AdminLogin
+import './Admin.css'; 
 
 function ChangePasswordPage() {
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ function ChangePasswordPage() {
         },
       };
 
-      // Ajuste a URL base conforme sua configuração
+   
       const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
       await axios.post(
@@ -53,7 +53,7 @@ function ChangePasswordPage() {
 
       setSuccess('Senha alterada com sucesso! Redirecionando...');
       
-      // Atualiza o estado do usuário no contexto para refletir a mudança
+    
       if (user) {
         const updatedUser = { ...user, needsPasswordChange: false };
         setUser(updatedUser);
@@ -138,3 +138,4 @@ function ChangePasswordPage() {
 }
 
 export default ChangePasswordPage;
+
