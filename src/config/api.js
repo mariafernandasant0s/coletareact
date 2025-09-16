@@ -26,10 +26,9 @@ apiPrivate.interceptors.request.use(
   }
 );
 
-// ESTA É A FUNÇÃO CORRETA
+
 export const putWithUpload = (url, formData) => {
-  // Usa a instância 'apiPrivate' que já tem o interceptor do token.
-  // Apenas sobrepõe o 'Content-Type' para esta requisição específica.
+
   return apiPrivate.put(url, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -38,3 +37,4 @@ export const putWithUpload = (url, formData) => {
 };
 
 export default apiPrivate;
+
