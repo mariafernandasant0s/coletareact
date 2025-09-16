@@ -1,16 +1,9 @@
-/* src/index.css */
 
-/* --- 1. Importação da Fonte Principal --- */
-/* É uma boa prática ter a importação da fonte principal aqui, 
-   para garantir que ela seja carregada o mais cedo possível. */
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap');
 
-
-/* --- 2. Reset e Configurações Globais --- */
-/* Define o modelo de caixa para todos os elementos, tornando o layout mais previsível. */
 html {
   box-sizing: border-box;
-  scroll-behavior: smooth; /* Habilita rolagem suave para links de âncora (#) */
+  scroll-behavior: smooth; 
 }
 
 *,
@@ -19,7 +12,7 @@ html {
   box-sizing: inherit;
 }
 
-/* Define configurações base para o corpo do documento. */
+
 body {
   margin: 0;
   padding: 0;
@@ -28,14 +21,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f8f9fa; /* Cor de fundo geral do site */
-  color: #333; /* Cor de texto padrão */
-  line-height: 1.6; /* Espaçamento entre linhas padrão */
+  background-color: #f8f9fa; 
+  color: #333; 
+  line-height: 1.6; 
 }
 
 
-/* --- 3. Correção para o React --- */
-/* Garante que o elemento raiz onde o React é montado ocupe toda a altura da tela. */
+
 #root, .App {
   display: flex;
   flex-direction: column;
@@ -43,14 +35,13 @@ body {
 }
 
 main {
-  flex-grow: 1; /* Faz com que o conteúdo principal empurre o rodapé para baixo */
+  flex-grow: 1; 
 }
 
-/* Remove a sublinhado padrão dos links do React Router quando estão ativos */
 a.active {
   text-decoration: none;
 }
-/* Estilos para o GenericPage */
+
 .info-section {
   padding: 40px 0;
   background-color: #f8f9fa;
@@ -170,3 +161,4 @@ a.active {
   color: #666;
   text-align: center;
 }
+
