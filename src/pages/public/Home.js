@@ -10,16 +10,13 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 import EmailSubscriptionForm from '../../components/EmailSubscriptionForm';
 
-// ===================================================================
-// FUNÇÃO INTELIGENTE PARA RESOLVER A URL DA IMAGEM
-// ===================================================================
 const getImageUrl = (path) => {
   if (!path) return '';
-  // Se o caminho já é uma URL completa (Cloudinary), retorna ele mesmo.
+
   if (path.startsWith('http://' ) || path.startsWith('https://' )) {
     return path;
   }
-  // Se for um caminho local (upload no servidor), adiciona o prefixo da API.
+
   return `${process.env.REACT_APP_API_URL}${path}`;
 };
 
@@ -201,3 +198,4 @@ function HomePage() {
 }
 
 export default HomePage;
+
