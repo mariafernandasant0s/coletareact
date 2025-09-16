@@ -1,25 +1,25 @@
 // src/components/InlineSpinner.js
 import React from 'react';
 
-// Estilos para um spinner pequeno e localizado
+
 const styles = {
   spinnerContainer: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '20px', // Um pouco de espaço em volta
+    padding: '20px', 
   },
   spinner: {
     border: '4px solid #f3f3f3',
-    borderTop: '4px solid #0d6efd', // Azul do seu site
+    borderTop: '4px solid #0d6efd', 
     borderRadius: '50%',
-    width: '30px', // Tamanho menor
-    height: '30px', // Tamanho menor
+    width: '30px', 
+    height: '30px', 
     animation: 'spin 1s linear infinite',
   },
 };
 
-// Injetor de animação (pode ser omitido se já estiver global)
+
 const StyleInjector = () => {
   const animationStyle = `
     @keyframes spin {
