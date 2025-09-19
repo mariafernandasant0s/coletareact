@@ -57,7 +57,7 @@ a:hover {
   color: #003366;
   text-decoration: underline;
 }
-/* CSS para o LazySection */
+
 .content-hidden {
   opacity: 0;
 }
@@ -1347,3 +1347,4 @@ body.contrast-mode iframe.youtube-video {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 
   }
+
