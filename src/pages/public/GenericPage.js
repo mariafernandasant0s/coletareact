@@ -17,6 +17,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import fotoAcamar from '../../assets/imagens/foto-acamar-uvr.jpg';
 import DesenvolvedorasContent from '../../components/DesenvolvedorasContent';
+import { getImageUrl } from '../../utils/imageUtils';
 
 const pageIcons = {
   'desenvolvedoras': faCode, 'quais-residuos': faRecycle, 'porque-separar': faSeedling,
@@ -70,8 +71,8 @@ const CronogramaContent = ({ pageData }) => (
   <div className="cronograma-container">
     {pageData?.midiaUrl ? (
       <>
-        <img className="cronograma-image" src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} loading="lazy" />
-        <a href={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} className="download-button" download>
+        <img className="cronograma-image" src={getImageUrl(pageData.midiaUrl)} alt={pageData.titulo} loading="lazy" />
+        <a href={getImageUrl(pageData.midiaUrl)} className="download-button" download>
           <FontAwesomeIcon icon={faDownload} /> Baixar Cronograma
         </a>
       </>
@@ -249,7 +250,7 @@ function GenericPage({ slug }) {
                     <iframe className="youtube-video" src={convertYouTubeUrl(pageData.midiaUrl)} title={pageData.titulo} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
                   </div>
                 ) : (
-                  <img loading="lazy" src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} className="page-image" />
+                  <img loading="lazy" src={getImageUrl(pageData.midiaUrl)} alt={pageData.titulo} className="page-image" />
                 )}
               </div>
             </LazySection>
@@ -261,4 +262,3 @@ function GenericPage({ slug }) {
 }
 
 export default GenericPage;
-
