@@ -383,92 +383,82 @@ function GenericPage({ slug }) {
   if (loading) return <PageLoader />;
   if (!pageData) return ( <section className="info-section" style={{ textAlign: 'center' }}> <h2>Página não encontrada</h2> <p>O conteúdo que você está procurando não pôde ser carregado.</p> </section> );
 
- const renderPageContent = () => {
-    switch (slug) {
-      case 'desenvolvedoras': return <DesenvolvedorasContent />;
-      case 'quem-somos': return <QuemSomosContent />;
-      case 'quais-residuos': return <MaterialsList />;
-      case 'cronograma': return <CronogramaContent pageData={pageData} />;
-      case 'faq': return <FaqContent />;
-      case 'contato': return <ContatoContent />;
+if (loading) return <PageLoader />;
+  if (!pageData) return ( <section className="info-section" style={{ textAlign: 'center' }}> <h2>Página não encontrada</h2> <p>O conteúdo que você está procurando não pôde ser carregado.</p> </section> );
 
-      case 'total-coletado-grafico':
-        return (
-          <div className="content-wrapper">
-            {pageData.midiaUrl && (
-              <div className="page-media-container">
-                <img loading="lazy" src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} className="page-image" />
-              </div>
-            )}
-            {(pageData.conteudo && pageData.conteudo.trim() !== '') &&
-              <div dangerouslySetInnerHTML={{ __html: pageData.conteudo }} />
-            }
-          </div>
-        );
+ const renderPageContent = () => {
+    switch (slug) {
+      case 'desenvolvedoras': return <DesenvolvedorasContent />;
+      case 'quem-somos': return <QuemSomosContent />;
+      case 'quais-residuos': return <MaterialsList />;
+      case 'cronograma': return <CronogramaContent pageData={pageData} />;
+      case 'faq': return <FaqContent />;
+      case 'contato': return <ContatoContent />;
 
-      default:
-        return (pageData.conteudo && pageData.conteudo.trim() !== '')
-          ? <div className="content-wrapper" dangerouslySetInnerHTML={{ __html: pageData.conteudo }} />
-          : null;
-    }
-  };
+      case 'total-coletado-grafico':
+        return (
+          <div className="content-wrapper">
+            {pageData.midiaUrl && (
+              <div className="page-media-container">
+                <img loading="lazy" src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} className="page-image" />
+              </div>
+            )}
+            {(pageData.conteudo && pageData.conteudo.trim() !== '') &&
+              <div dangerouslySetInnerHTML={{ __html: pageData.conteudo }} />
+            }
+          </div>
+        );
 
-  const convertYouTubeUrl = (url) => {
-    if (!url) return '';
-    let videoId = '';
-    const patterns = [
-      /(?:https?:\/\/ )?(?:www\.)?youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/|live\/)([a-zA-Z0-9_-]{11})/,
-      /(?:https?:\/\/ )?(?:www\.)?youtu\.be\/([a-zA-Z0-9_-]{11})/
-    ];
-    for (const pattern of patterns) {
-      const match = url.match(pattern);
-      if (match && match[1]) {
-        videoId = match[1];
-        break;
-      }
-    }
-    return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
-  };
+      default:
+        return (pageData.conteudo && pageData.conteudo.trim() !== '')
+          ? <div className="content-wrapper" dangerouslySetInnerHTML={{ __html: pageData.conteudo }} />
+          : null;
+    }
+  };
 
-  return (
-    <>
-      <Helmet>
-        <title>{`${pageData.titulo} | Coleta Seletiva Assis`}</title>
-        <meta name="description" content={`Informações sobre ${pageData.titulo} no projeto de Coleta Seletiva de Assis Chateaubriand.`} />
-      </Helmet>
-      <section className="info-section">
-        <div className="container">
-          <LazySection>
-            <div className="content-wrapper">
-              <div className="titulo-principal">
-                <h2>
-                  {pageIcons[slug] && <FontAwesomeIcon icon={pageIcons[slug]} />}
-                  {pageData.titulo}
-                </h2>
-              </div>
-              {renderPageContent( )}
-            </div>
-          </LazySection>
-          
-          {pageData.midiaUrl && (
-         
-            <LazySection>
-              <div className="page-media-container">
-                { (pageData.midiaUrl.includes('youtube.com') || pageData.midiaUrl.includes('youtu.be')) ? (
-                  <div className="youtube-video-container">
-                    <iframe className="youtube-video" src={convertYouTubeUrl(pageData.midiaUrl)} title={pageData.titulo} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
-                  </div>
-                ) : (
-                  <img loading="lazy" src={getImageUrl(pageData.midiaUrl)} alt={pageData.titulo} className="page-image" />
-                )}
-              </div>
-            </LazySection>
-          )}
-        </div>
-      </section>
-    </>
-  );
+  const convertYouTubeUrl = (url) => {
+    if (!url) return '';
+    let videoId = '';
+    const patterns = [
+      /(?:https?:\/\/ )?(?:www\.)?youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/|live\/)([a-zA-Z0-9_-]{11})/,
+      /(?:https?:\/\/ )?(?:www\.)?youtu\.be\/([a-zA-Z0-9_-]{11})/
+    ];
+    for (const pattern of patterns) {
+      const match = url.match(pattern);
+      if (match && match[1]) {
+        videoId = match[1];
+        break;
+      }
+    }
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
+  };
+
+  return (
+    <>
+      <Helmet>
+        <title>{`${pageData.titulo} | Coleta Seletiva Assis`}</title>
+        <meta name="description" content={`Informações sobre ${pageData.titulo} no projeto de Coleta Seletiva de Assis Chateaubriand.`} />
+      </Helmet>
+      <section className="info-section">
+        <div className="container">
+          <LazySection>
+            <div className="content-wrapper">
+              <div className="titulo-principal">
+                <h2>
+                  {pageIcons[slug] && <FontAwesomeIcon icon={pageIcons[slug]} />}
+                  {pageData.titulo}
+                </h2>
+              </div>
+              {renderPageContent( )}
+            </div>
+          </LazySection>
+        {}
+        </div> {/* Fecha a div.container */}
+      </section> {/* Fecha a section.info-section */}
+    </> // Fecha o Fragment React
+  );
 }
 
 export default GenericPage;
+
 
