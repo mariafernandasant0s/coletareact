@@ -383,7 +383,7 @@ function GenericPage({ slug }) {
   if (loading) return <PageLoader />;
   if (!pageData) return ( <section className="info-section" style={{ textAlign: 'center' }}> <h2>Página não encontrada</h2> <p>O conteúdo que você está procurando não pôde ser carregado.</p> </section> );
 
-  const renderPageContent = () => {
+ const renderPageContent = () => {
     switch (slug) {
       case 'desenvolvedoras': return <DesenvolvedorasContent />;
       case 'quem-somos': return <QuemSomosContent />;
@@ -391,6 +391,21 @@ function GenericPage({ slug }) {
       case 'cronograma': return <CronogramaContent pageData={pageData} />;
       case 'faq': return <FaqContent />;
       case 'contato': return <ContatoContent />;
+
+      case 'total-coletado-grafico':
+        return (
+          <div className="content-wrapper">
+            {pageData.midiaUrl && (
+              <div className="page-media-container">
+                <img loading="lazy" src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} className="page-image" />
+              </div>
+            )}
+            {(pageData.conteudo && pageData.conteudo.trim() !== '') &&
+              <div dangerouslySetInnerHTML={{ __html: pageData.conteudo }} />
+            }
+          </div>
+        );
+
       default:
         return (pageData.conteudo && pageData.conteudo.trim() !== '')
           ? <div className="content-wrapper" dangerouslySetInnerHTML={{ __html: pageData.conteudo }} />
@@ -456,3 +471,4 @@ function GenericPage({ slug }) {
 }
 
 export default GenericPage;
+
