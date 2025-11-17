@@ -18,7 +18,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import fotoAcamar from '../../assets/imagens/foto-acamar-uvr.jpg';
 import DesenvolvedorasContent from '../../components/DesenvolvedorasContent';
-import { getImageUrl } from '../../utils/imageUtils';
+
 
 const pageIcons = {
   'desenvolvedoras': faCode, 'quais-residuos': faRecycle, 'porque-separar': faSeedling,
