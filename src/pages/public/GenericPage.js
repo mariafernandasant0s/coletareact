@@ -226,8 +226,8 @@ const MaterialsList = () => {
     { icon: faBottleWater, title: 'Plásticos', items: 'garrafa pet, embalagens de detergente, amaciante, óleo de cozinha, álcool, tampas de plástico, pacotes em gerais, frascos de xampu, potinhos de iogurte, sacolas de supermercados, copos descartáveis, balde, PVC, entre outros.' },
     { icon: faWineGlass, title: 'Vidros', items: 'garrafas de bebida, potes de conserva, frascos de perfume, potes de geleia, entre outros.' },
     { icon: faGear, title: 'Metais', items: 'latinhas de cerveja e refrigerante, latas de doces, leite em pó, azeite, latinhas de sardinha, arames, embalagens metálicas, latinhas de milho e ervilha, entre outros.' },
-    { icon: faDroplet, title: 'Óleo Usado', items: 'óleo de cozinha utilizado (de fritura), armazenado em garrafas PET ou recipientes bem vedados, entre outros. ⚠️ Importante: nunca descarte óleo usado na pia ou no vaso sanitário, pois pode causar entupimentos e contaminar a água.' },
-    { icon: faLaptop, title: 'Eletrônicos', items: 'celulares, carregadores, notebooks, computadores, teclados, mouses, televisores, monitores, rádios, câmeras, pilhas, baterias, controles remotos, eletrodomésticos pequenos, entre outros. ⚠️ Importante: esses itens devem ser entregues em pontos de coleta específicos para resíduos eletroeletrônicos, pois contêm materiais tóxicos e recicláveis.' }
+    { icon: faDroplet, title: 'Óleo Usado', items: 'óleo de cozinha utilizado (de fritura) tem que ser armazenado em garrafas PET ou em outros recipientes bem vedados antes de ser entregue à Coleta Amiga. ⚠️ Importante: nunca descarte óleo usado na pia ou no vaso sanitário, pois pode causar entupimentos e contaminar a água. 
+    { icon: faLaptop, title: 'Eletrônicos', items: 'celulares, carregadores, notebooks, computadores, teclados, mouses, televisores, monitores, rádios, câmeras, pilhas, baterias, controles remotos, eletrodomésticos pequenos, entre outros. ⚠️ Importante: esses itens devem ser entregues em pontos de coleta específicos para resíduos eletroeletrônicos, pois contêm materiais tóxicos e recicláveis. A Coleta Amiga realiza a coleta, e posteriormente a ACAMAR encaminha os materiais para uma empresa especializada em logística reversa.
   ];
   return <div className="materials-list">{materialsData.map((m, index) => (<div key={m.title} className="material-item animated" style={{ animationDelay: `${index * 0.15}s` }}><div className="material-icon"><FontAwesomeIcon icon={m.icon} style={{ color: '#0056b3' }} /></div><div className="material-details"><h3>{m.title}</h3><p>{m.items}</p></div></div>))}</div>;
 };
@@ -460,5 +460,6 @@ if (loading) return <PageLoader />;
 }
 
 export default GenericPage;
+
 
 
