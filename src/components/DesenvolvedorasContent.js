@@ -8,9 +8,6 @@ import { faDownload, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import fotoSua from '../assets/imagens/placeholder-sua-foto.jpeg'; // Troque pelo nome da sua foto
 import fotoMariah from '../assets/imagens/placeholder-mariah-foto.jpg'; // Troque pelo nome da foto dela
 
-import fotoSua from '../assets/imagens/placeholder-sua-foto.jpeg'; 
-import fotoMariah from '../assets/imagens/placeholder-mariah-foto.jpg'; 
-
 function DesenvolvedorasContent() {
   return (
     <>
