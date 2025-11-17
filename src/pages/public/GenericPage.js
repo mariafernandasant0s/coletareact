@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -7,9 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
+// 1. IMPORTAMOS O NOSSO NOVO COMPONENTE DE ANIMAÇÃO
 
 import LazySection from '../../components/common/LazySection';
 
+// Seus ícones e componentes estáticos (sem alterações)
 
 import {
   faCode, faRecycle, faSeedling, faTrashCan, faUsers, faChartPie, faQuestionCircle, faPhone,
@@ -19,13 +20,13 @@ import {
 import fotoAcamar from '../../assets/imagens/foto-acamar-uvr.jpg';
 import DesenvolvedorasContent from '../../components/DesenvolvedorasContent';
 
-
 const pageIcons = {
   'desenvolvedoras': faCode, 'quais-residuos': faRecycle, 'porque-separar': faSeedling,
   'como-fazer-separacao': faTrashCan, 'quem-somos': faUsers, 'total-coletado-grafico': faChartPie,
   'faq': faQuestionCircle, 'contato': faPhone
 };
 
+// --- COMPONENTES INTERNOS (CÓDIGO COMPLETO E CORRETO) ---
 
 const MaterialsList = () => {
   const materialsData = [
@@ -33,8 +34,8 @@ const MaterialsList = () => {
     { icon: faBottleWater, title: 'Plásticos', items: 'garrafa pet, embalagens de detergente, amaciante, óleo de cozinha, álcool, tampas de plástico, pacotes em gerais, frascos de xampu, potinhos de iogurte, sacolas de supermercados, copos descartáveis, balde, PVC, entre outros.' },
     { icon: faWineGlass, title: 'Vidros', items: 'garrafas de bebida, potes de conserva, frascos de perfume, potes de geleia, entre outros.' },
     { icon: faGear, title: 'Metais', items: 'latinhas de cerveja e refrigerante, latas de doces, leite em pó, azeite, latinhas de sardinha, arames, embalagens metálicas, latinhas de milho e ervilha, entre outros.' },
-    { icon: faDroplet, title: 'Óleo Usado', items: 'óleo de cozinha utilizado (de fritura) tem que ser armazenado em garrafas PET ou em outros recipientes bem vedados antes de ser entregue à Coleta Amiga. ⚠️ Importante: nunca descarte óleo usado na pia ou no vaso sanitário, pois pode causar entupimentos e contaminar a água.' }, // <-- Fechamento da aspa aqui
-    { icon: faLaptop, title: 'Eletrônicos', items: 'celulares, carregadores, notebooks, computadores, teclados, mouses, televisores, monitores, rádios, câmeras, pilhas, baterias, controles remotos, eletrodomésticos pequenos, entre outros. ⚠️ Importante: esses itens devem ser entregues em pontos de coleta específicos para resíduos eletroeletrônicos, pois contêm materiais tóxicos e recicláveis. A Coleta Amiga realiza a coleta, e posteriormente a ACAMAR encaminha os materiais para uma empresa especializada em logística reversa.' },
+    { icon: faDroplet, title: 'Óleo Usado', items: 'óleo de cozinha utilizado (de fritura), armazenado em garrafas PET ou recipientes bem vedados, entre outros. ⚠️ Importante: nunca descarte óleo usado na pia ou no vaso sanitário, pois pode causar entupimentos e contaminar a água.' },
+    { icon: faLaptop, title: 'Eletrônicos', items: 'celulares, carregadores, notebooks, computadores, teclados, mouses, televisores, monitores, rádios, câmeras, pilhas, baterias, controles remotos, eletrodomésticos pequenos, entre outros. ⚠️ Importante: esses itens devem ser entregues em pontos de coleta específicos para resíduos eletroeletrônicos, pois contêm materiais tóxicos e recicláveis.' }
   ];
   return <div className="materials-list">{materialsData.map((m, index) => (<div key={m.title} className="material-item animated" style={{ animationDelay: `${index * 0.15}s` }}><div className="material-icon"><FontAwesomeIcon icon={m.icon} style={{ color: '#0056b3' }} /></div><div className="material-details"><h3>{m.title}</h3><p>{m.items}</p></div></div>))}</div>;
 };
@@ -72,8 +73,8 @@ const CronogramaContent = ({ pageData }) => (
   <div className="cronograma-container">
     {pageData?.midiaUrl ? (
       <>
-        <img className="cronograma-image" src={getImageUrl(pageData.midiaUrl)} alt={pageData.titulo} loading="lazy" />
-        <a href={getImageUrl(pageData.midiaUrl)} className="download-button" download>
+        <img className="cronograma-image" src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} loading="lazy" />
+        <a href={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} className="download-button" download>
           <FontAwesomeIcon icon={faDownload} /> Baixar Cronograma
         </a>
       </>
@@ -125,7 +126,7 @@ const ContatoContent = () => {
         <FontAwesomeIcon icon={faEnvelope} className="contact-icon" />
         <div>
           <strong>Email</strong>
-            
+
 
           <a href="mailto:uvr.assischat@gmail.com">uvr.assischat@gmail.com</a>
         </div>
@@ -134,7 +135,7 @@ const ContatoContent = () => {
         <FontAwesomeIcon icon={faPhone} className="contact-icon" />
         <div>
           <strong>Telefone</strong>
-            
+
 
           <a href="tel:+5544991833010">(44) 99183-3010</a>
         </div>
@@ -190,84 +191,79 @@ function GenericPage({ slug }) {
   if (loading) return <PageLoader />;
   if (!pageData) return ( <section className="info-section" style={{ textAlign: 'center' }}> <h2>Página não encontrada</h2> <p>O conteúdo que você está procurando não pôde ser carregado.</p> </section> );
 
-if (loading) return <PageLoader />;
-  if (!pageData) return ( <section className="info-section" style={{ textAlign: 'center' }}> <h2>Página não encontrada</h2> <p>O conteúdo que você está procurando não pôde ser carregado.</p> </section> );
+  const renderPageContent = () => {
+    switch (slug) {
+      case 'desenvolvedoras': return <DesenvolvedorasContent />;
+      case 'quem-somos': return <QuemSomosContent />;
+      case 'quais-residuos': return <MaterialsList />;
+      case 'cronograma': return <CronogramaContent pageData={pageData} />;
+      case 'faq': return <FaqContent />;
+      case 'contato': return <ContatoContent />;
+      default:
+        return (pageData.conteudo && pageData.conteudo.trim() !== '')
+          ? <div className="content-wrapper" dangerouslySetInnerHTML={{ __html: pageData.conteudo }} />
+          : null;
+    }
+  };
 
- const renderPageContent = () => {
-    switch (slug) {
-      case 'desenvolvedoras': return <DesenvolvedorasContent />;
-      case 'quem-somos': return <QuemSomosContent />;
-      case 'quais-residuos': return <MaterialsList />;
-      case 'cronograma': return <CronogramaContent pageData={pageData} />;
-      case 'faq': return <FaqContent />;
-      case 'contato': return <ContatoContent />;
+  const convertYouTubeUrl = (url) => {
+    if (!url) return '';
+    let videoId = '';
+    const patterns = [
+      /(?:https?:\/\/ )?(?:www\.)?youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/|live\/)([a-zA-Z0-9_-]{11})/,
+      /(?:https?:\/\/ )?(?:www\.)?youtu\.be\/([a-zA-Z0-9_-]{11})/
+    ];
+    for (const pattern of patterns) {
+      const match = url.match(pattern);
+      if (match && match[1]) {
+        videoId = match[1];
+        break;
+      }
+    }
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
+  };
 
-      case 'total-coletado-grafico':
-        return (
-          <div className="content-wrapper">
-            {pageData.midiaUrl && (
-              <div className="page-media-container">
-                <img loading="lazy" src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} className="page-image" />
-              </div>
-            )}
-            {(pageData.conteudo && pageData.conteudo.trim() !== '') &&
-              <div dangerouslySetInnerHTML={{ __html: pageData.conteudo }} />
-            }
-          </div>
-        );
+  return (
+    <>
+      <Helmet>
+        <title>{`${pageData.titulo} | Coleta Seletiva Assis`}</title>
+        <meta name="description" content={`Informações sobre ${pageData.titulo} no projeto de Coleta Seletiva de Assis Chateaubriand.`} />
+      </Helmet>
+      <section className="info-section">
+        <div className="container">
+          {/* 2. ENVOLVEMOS O CONTEÚDO PRINCIPAL COM O LAZYSECTION */}
+          <LazySection>
+            <div className="content-wrapper">
+              <div className="titulo-principal">
+                <h2>
+                  {pageIcons[slug] && <FontAwesomeIcon icon={pageIcons[slug]} />}
+                  {pageData.titulo}
+                </h2>
+              </div>
+              {renderPageContent( )}
+            </div>
+          </LazySection>
 
-      default:
-        return (pageData.conteudo && pageData.conteudo.trim() !== '')
-          ? <div className="content-wrapper" dangerouslySetInnerHTML={{ __html: pageData.conteudo }} />
-          : null;
-    }
-  };
-
-  const convertYouTubeUrl = (url) => {
-    if (!url) return '';
-    let videoId = '';
-    const patterns = [
-      /(?:https?:\/\/ )?(?:www\.)?youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/|live\/)([a-zA-Z0-9_-]{11})/,
-      /(?:https?:\/\/ )?(?:www\.)?youtu\.be\/([a-zA-Z0-9_-]{11})/
-    ];
-    for (const pattern of patterns) {
-      const match = url.match(pattern);
-      if (match && match[1]) {
-        videoId = match[1];
-        break;
-      }
-    }
-    return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
-  };
-
-  return (
-    <>
-      <Helmet>
-        <title>{`${pageData.titulo} | Coleta Seletiva Assis`}</title>
-        <meta name="description" content={`Informações sobre ${pageData.titulo} no projeto de Coleta Seletiva de Assis Chateaubriand.`} />
-      </Helmet>
-      <section className="info-section">
-        <div className="container">
-          <LazySection>
-            <div className="content-wrapper">
-              <div className="titulo-principal">
-                <h2>
-                  {pageIcons[slug] && <FontAwesomeIcon icon={pageIcons[slug]} />}
-                  {pageData.titulo}
-                </h2>
-              </div>
-              {renderPageContent( )}
-            </div>
-          </LazySection>
-        {}
-        </div> {/* Fecha a div.container */}
-      </section> {/* Fecha a section.info-section */}
-    </> // Fecha o Fragment React
-  );
+          {pageData.midiaUrl && (
+            // E ENVOLVEMOS A MÍDIA COM OUTRO LAZYSECTION
+         
+            <LazySection>
+              <div className="page-media-container">
+                { (pageData.midiaUrl.includes('youtube.com') || pageData.midiaUrl.includes('youtu.be')) ? (
+                  <div className="youtube-video-container">
+                    <iframe className="youtube-video" src={convertYouTubeUrl(pageData.midiaUrl)} title={pageData.titulo} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
+                  </div>
+                ) : (
+                  // 3. ADICIONAMOS O LOADING="LAZY" AQUI
+                  <img loading="lazy" src={`${process.env.REACT_APP_API_URL}${pageData.midiaUrl}`} alt={pageData.titulo} className="page-image" />
+                )}
+              </div>
+            </LazySection>
+          )}
+        </div>
+      </section>
+    </>
+  );
 }
 
 export default GenericPage;
-
-
-
-
