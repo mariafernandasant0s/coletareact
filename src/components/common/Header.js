@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import logoPrefeitura from 'src/assets/imagens/logo-prefeitura.jpeg';
+import logoPrefeitura from '../../assets/imagens/logo-prefeitura.jpeg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp, faHome, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -113,5 +113,6 @@ function Header() {
 }
 
 export default Header;
+
 
 
