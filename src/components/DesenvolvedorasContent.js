@@ -16,7 +16,7 @@ function DesenvolvedorasContent() {
         <div className="dev-card">
           <img src={fotoSua} alt="Foto de Maria Fernanda" className="dev-photo" />
           <div className="dev-info">
-            <h3>Maria Fernanda</h3>
+            <h3>Maria Fernanda Ferreira dos Santos</h3>
             <p className="dev-role">
               Técnica em Informática para Internet pelo Instituto Federal do Paraná – Campus Assis Chateaubriand.
             </p>
@@ -38,7 +38,7 @@ function DesenvolvedorasContent() {
         <div className="dev-card">
           <img src={fotoMariah} alt="Foto de Mariáh Fassina" className="dev-photo" />
           <div className="dev-info">
-            <h3>Mariáh Fassina</h3>
+            <h3>Mariáh Bezerra Fassina</h3>
             <p className="dev-role">
               Técnica em Informática para Internet pelo Instituto Federal do Paraná – Campus Assis Chateaubriand.
             </p>
@@ -72,6 +72,7 @@ O crescente volume de resíduos sólidos urbanos representa um desafio significa
 }
 
 export default DesenvolvedorasContent;
+
 
 
 
