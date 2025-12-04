@@ -88,7 +88,7 @@ const FaqContent = () => {
   const [openIndex, setOpenIndex] = useState(null);
   const faqData = [
     { question: "Meu saco de ráfia foi extraviado, o que eu faço agora?", answer: "Você pode continuar separando normalmente os materiais recicláveis usando caixas de papelão ou sacolas de supermercado; o saco é apenas um auxílio. A entrega ocorre anualmente pelo município." },
-    { question: "Estou com bastante material reciclado na minha propriedade, posso agendar a coleta?", answer: "Sim. O agendamento pode ser feito normalmente pelo contato 44 99183 3010." },
+    { question: "Estou com bastante material reciclado na minha propriedade, posso agendar a coleta?", answer: "Sim. O agendamento pode ser feito normalmente pelo número que se encontra na página 'Contato'." },
     { question: "A coleta seletiva ocorre em dias chuvosos?", answer: "Sim, a coleta ocorre normalmente." },
     { question: "Em feriados ocorre a coleta?", answer: "Sim, a coleta ocorre normalmente, exceto em feriados como Natal e Ano Novo. Nos demais feriados pode haver alteração; se houver mudança, será informada com antecedência pelos canais oficiais da UVR." },
     { question: "A coleta no meu bairro é pela manhã. Posso deixar o material na frente da minha residência na noite anterior?", answer: "Não. Deixar na noite anterior aumenta o risco de ser coletado pela coleta convencional, por pessoas informais ou ter contato com animais da região." },
@@ -267,5 +267,6 @@ function GenericPage({ slug }) {
 }
 
 export default GenericPage;
+
 
 
