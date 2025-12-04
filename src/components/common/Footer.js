@@ -68,7 +68,7 @@ function Footer() {
 
   <p>© 2025 Prefeitura Municipal de Assis Chateaubriand. Todos os direitos reservados.</p>
 
-  <strong>Desenvolvido por:</strong> Maria Fernanda & Mariáh Fassina – IFPR Campus Assis Chateaubriand
+  <strong>Desenvolvido por:</strong> Maria Fernanda Ferreira dos Santos & Mariáh Bezerra Fassina – IFPR Campus Assis Chateaubriand
 
 </footer>
 
@@ -79,3 +79,4 @@ function Footer() {
 }
 
 export default Footer;
+
